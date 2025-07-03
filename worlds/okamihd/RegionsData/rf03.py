@@ -24,6 +24,6 @@ locations = {
         "Agata Forest - Ledge chest near Madame Fawn's ": LocData(64, required_brush_techniques=[BrushTechniques.WATERSPROUT]),
     },
     RegionNames.FAWNS_HOUSE:{
-        "Agata Forest - Stray Bead in Madame Fawn's":LocData(81)
+        "Agata Forest - Stray Bead in Madame Fawn's":LocData(97)
     }
 }

@@ -211,6 +211,7 @@ okami_items = {
 }
 
 junk_weights = {
+    #TODO: Junk items weight
     "Holy Bone S": 1,
     "Demon Fang": 2,
     "White porcelain pot": 1,

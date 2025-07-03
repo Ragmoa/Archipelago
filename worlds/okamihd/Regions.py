@@ -1,7 +1,7 @@
 from BaseClasses import Region, Entrance, ItemClassification, Location, LocationProgressType, CollectionState
 from .Locations import create_region_locations, create_region_events
 from typing import TYPE_CHECKING, List, Dict, Optional
-from .RegionsData import menu,r100,r122,r101,r102,r103,rf01,rf02,rf03,rf04
+from .RegionsData import menu,r100,r122,r101,r102,r103,r104,rf01,rf02,rf03,rf04
 from .Rules import apply_exit_rules
 from .Enums.RegionNames import RegionNames
 
@@ -16,6 +16,7 @@ okami_exits={
     **r101.exits,
     **r102.exits,
     **r103.exits,
+    **r104.exits,
     **rf01.exits,
     **rf02.exits,
     **rf03.exits,
@@ -48,6 +49,7 @@ def create_region_exits(reg:Region,world:"OkamiWorld"):
             exiting_region=world.multiworld.get_region(exit_data.destination,world.player)
             ext = reg.connect(exiting_region,exit_data.name)
             apply_exit_rules(ext,ext.name,exit_data,world)
+            print("Created Exit "+exit_data.name+ " to "+ exit_data.destination)
 
 def get_region_location_count(world: "OkamiWorld", region_name: str, included_only: bool = True) -> int:
     count = 0
