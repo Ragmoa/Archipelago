@@ -119,7 +119,7 @@ def apply_exit_rules(etr: Entrance, name: str, data: ExitData, world: "OkamiWorl
 
 def set_rules(world: "OkamiWorld"):
     world.multiworld.completion_condition[world.player] = lambda state: state.has(
-        "Agata Forest - Open Ruins Door", world.player)
+        "Tsuta Ruins - Defeat the spider queen", world.player)
     return
     # set_specific_rules(world)
 

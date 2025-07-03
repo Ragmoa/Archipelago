@@ -34,9 +34,6 @@ events = {
         "Kamiki Village - Help Susano Train/Break the boulder":EventData (power_slash_level=1,required_items_events=["Vista of the Gods","Kamiki Village - Wake up Susano"],id=0x207,precollected=lambda o:o.OpenGameStart),
         "Kamiki Village - Bloom every Tree":EventData(required_brush_techniques=[BrushTechniques.GREENSPROUT_BLOOM]),
         "Kamiki Village - Restore Sakuya's Tree": EventData(required_items_events=["Kamiki Village - Bloom every Tree"],required_brush_techniques=[BrushTechniques.GREENSPROUT_BLOOM])
-    },
-    RegionNames.KAMIKI_ISLANDS: {
-        "End for now": EventData(required_brush_techniques=[BrushTechniques.CRESCENT,BrushTechniques.REJUVENATION,BrushTechniques.SUNRISE,BrushTechniques.GREENSPROUT_BLOOM],power_slash_level=1)
     }
 }
 locations = {

@@ -20,6 +20,7 @@ class OkamiEnnemies(Enum):
     #Not sure if this is the code for waka 1 or 2
     WAKA_1 = EnnemyData(0x7e, "Waka (Agata Forest)",1)
     BUD_OGRE = EnnemyData(0x4d, "Bud Ogre",1,BrushTechniques.GREENSPROUT_BLOOM,required_techniques=[BrushTechniques.GREENSPROUT_BLOOM])
+    SPIDER_QUEEN = EnnemyData(0x2b, "Spider Queen",1,required_techniques=[BrushTechniques.GREENSPROUT_VINE])
 
     @staticmethod
     def list():

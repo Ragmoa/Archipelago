@@ -2,7 +2,7 @@ from BaseClasses import Region, Location, ItemClassification
 from .Rules import apply_event_or_location_rules
 from .Types import LocData, OkamiLocation, OkamiItem
 from typing import Dict, TYPE_CHECKING
-from .RegionsData import r100, r122, r101, r102, r103, rf01, rf02, rf03,rf04
+from .RegionsData import r100, r122, r101, r102, r103, r104, rf01, rf02, rf03, rf04
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -20,7 +20,7 @@ def get_location_names():
 def create_region_locations(reg: Region, world: "OkamiWorld"):
     if reg.name in okami_locations:
         for (location_name, location_data) in okami_locations[reg.name].items():
-            #if location_data.praise_sanity  <= world.options.PraiseSanity:
+            # if location_data.praise_sanity  <= world.options.PraiseSanity:
             location = OkamiLocation(world.player, location_name, location_data.id, reg)
             apply_event_or_location_rules(location, location_name, location_data, world)
             reg.locations.append(location)
@@ -43,7 +43,8 @@ def create_region_events(reg: Region, world: "OkamiWorld"):
             if not precollected_item_event_state and not is_event_item_state:
                 # It's a true event, we need to create it as such.
                 if event_data.override_event_item_name:
-                    event_location = create_event(event_name, event_data.override_event_item_name, reg, event_data, world)
+                    event_location = create_event(event_name, event_data.override_event_item_name, reg, event_data,
+                                                  world)
                 else:
                     event_location = create_event(event_name, event_name, reg, event_data, world)
                 event_location.show_in_spoiler = False
@@ -74,6 +75,7 @@ okami_locations = {
     **r101.locations,
     **r102.locations,
     **r103.locations,
+    **r104.locations,
     **rf01.locations,
     **rf02.locations,
     **rf03.locations,
@@ -86,6 +88,7 @@ okami_events = {
     **r101.events,
     **r102.events,
     **r103.events,
+    **r104.events,
     **rf01.events,
     **rf02.events,
     **rf03.events,
