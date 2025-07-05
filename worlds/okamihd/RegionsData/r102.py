@@ -41,29 +41,30 @@ locations = {
         "Kamiki Village - Sunrise": LocData(6),
     },
     RegionNames.KAMIKI_VILLAGE: {
-        "Kamiki Village - Chest After Mr.Orange Yokai Fight": LocData(7),
-        "Kamiki Village - Buried Chest near Komuso": LocData(8, buried=1),
-        "Kamiki Village - Underwater Chest 1" :LocData(13, power_slash_level=1),
-        "Kamiki Village - Underwater Chest 2" :LocData(14, power_slash_level=1),
-        "Kamiki Village - Underwater chest in lake near Kushi's house": LocData(21,power_slash_level=1),
+        "Kamiki Village - Chest After Mr.Orange Yokai Fight": LocData(0x01030026),
+        "Kamiki Village - Buried Chest near Komuso": LocData(0x01030000, buried=1),
+        "Kamiki Village - Underwater Chest 1" :LocData(0x01030015, power_slash_level=1),
+        "Kamiki Village - Underwater Chest 2" :LocData(0x01030007, power_slash_level=1),
+        "Kamiki Village - Underwater chest in lake near Kushi's house": LocData(0x01030014,power_slash_level=1),
         "Kamiki Village - Hasugami" : LocData(16,required_items_events=["Kamiki Village - Restore Sakuya's Tree"]),
-        "Kamiki Village - Buried chest in field": LocData(19,buried=1),
-        "Kamiki Village - Chest on Ledge":LocData(22, required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
-        "Kamiki Village - Rafters Lower Chest" :LocData(75),
-        "Kamiki Village - Rafters Upper Chest" :LocData(76, power_slash_level=1)
+        "Kamiki Village - Buried chest in field": LocData(0x01030006,buried=1),
+        "Kamiki Village - Chest on Ledge":LocData(0x01030003, required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
+        "Kamiki Village - Rafters Lower Chest" :LocData(0x01030005),
+        "Kamiki Village - Rafters Upper Chest" :LocData(0x01030004, power_slash_level=1),
+        "Kamiki Village - Chest on higher vine cliff": LocData(0x01030024,required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
     },
     RegionNames.ORANGES_HOUSE:{
-        "Kamiki Village - Chest buried in Oranges' house": LocData(45,buried=1)
+        "Kamiki Village - Chest buried in Oranges' house": LocData(0x01030008,buried=1)
     },
     RegionNames.KUSHIS_HOUSE:{
         "Kamiki Village - Kushi's Gift": LocData(11, required_items_events=["Kamiki Village - Repair Kushi's Watermill"]),
     },
     RegionNames.KAMIKI_ISLANDS: {
-        "Kamiki Village - West Island chest ": LocData(9),
-        "Kamiki Village - West Island buried chest": LocData(10, buried=1),
+        "Kamiki Village - West Island chest ": LocData(0x01030022),
+        "Kamiki Village - West Island buried chest": LocData(0x01030025, buried=1),
         # Waterlily tutorial,
-        "Kamiki Village - East Islands Sun fragment chest": LocData(18),
-        "Kamiki Village - East Islands Stray Bead Chest": LocData(44),
-        "Kamiki Village - East Islands Buried Chest": LocData(20, buried=1),
+        "Kamiki Village - East Islands Sun fragment chest": LocData(0x0103001C),
+        "Kamiki Village - East Islands Stray Bead Chest": LocData(0x01030002,buried=1),
+        "Kamiki Village - East Islands Buried Chest": LocData(0x01030001, buried=1),
     }
 }
