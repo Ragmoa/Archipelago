@@ -23,10 +23,10 @@ events = {
 }
 locations = {
     RegionNames.RIVER_OF_THE_HEAVENS_KAMIKI: {
-        "River of the Heavens - Ledge Chest": LocData(1),
+        "River of the Heavens - Ledge Chest": LocData(0x011e0000),
         "River of the Heavens - Yomigami": LocData(2),
     },
     RegionNames.RIVER_OF_THE_HEAVENS_NAGI: {
-        "River of the Heavens - Astral Pouch": LocData(3),
+        "River of the Heavens - Astral Pouch": LocData(0x011e0001),
     }
 }

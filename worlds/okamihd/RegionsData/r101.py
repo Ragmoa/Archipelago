@@ -25,7 +25,7 @@ events = {
 }
 locations = {
     RegionNames.CAVE_OF_NAGI: {
-        "Cave of Nagi - Stray Bead Chest": LocData(4),
+        "Cave of Nagi - Stray Bead Chest": LocData(0x01020000),
     },
     RegionNames.CAVE_OF_NAGI_TACHIGAMI: {
         "Cave of Nagi - Tachigami": LocData(5),
