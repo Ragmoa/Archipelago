@@ -12,7 +12,7 @@ exits = {
     # small region to force waka fight to be cleared before acessing the rest of the forest.
     RegionNames.AGATA_FOREST_WAKA: [
         ExitData("Agata Forest Waka cutscene", RegionNames.AGATA_FOREST, has_events=["Agata Forest - Defeat Waka"])],
-    RegionNames.AGATA_FOREST: [ExitData("Agata Forest - To Taka Pass", RegionNames.CURSED_TAKA_PASS)
+    RegionNames.AGATA_FOREST: [ExitData("Agata Forest - To Taka Pass", RegionNames.CURSED_TAKA_PASS,has_events=["Agata Forest - Repair Bridge with Kokari"])
         , ExitData("Agata Ruins - Enter Tsuta Ruins", RegionNames.TSUTA_RUINS_1F_MAIN_PART,
                    has_events=["Agata Forest - Open Ruins Door"])]
 }
@@ -21,7 +21,9 @@ events = {
         "Agata Forest - Defeat Waka": EventData(mandatory_enemies=[OkamiEnnemies.WAKA_1])
     },
     RegionNames.AGATA_FOREST: {
-        "Agata Forest - Open Ruins Door": EventData(required_items_events=["Tsuta Ruins Key"])
+        "Agata Forest - Open Ruins Door": EventData(required_items_events=["Tsuta Ruins Key"]),
+        # Probably might be changed to not reuquire beating Tsuta. Or to be open from the start.
+        "Agata Forest - Repair Bridge with Kokari": EventData(required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE,"Tsuta Ruins - Defeat the spider queen"])
     }
 }
 locations = {
@@ -69,6 +71,6 @@ locations = {
         "Agata Forest - Chest after Bridge cutscene": LocData(72),
         "Agata Forest - Chest near Demon Fang merchant": LocData(73),
         "Agata Forest - Chest near Tusta ruins door": LocData(74),
-        "Agata Forest - Fish Giant Salmon with Kokari": LocData(77, power_slash_level=1)
+        "Agata Forest - Fish Giant Salmon with Kokari": LocData(77, power_slash_level=1),
     }
 }

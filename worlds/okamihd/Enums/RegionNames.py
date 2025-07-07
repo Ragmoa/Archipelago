@@ -61,3 +61,5 @@ class RegionNames(StrEnum):
     TSUTA_RUINS_SPIDER = "Tsuta Ruins (Spider Queen's lair)"
     ## TAKA PASS
     CURSED_TAKA_PASS="Curesd Taka Pass"
+    CURSED_TAKA_PASS_WAKA = "Cursed Taka Pass Waka Fight"
+    CURSED_TAKA_PASS_CAVE="Cursed Taka Pass Cave"

@@ -2,6 +2,7 @@ import typing
 from typing import NamedTuple, Optional, List
 from BaseClasses import Location, Item, ItemClassification
 from .Enums.BrushTechniques import BrushTechniques
+from .Enums.LocationType import LocationType
 from .Enums.OkamiEnnemies import OkamiEnnemies
 from .Options import OkamiOptions
 
@@ -19,6 +20,7 @@ class ItemData(NamedTuple):
 
 class LocData(NamedTuple):
     id: int
+    type: LocationType = LocationType.NORMAL_CHEST
     required_brush_techniques: List[BrushTechniques] = []
     power_slash_level: int = 0
     cherry_bomb_level: int = 0

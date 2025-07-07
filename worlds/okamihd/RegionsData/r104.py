@@ -53,10 +53,9 @@ events = {
             required_brush_techniques=[BrushTechniques.REJUVENATION])
     },
     RegionNames.TSUTA_RUINS_DEVIL_GATES: {
-        # TODO: Check enemies in those gates, if they're similiar, this could be simplified.
-        "Tsuta Ruins - Defeat Devil Gate 1": EventData(mandatory_enemies=[]),
-        "Tsuta Ruins - Defeat Devil Gate 2": EventData(mandatory_enemies=[]),
-        "Tsuta Ruins - Defeat Devil Gate 3": EventData(mandatory_enemies=[]),
+        "Tsuta Ruins - Defeat Devil Gate 1": EventData(mandatory_enemies=[OkamiEnnemies.GREEN_IMP,OkamiEnnemies.DEAD_FISH]),
+        "Tsuta Ruins - Defeat Devil Gate 2": EventData(mandatory_enemies=[OkamiEnnemies.GREEN_IMP, OkamiEnnemies.YELLOW_IMP]),
+        "Tsuta Ruins - Defeat Devil Gate 3": EventData(mandatory_enemies=[OkamiEnnemies.RED_IMP, OkamiEnnemies.BUD_OGRE]),
         "Tsuta Ruins - Grow Mushrooms in Devil Gates Room": EventData(
             required_items_events=["Tsuta Ruins - Defeat Devil Gate 1", "Tsuta Ruins - Defeat Devil Gate 2",
                                    "Tsuta Ruins - Defeat Devil Gate 3"],
