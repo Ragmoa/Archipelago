@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ..Enums.BrushTechniques import BrushTechniques
+from ..Enums.LocationType import LocationType
 from ..Enums.RegionNames import RegionNames
 from ..Types import ExitData, LocData, EventData
 
@@ -18,9 +19,9 @@ events = {
 }
 locations = {
     RegionNames.CURSED_AGATA_FOREST:{
-        "Agata Forest - Burning Chest near Madame Fawn's 1": LocData(58),
-        "Agata Forest - Burning Chest near Madame Fawn's 2": LocData(59),
-        "Agata Forest - Burning Chest near Madame Fawn's 3": LocData(60),
+        "Agata Forest - Burning Chest near Madame Fawn's 1": LocData(58,type=LocationType.BURNING_CHEST),
+        "Agata Forest - Burning Chest near Madame Fawn's 2": LocData(59,type=LocationType.BURNING_CHEST),
+        "Agata Forest - Burning Chest near Madame Fawn's 3": LocData(60,type=LocationType.BURNING_CHEST),
         "Agata Forest - Ledge chest near Madame Fawn's ": LocData(64, required_brush_techniques=[BrushTechniques.WATERSPROUT]),
     },
     RegionNames.FAWNS_HOUSE:{

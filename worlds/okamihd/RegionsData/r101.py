@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ..Enums.BrushTechniques import BrushTechniques
+from ..Enums.LocationType import LocationType
 from ..Types import ExitData, LocData, EventData
 from ..Enums.RegionNames import RegionNames
 
@@ -28,6 +29,6 @@ locations = {
         "Cave of Nagi - Stray Bead Chest": LocData(4),
     },
     RegionNames.CAVE_OF_NAGI_TACHIGAMI: {
-        "Cave of Nagi - Tachigami": LocData(5),
+        "Cave of Nagi - Tachigami": LocData(5,type=LocationType.CONSTELLATION),
     }
 }
