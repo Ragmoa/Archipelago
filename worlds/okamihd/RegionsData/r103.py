@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
 from ..Enums.BrushTechniques import BrushTechniques
+from ..Enums.LocationType import LocationType
 from ..Enums.OkamiEnnemies import OkamiEnnemies
 from ..Enums.RegionNames import RegionNames
 from ..Types import ExitData, LocData,EventData
@@ -27,11 +28,11 @@ events = {
 locations = {
     RegionNames.CURSED_HANA_VALLEY: {
         "Hana Valley - Freestanding Chest": LocData(15),
-        "Hana Valley - Buried chest near tunnel": LocData(23, buried=True),
-        "Hana Valley - Buried chest at entrance boulder" :LocData(24,buried=True),
+        "Hana Valley - Buried chest near tunnel": LocData(23,type=LocationType.BURIED_CHEST),
+        "Hana Valley - Buried chest at entrance boulder" :LocData(24,type=LocationType.BURIED_CHEST),
     },
     RegionNames.HANA_VALLEY_SAKIGAMI:{
-        "Hana Valley - Sakigami": LocData(12)
+        "Hana Valley - Sakigami": LocData(12, type=LocationType.CONSTELLATION)
     },
     RegionNames.HANA_VALLEY:{
       "Hana Valley - Chest on Island":LocData(25),
