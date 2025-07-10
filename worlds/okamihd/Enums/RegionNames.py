@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from .. import OkamiWorld
 
 class RegionNames(StrEnum):
+
     MENU = "Menu"
 
     # Eastern Nippon
@@ -59,5 +60,10 @@ class RegionNames(StrEnum):
     TSUTA_RUINS_DEVIL_GATES="Tsuta Ruins (Devil Gates)"
     TSUTA_RUINS_CENTRAL_STATUE="Tsuta Ruins (Inside central Statue)"
     TSUTA_RUINS_SPIDER = "Tsuta Ruins (Spider Queen's lair)"
+
     ## TAKA PASS
     CURSED_TAKA_PASS="Curesd Taka Pass"
+    CURSED_TAKA_PASS_WAKA = "Cursed Taka Pass (Waka Fight)"
+    CURSED_TAKA_PASS_CAVE="Cursed Taka Pass (Cave)"
+    CURSED_TAKA_PASS_GUARDIAN_SAPLING = "Cursed Taka Pass (Guardian Sapling)"
+    TAKA_PASS = "Taka Pass"

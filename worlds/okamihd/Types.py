@@ -2,6 +2,7 @@ import typing
 from typing import NamedTuple, Optional, List
 from BaseClasses import Location, Item, ItemClassification
 from .Enums.BrushTechniques import BrushTechniques
+from .Enums.LocationType import LocationType
 from .Enums.OkamiEnnemies import OkamiEnnemies
 from .Options import OkamiOptions
 
@@ -19,11 +20,10 @@ class ItemData(NamedTuple):
 
 class LocData(NamedTuple):
     id: int
+    type: LocationType = LocationType.NORMAL_CHEST
     required_brush_techniques: List[BrushTechniques] = []
     power_slash_level: int = 0
     cherry_bomb_level: int = 0
-    # 0 => No, 1=> Yes, 2=> Iron Claws
-    buried: int = 0
     required_items_events: [str] = []
     mandatory_enemies: List[OkamiEnnemies] = []
     needs_swim: bool = False
@@ -31,11 +31,10 @@ class LocData(NamedTuple):
 
 class EventData(NamedTuple):
     id: int | None = None
+    type: LocationType = LocationType.EVENT
     required_brush_techniques: List[BrushTechniques] = []
     power_slash_level: int = 0
     cherry_bomb_level: int = 0
-    # 0 => No, 1=> Yes, 2=> Iron Claws
-    buried: int = 0
     override_event_item_name: str | None = None
     required_items_events: [str] = []
     mandatory_enemies: List[OkamiEnnemies] = []
