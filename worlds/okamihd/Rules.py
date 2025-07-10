@@ -102,6 +102,8 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
         case LocationType.BURNING_CHEST:
             add_rule(loc, lambda state: state.has(BrushTechniques.GALESTROM.value.item_name,world.player) or state.has(
                 BrushTechniques.WATERSPROUT.value.item_name,world.player))
+        case LocationType.BURNING_CHEST_NO_WATER:
+            required_techinques += [BrushTechniques.GALESTROM]
         case LocationType.UNDERWATER_CHEST:
             required_power_slash_level=max(required_power_slash_level,1)
 
