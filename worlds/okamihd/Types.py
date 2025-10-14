@@ -1,9 +1,15 @@
 import typing
-from typing import NamedTuple, Optional, List
-from BaseClasses import Location, Item, ItemClassification
+from typing import NamedTuple, Optional, List, Callable
+
+from typing_extensions import TypeVar
+
+from BaseClasses import Location, Item, ItemClassification, LocationProgressType, CollectionState
+from worlds.AutoWorld import World
 from .Enums.BrushTechniques import BrushTechniques
+from .Enums.LocationType import LocationType
 from .Enums.OkamiEnnemies import OkamiEnnemies
 from .Options import OkamiOptions
+
 
 class OkamiLocation(Location):
     game = "Okami HD"
@@ -16,35 +22,54 @@ class OkamiItem(Item):
 class ItemData(NamedTuple):
     code: int
     classification: ItemClassification
+    # Number in pool, set this to 0 to exclude the item from the pool
+    count_in_pool: Callable[[OkamiOptions], int] | int = 1
+
 
 class LocData(NamedTuple):
     id: int
+    type: LocationType = LocationType.NORMAL_CHEST
     required_brush_techniques: List[BrushTechniques] = []
     power_slash_level: int = 0
     cherry_bomb_level: int = 0
-    # 0 => No, 1=> Yes, 2=> Iron Claws
-    buried: int = 0
     required_items_events: [str] = []
     mandatory_enemies: List[OkamiEnnemies] = []
     needs_swim: bool = False
-    praise_sanity:int=0
+    praise_sanity: int = 0
+    progress_type: LocationProgressType | typing.Callable[
+        [OkamiOptions], LocationProgressType] = LocationProgressType.DEFAULT
+    # This rule overrides all other access rules
+    special_rule: typing.Callable[[CollectionState, World], bool] | None = None
+
 
 class EventData(NamedTuple):
     id: int | None = None
+    type: LocationType = LocationType.EVENT
     required_brush_techniques: List[BrushTechniques] = []
     power_slash_level: int = 0
     cherry_bomb_level: int = 0
-    # 0 => No, 1=> Yes, 2=> Iron Claws
-    buried: int = 0
-    override_event_item_name: str | None = None
+    event_item_name: str | None = None
     required_items_events: [str] = []
     mandatory_enemies: List[OkamiEnnemies] = []
     needs_swim: bool = False
-    is_event_item: bool | typing.Callable[[OkamiOptions], bool] = False
     precollected: bool | typing.Callable[[OkamiOptions], bool] = False
+    is_event_item: bool | typing.Callable[[OkamiOptions], bool] = False
+    progress_type: LocationProgressType | typing.Callable[
+        [OkamiOptions], LocationProgressType] = LocationProgressType.DEFAULT
+    # This rule overrides all other access rules
+    special_rule: typing.Callable[[CollectionState, World], bool] | None = None
+
 
 class ExitData(NamedTuple):
     name: str
     destination: str
     has_events: [str] = []
     needs_swim: bool = False
+
+
+# Generic function to return the value or the resolved value of a callable that depends of options.
+def resolve_option_callable[T](value: T | Callable[[OkamiOptions], T], world: "OkamiWorld") -> T:
+    if isinstance(value, Callable):
+        return value(world.options)
+    else:
+        return value

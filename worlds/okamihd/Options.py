@@ -21,10 +21,12 @@ class BuriedChestsByNight(Toggle):
     display_name = "Buried chests by night"
     default = 1
 
+
 class ProgressiveWeapons(Toggle):
     """With this option you'll find progressive weapons for each type instead of every weapon being in the item pool."""
-    display_name="Progressive Weapons"
+    display_name = "Progressive Weapons"
     default = 0
+
 
 class KarmicTransformers(Choice):
     """Karmic Transformers are Cosmetic items that changes Amaterasu's appearance:
@@ -38,21 +40,71 @@ class KarmicTransformers(Choice):
     option_in_item_pool = 2
     default = 1
 
+
 class OpenGameStart(Toggle):
     """Remove some early events for a more open game start:
         - Restoring the river of the Heavens
         - Cutting the peach containing the villagers in Kamiki
         - Restoring Kamiki Village with Sunrise
         - Fixing Kushi's Water Mill
-        - Wkaking Up Susano
+        - Waking Up Susano
         - Saving the Merchant in Kamiki
         - Opening the boulder to Shinshu field
         - Mr. Orange fight after restoring Kamiki Villagers"""
     display_name = "Remove some events for a more open start"
     default = 1
 
+
+class BloomGuardianSaplings(Toggle):
+    """
+    Bloom every guardian sapling except Kamiki Village and Hana Valley
+    """
+    display_name = "Bloom all guardian saplings"
+    default = 1
+
+
+class RemoveBlockHead(Toggle):
+    """Removes all 3 instances of Blockhead"""
+    display_name = "Removes all 3 instances of Blockhead"
+    default = 1
+
+
+class RequiredDoggorbs(Range):
+    """Number of Required Canine Warriors/Orbs to open Gale Shrine"""
+    display_name = "Number of Required Canine Warriors/Orbs to open Gale Shrine"
+    default = 1
+    range_start = 1
+    range_end = 8
+
+
+class CanineRewards(Choice):
+    """Rewards given by the 8 Canine Warriors checks:
+
+    Vanilla: Won't randomise their quest rewards.
+    Randomized: they will give random rewards, Dogs and orbs will be placed in the item pool.
+    Junk: They won't given anything useful, Dogs and orbs will be placed in the item pool."""
+    display_name = "Rewards given by the 8 Canine Warriors checks"
+    option_vanilla = 0
+    option_randomized = 1
+    option_junk = 2
+    default = 1
+
+
+class MoonCaveAccess(Choice):
+    """What does trigger access to moon cave ?
+
+    Serpent Crystal: You need to find the Serpent Crystal item to open Moon cave
+    Crimson Helm: You need to defeat Crimson Helm to open moon cave.
+    Open: Moon Cave is open from start"""
+    display_name = "What does trigger access to moon cave ?"
+    option_serpent_crystal = 0
+    option_crimson_helm = 1
+    option_open = 2
+    default = 0
+
+
 #
-#class PraiseSanity(Choice):
+# class PraiseSanity(Choice):
 #    """Randomize Praise Rewards"""
 #    display_name = "Randomise Praise Rewards"
 #    default = 0
@@ -68,7 +120,14 @@ class OkamiOptions(PerGameCommonOptions):
     BuriedChestsByNight: BuriedChestsByNight
     KarmicTransformers: KarmicTransformers
     OpenGameStart: OpenGameStart
-    ProgressiveWeapons:ProgressiveWeapons
+    ProgressiveWeapons: ProgressiveWeapons
+    RemoveBlockHead: RemoveBlockHead
+    RequiredDoggorbs: RequiredDoggorbs
+    CanineRewards: CanineRewards
+    MoonCaveAccess: MoonCaveAccess
+    BloomGuardianSaplings: BloomGuardianSaplings
+
+
 #    PraiseSanity:PraiseSanity
 
 
@@ -77,9 +136,17 @@ okami_option_groups: Dict[str, List[Any]] = {
         BuriedChestsByNight,
         KarmicTransformers,
         OpenGameStart,
-        ProgressiveWeapons
-        #PraiseSanity
-        ],
+        ProgressiveWeapons,
+        RemoveBlockHead,
+        BloomGuardianSaplings
+
+        # PraiseSanity
+    ],
+    "Orochi Arc Options": [
+        RequiredDoggorbs,
+        CanineRewards,
+        MoonCaveAccess
+    ]
 
 }
 
@@ -87,6 +154,11 @@ slot_data_options = {
     "BuriedChestsByNight",
     "KarmicTransformers",
     "OpenGameStart",
-    "ProgressiveWeapons"
-#    "PraiseSanity"
+    "ProgressiveWeapons",
+    "RemoveBlockHead",
+    "RequiredDoggorbs",
+    "CanineRewards",
+    "MoonCaveAccess",
+    "BloomGuardianSaplings"
+    #    "PraiseSanity"
 }

@@ -1,16 +1,15 @@
 import random
 from BaseClasses import Item, ItemClassification, Tutorial, Location, MultiWorld
-from .Items import item_table, create_item, create_multiple_items, create_junk_items, item_frequencies, \
-    create_brush_techniques_items, get_item_name_to_id_dict, create_divine_instrument_items, karmic_transformers, \
-    progressive_weapons
+from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, karmic_transformers, \
+    progressive_weapons, create_standard_item
 from .Regions import create_regions
-from .Locations import is_location_valid, get_total_locations, get_location_names, okami_events
+from .Locations import get_location_names, get_total_locations
+from .RegionsData import okami_events,okami_locations
 from .Rules import set_rules
 from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
 from worlds.AutoWorld import World, WebWorld, CollectionState
-from typing import List, Dict, TextIO
-from Utils import local_path
-from .Types import OkamiItem
+from typing import List
+from .Types import OkamiItem, resolve_option_callable
 from .Enums.DivineInstruments import DivineInstruments
 from .Enums.RegionNames import RegionNames
 
@@ -29,7 +28,6 @@ class OkamiWebWolrd(WebWorld):
     )]
 
 
-# TODO: Replace
 class OkamiWorld(World):
     """
     Okami HD
@@ -58,16 +56,17 @@ class OkamiWorld(World):
         set_rules(self)
 
     def create_item(self, name: str) -> Item:
-        return create_item(self, name)
+        return create_standard_item(self, name)
 
     def fill_slot_data(self) -> dict:
         slot_data: dict = {"SeedNumber": str(self.multiworld.seed),  # For shop prices
                            "SeedName": self.multiworld.seed_name,
                            "TotalLocations": get_total_locations(self)}
 
-        for name, value in self.options.as_dict(*self.options_dataclass.type_hints).items():
-            if name in slot_data_options:
-                slot_data[name] = value
+       # FIXME: Causes issues with Archipelago 0.6.4
+       # for name, value in self.options.as_dict(*self.options_dataclass.type_hints).items():
+       #     if name in slot_data_options:
+       #         slot_data[name] = value
 
         return slot_data
 
@@ -84,64 +83,64 @@ class OkamiWorld(World):
     def create_itempool(world: "OkamiWorld") -> List[Item]:
         itempool: List[Item] = []
 
-        di = None
-
         if not world.options.ProgressiveWeapons:
             # Get a random tier 1 divine instrument to start with.
             di = random.choice(list(world.item_name_groups.get('divine_instrument_tier_1')))
             world.push_precollected(
-                OkamiItem(di, ItemClassification.progression, get_item_name_to_id_dict()[di], world.player))
+                create_item(di, get_item_name_to_id_dict()[di], ItemClassification.progression, world))
+            # Create other weapons
+            for (divine_instrument_data) in list(DivineInstruments):
+                if divine_instrument_data.value.item_name != di:
+                    itempool+=[create_item(divine_instrument_data.value.item_name,divine_instrument_data.value.code,ItemClassification.progression,world)]
         else:
-            (di_name,di) = random.choice(list(progressive_weapons.items()))
-            world.push_precollected(OkamiItem(di_name,ItemClassification.progression,di.code,world.player))
-            for (progressive_waepon_name,progressive_weapon) in progressive_weapons.items():
-                if di_name==progressive_waepon_name:
-                    count=4
+            # Get a random progressive weapon
+            (di_name, di) = random.choice(list(progressive_weapons.items()))
+            world.push_precollected(create_item(di_name, di.code, ItemClassification.progression, world))
+            # Create other progressive weapons
+            for (progressive_weapon_name, progressive_weapon) in progressive_weapons.items():
+                if di_name == progressive_weapon_name:
+                    count = 4
                 else:
-                    count=5
+                    count = 5
                 for i in range(count):
-                    itempool += [OkamiItem(di_name, di.classification, di.code, world.player)]
+                    itempool += [create_item(di_name, di.code, di.classification, world)]
 
         match world.options.KarmicTransformers:
             case KarmicTransformers.option_precollected:
-                for (k_name,k) in karmic_transformers.items():
-                    world.push_precollected(OkamiItem(k_name,k.classification,k.code,world.player))
+                for (k_name, k) in karmic_transformers.items():
+                    world.push_precollected(create_item(k_name, k.code, k.classification, world))
             case KarmicTransformers.option_in_item_pool:
                 for (k_name, k) in karmic_transformers.items():
-                    if k_name=="Karmic Returner":
-                        world.push_precollected(OkamiItem(k_name, k.classification, k.code, world.player))
+                    if k_name == "Karmic Returner":
+                        world.push_precollected(create_item(k_name, k.code, k.classification, world))
                     else:
-                        itempool+=[OkamiItem(k_name, k.classification, k.code, world.player)]
+                        itempool += [create_item(k_name, k.code, k.classification, world)]
 
         # Event Items Creation
         for name in RegionNames:
             if name in okami_events:
                 for (event_name, event_data) in okami_events[name].items():
-                    if isinstance(event_data.precollected, bool):
-                        precollected_item_event_state = event_data.precollected
+                    precollected_item_event_state = resolve_option_callable(event_data.precollected, world)
+
+                    if precollected_item_event_state:
+                        # With the current options this event is unlocked at the start, so we create a precollected item
+                        # Classification probably doesn't matter much for precollected items I'd guess
+                        world.push_precollected(
+                            create_item(event_name, event_data.id, ItemClassification.progression, world))
+                    # If it's precollected, no need to add it to the itempool
                     else:
-                        precollected_item_event_state = event_data.precollected(world.options)
+                        is_event_item_state = resolve_option_callable(event_data.is_event_item, world)
 
-                        if precollected_item_event_state:
-                            # With the current options this event is unlocked at the start, so we create a precollected item
-                            # Classification probably doesn't matter much for precollected items I'd guess
-                            world.push_precollected(
-                                OkamiItem(event_name, ItemClassification.progression, event_data.id, world.player))
-                        # If it's precollected, no need to add it to the itempool
-                        else:
-                            if isinstance(event_data.is_event_item, bool):
-                                is_event_item_state = event_data.is_event_item
-                            else:
-                                is_event_item_state = event_data.is_event_item(world.options)
-                            if is_event_item_state:
-                                # With the current options this event becomes its own item, so we need to add it to the item pool
-                                itempool += OkamiItem(event_name, ItemClassification.progression, event_data.id,
-                                                      world.player)
+                        if is_event_item_state:
+                            # With the current options this event becomes its own item, so we need to add it to the item pool
+                            itempool += [create_standard_item(world,event_data.event_item_name)]
 
-        itempool += create_brush_techniques_items(world)
         for name in item_table.keys():
             item_type: ItemClassification = item_table.get(name).classification
-            itempool += create_multiple_items(world, name, item_frequencies.get(name, 1), item_type)
+            item_count:int = resolve_option_callable(item_table.get(name).count_in_pool,world)
+            if item_count > 0:
+                itempool += create_multiple_items(world, name, item_count, item_type)
+
         itempool += create_junk_items(world, get_total_locations(world) - len(itempool))
 
         return itempool
@@ -162,5 +161,22 @@ class OkamiWorld(World):
                                      DivineInstruments.EIGHT_WONDER.value.item_name],
         "divine_instrument_tier_5": [DivineInstruments.SOLAR_FLARE.value.item_name,
                                      DivineInstruments.TUNDRA_BEADS.value.item_name,
-                                     DivineInstruments.THUNDER_EDGE.value.item_name]
+                                     DivineInstruments.THUNDER_EDGE.value.item_name],
+        "canine_warriors": [
+            "Save Rei",
+            "Save Shin",
+            "Save Chi",
+            "Save Ko",
+            "Save Tei",
+            "Loyalty Orb",
+            "Justice Orb",
+            "Duty Orb"
+        ],
+
+        "soup_ingredients":[
+            "Ogre Liver",
+            "Ice Lips",
+            "Fire Eye",
+            "Black Demon Horn"
+        ]
     }

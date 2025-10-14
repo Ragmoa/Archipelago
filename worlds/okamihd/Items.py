@@ -1,51 +1,28 @@
 from BaseClasses import Item, ItemClassification
-from MultiServer import console
-from .Types import OkamiItem, ItemData
-from .Enums.BrushTechniques import BrushTechniques, BrushTechniqueData
-from .Enums.DivineInstruments import DivineInstrumentData, DivineInstruments
+from .Types import OkamiItem, ItemData, resolve_option_callable
+from .Enums.BrushTechniques import BrushTechniques
+from .Enums.DivineInstruments import DivineInstruments
 from typing import List, Dict, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from . import OkamiWorld
 
 
-def create_item(world: "OkamiWorld", name: str) -> Item:
+def create_item(name: str, code: int, classification: ItemClassification, world: "OkamiWorld") -> Item:
+    return OkamiItem(name, classification, code, world.player)
+
+
+def create_standard_item(world: "OkamiWorld", name: str) -> Item:
     data = item_table[name]
-    return OkamiItem(name, data.classification, data.code, world.player)
-
-
-def create_brush_techniques_items(world: "OkamiWorld") -> List[Item]:
-    items = []
-    for b in BrushTechniques.list():
-        for i in range(b.item_count):
-            items.append(create_brush_technique_item(world, b))
-
-    return items
-
-
-def create_brush_technique_item(world: "OkamiWorld", data: BrushTechniqueData) -> Item:
-    return OkamiItem(data.item_name, data.item_classification, data.code, world.player)
-
-
-def create_divine_instrument_items(world: "OkamiWorld", precollected_instrument: str | None) -> List[Item]:
-    items = []
-    for d in DivineInstruments.list():
-        if precollected_instrument and d.item_name != precollected_instrument:
-            items.append(create_divine_instrument_item(world, d))
-    return items
-
-
-def create_divine_instrument_item(world: "OkamiWorld", data: DivineInstrumentData) -> Item:
-    return OkamiItem(data.item_name, ItemClassification.progression, data.code, world.player)
+    return create_item(name, data.code, data.classification, world)
 
 
 def create_multiple_items(world: "OkamiWorld", name: str, count: int = 1,
                           item_type: ItemClassification = ItemClassification.progression) -> List[Item]:
     data = item_table[name]
     itemlist: List[Item] = []
-
     for i in range(count):
-        itemlist += [OkamiItem(name, item_type, data.code, world.player)]
+        itemlist += [create_item(name, data.code, item_type, world)]
 
     return itemlist
 
@@ -68,32 +45,40 @@ def create_junk_items(world: "OkamiWorld", count: int) -> List[Item]:
 
 def get_item_name_to_id_dict() -> dict:
     item_dict = {name: data.code for name, data in item_table.items()}
-    for b in BrushTechniques.list():
-        item_dict[b.item_name] = b.code
     for d in DivineInstruments.list():
         item_dict[d.item_name] = d.code
     return item_dict
 
-progressive_weapons={
-    "Progressive Mirror":ItemData(0x300,ItemClassification.progression),
-    "Progressive Rosary":ItemData(0x301,ItemClassification.progression),
-    "Progressive Sword":ItemData(0x302,ItemClassification.progression),
-}
 
-karmic_transformers = {
-    "Karmic Returner": ItemData(0xc8, ItemClassification.filler),
-    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.filler),
-    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.filler),
-    "Karmic Transformer 3": ItemData(0x79, ItemClassification.filler),
-    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.filler),
-    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.filler),
-    "Karmic Transformer 6": ItemData(0xca, ItemClassification.filler),
-    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.filler),
-    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.filler),
-    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.filler),
-}
+brush_techniques_items = {
 
-okami_items = {
+    # Brush Techniques
+    BrushTechniques.SUNRISE.value: ItemData(0x100, ItemClassification.progression),
+    BrushTechniques.REJUVENATION.value: ItemData(0x101, ItemClassification.progression),
+    BrushTechniques.POWER_SLASH.value: ItemData(0x102, ItemClassification.progression, count_in_pool=3),
+    BrushTechniques.CHERRY_BOMB.value: ItemData(0x103, ItemClassification.progression, count_in_pool=3),
+    BrushTechniques.GREENSPROUT_BLOOM.value: ItemData(0x104, ItemClassification.progression),
+    BrushTechniques.GREENSPROUT_WATERLILY.value: ItemData(0x105, ItemClassification.progression),
+    BrushTechniques.GREENSPROUT_VINE.value: ItemData(0x106, ItemClassification.progression),
+    BrushTechniques.WATERSPROUT.value: ItemData(0x107, ItemClassification.progression),
+    BrushTechniques.CRESCENT.value: ItemData(0x108, ItemClassification.progression),
+    BrushTechniques.GALESTROM.value: ItemData(0x109, ItemClassification.progression),
+    BrushTechniques.INFERNO.value: ItemData(0x10A, ItemClassification.progression),
+    BrushTechniques.VEIL_OF_MIST.value: ItemData(0x10B, ItemClassification.progression),
+    BrushTechniques.CATWALK.value: ItemData(0x10C, ItemClassification.progression),
+    BrushTechniques.THUNDERSTORM.value: ItemData(0x10D, ItemClassification.progression),
+    BrushTechniques.BLIZZARD.value: ItemData(0x10E, ItemClassification.progression),
+    ## UPGRADES/SECRET
+    BrushTechniques.MIST_WARP.value: ItemData(0x10F, ItemClassification.progression),
+    BrushTechniques.FIREBURST.value: ItemData(0x110, ItemClassification.progression),
+    BrushTechniques.WHIRLWIND.value: ItemData(0x111, ItemClassification.progression),
+    BrushTechniques.DELUGE.value: ItemData(0x112, ItemClassification.progression),
+    BrushTechniques.FOUNTAIN.value: ItemData(0x113, ItemClassification.progression),
+    BrushTechniques.THUNDERBOLT.value: ItemData(0x114, ItemClassification.progression),
+    ## VERY SECRET ONE
+    BrushTechniques.ICESTORM.value: ItemData(0x115, ItemClassification.useful)
+}
+equips = {
 
     # Equips
     # "Water Tablet": ItemData(0x9c, ItemClassification.progression),
@@ -102,8 +87,10 @@ okami_items = {
     "Thief's Glove": ItemData(0x96, ItemClassification.useful),
     "Wood Mat": ItemData(0x97, ItemClassification.useful),
     "Golden Ink Pot": ItemData(0x98, ItemClassification.useful),
-    "Fire Tablet": ItemData(0x9d, ItemClassification.progression),
+    "Fire Tablet": ItemData(0x9d, ItemClassification.progression)
+}
 
+quest_items = {
     # Quest Items
 
     "Canine Tracker": ItemData(0x42, ItemClassification.progression),
@@ -118,9 +105,7 @@ okami_items = {
     "Lips of Ice": ItemData(0x4b, ItemClassification.progression),
     "Eyeball of Fire": ItemData(0x4c, ItemClassification.progression),
     "Black Demon Horn": ItemData(0x4d, ItemClassification.progression),
-    "Loyalty Orb": ItemData(0x4e, ItemClassification.progression),
-    "Justice Orb": ItemData(0x4f, ItemClassification.progression),
-    "Duty Orb": ItemData(0x50, ItemClassification.progression),
+
     "Golden Mushroom": ItemData(0x5f, ItemClassification.progression),
     "Gimmick Gear": ItemData(0x60, ItemClassification.progression),
     "8 Purification Sake": ItemData(0x62, ItemClassification.progression),
@@ -132,8 +117,9 @@ okami_items = {
     "Pinwheel": ItemData(0x76, ItemClassification.progression),
     "Marlin Rod": ItemData(0x77, ItemClassification.progression),
     # Not sure if this should be an item as we already have the power in the item pool...
-    # "Fog Pot":ItemData(0x9f,ItemClassification.progression),
-
+    # "Fog Pot":ItemData(0x9f,ItemClassification.progression)
+}
+bitable_items = {
     ## "Biteable" Items
     ### As these disappear and respanw each time you transition, the best way to handle those would be to set the flag
     ### making them appear/respawn active, instead of giving them to the player
@@ -142,8 +128,9 @@ okami_items = {
     ### I'm not sure how that's going to work with ER.
     "Vista of the Gods": ItemData(0x5C, ItemClassification.progression),
     "Tsuta Ruins Key": ItemData(0x40, ItemClassification.progression),
-    # "Oddly Shaped Turnip": ItemData(0x41, ItemClassification.progression),
-
+    # "Oddly Shaped Turnip": ItemData(0x41, ItemClassification.progression)
+}
+useful_items = {
     # Useful items
     "Sun Fragment": ItemData(0x05, ItemClassification.useful),
     "Astral Pouch": ItemData(0x06, ItemClassification.useful),
@@ -153,8 +140,10 @@ okami_items = {
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful),
     "Golden Peach": ItemData(0x0f, ItemClassification.useful),
-    "Gold Dust": ItemData(0x9e, ItemClassification.useful),
+    "Gold Dust": ItemData(0x9e, ItemClassification.useful)
+}
 
+filler_items = {
     # Filler
     "Exorcism Slip L": ItemData(0x08, ItemClassification.filler),
     "Exorcism Slip M": ItemData(0x09, ItemClassification.filler),
@@ -210,33 +199,129 @@ okami_items = {
     "Jade Tassels": ItemData(0xc7, ItemClassification.filler)
 }
 
-junk_weights = {
-    #TODO: Junk items weight
-    "Holy Bone S": 1,
-    "Demon Fang": 2,
-    "White porcelain pot": 1,
-
-    # Set junk_weight to 0 so additional copies won't be placed if there's space for them
-    "Karmic Returner": 0,
-    "Karmic Transformer 2":0,
-    "Karmic Transformer 6":0,
-    "Karmic Transformer 5":0,
-    "Karmic Transformer 4":0,
-    "Karmic Transformer 3":0,
-    "Karmic Transformer 8":0,
-    "Karmic Transformer 7":0,
-    "Karmic Transformer 9":0,
-    "Karmic Transformer 1":0
+# Items that represent IG Events or quest progression.
+# ALL Items sections blew should have a count of 0, they're created otherwise!
+event_items = {
+    # CANINE WARRIORS STUFF
+    "Save Rei": ItemData(0x303, ItemClassification.progression, count_in_pool=0),
+    "Save Shin": ItemData(0x304, ItemClassification.progression, count_in_pool=0),
+    "Save Chi": ItemData(0x305, ItemClassification.progression, count_in_pool=0),
+    "Save Ko": ItemData(0x306, ItemClassification.progression, count_in_pool=0),
+    "Save Tei": ItemData(0x307, ItemClassification.progression, count_in_pool=0),
+    "Loyalty Orb": ItemData(0x4e, ItemClassification.progression, count_in_pool=0),
+    "Justice Orb": ItemData(0x4f, ItemClassification.progression, count_in_pool=0),
+    "Duty Orb": ItemData(0x50, ItemClassification.progression, count_in_pool=0),
+    "Serpent Crystal": ItemData(0x308,ItemClassification.progression, count_in_pool=0)
 }
-# For items that need to appear more than once, I'll put the right numbers, but keep them commented to not flood
-# the item pool while there aren't enough locations to place them
-item_frequencies = {
-    # "Sun Fragment": 15
-    # "Stray Bead": 100
-    # "Mermaid Coin" : 5
-    # "Gold Dust": 15
+weapons_items = {
+    "Divine Retribution": ItemData(0x10, ItemClassification.progression, count_in_pool=0),
+    "Snarling Beast": ItemData(0x11, ItemClassification.progression, count_in_pool=0),
+    "Infinity Judge": ItemData(0x12, ItemClassification.progression, count_in_pool=0),
+    "Trinity Mirror": ItemData(0x13, ItemClassification.progression, count_in_pool=0),
+    "Solar Flare": ItemData(0x14, ItemClassification.progression, count_in_pool=0),
+    "Devout Beads": ItemData(0x15, ItemClassification.progression, count_in_pool=0),
+    "Life Beads": ItemData(0x16, ItemClassification.progression, count_in_pool=0),
+    "Exorcism Beads": ItemData(0x17, ItemClassification.progression, count_in_pool=0),
+    "Resurrection Beads": ItemData(0x18, ItemClassification.progression, count_in_pool=0),
+    "Tundra Beads": ItemData(0x19, ItemClassification.progression, count_in_pool=0),
+    "Tsumugari": ItemData(0x1A, ItemClassification.progression, count_in_pool=0),
+    "Seven Strike": ItemData(0x1B, ItemClassification.progression, count_in_pool=0),
+    "Blade of Kusanagi": ItemData(0x1C, ItemClassification.progression, count_in_pool=0),
+    "Eight Wonder": ItemData(0x1D, ItemClassification.progression, count_in_pool=0),
+    "Thunder Edge": ItemData(0x1E, ItemClassification.progression, count_in_pool=0),
+}
+progressive_weapons = {
+    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0),
+    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0),
+    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0)
+}
+karmic_transformers = {
+    "Karmic Returner": ItemData(0xc8, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 3": ItemData(0x79, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 6": ItemData(0xca, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.filler, count_in_pool=0),
+    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.filler, count_in_pool=0)
 }
 
 item_table = {
-    **okami_items,
+    **brush_techniques_items,
+    **equips,
+    **bitable_items,
+    **useful_items,
+    **filler_items,
+    **event_items,
+    **weapons_items,
+    **progressive_weapons,
+    **karmic_transformers,
+}
+junk_weights = {
+    # TODO: Junk items weight
+    "Exorcism Slip L": 1,
+    "Exorcism Slip M": 1,
+    "Exorcism Slip S": 1,
+    "Vengeance Slip": 1,
+    "Inkfinity Stone": 1,
+    "Holy Bone L": 1,
+    "Holy Bone S": 1,
+    "White porcelain pot": 1,
+    "Traveler's Charm": 1,
+    "Holy Bone M": 1,
+    "Feedbag (Meat)": 1,
+    "Feedbag (Herbs)": 1,
+    "Feedbag (Seeds)": 1,
+    "Feedbag (Fish)": 1,
+    "Steel Fist Sake": 1,
+    "Steel Soul Sake": 1,
+    "Godly Charm": 1,
+    "Kutani Pottery": 1,
+    "Incense Burner": 1,
+    "Vase": 1,
+    "Silver Pocket Watch": 1,
+    "Rat Statue": 1,
+    "Bull Horn": 1,
+    "Etched Glass": 1,
+    "Lacquerware Set": 1,
+    "Wooden Bear": 1,
+    "Glass Beads": 1,
+    "Dragonfly Bead": 1,
+    "Coral Fragment": 1,
+    "Crystal": 1,
+    "Pearl": 1,
+    "Ruby Tassels": 1,
+    "Bull Statue": 1,
+    "Tiger Statue": 1,
+    "Rabbit Statue": 1,
+    "Dragon Statue": 1,
+    "Snake Statue": 1,
+    "Horse Statue": 1,
+    "Sheep Statue": 1,
+    "Monkey Statue": 1,
+    "Rooster Statue": 1,
+    "Dog Statue": 1,
+    "Boar Statue": 1,
+    "Cat Statue": 1,
+    "Sapphire Tassels": 1,
+    "Emerald Tassels": 1,
+    "Turquoise Tassels": 1,
+    "Agate Tassels": 1,
+    "Amber Tassels": 1,
+    "Cat's Eye Tassels": 1,
+    "Amethyst Tassels": 1,
+    "Jade Tassels": 1,
+    # Set junk_weight to 0 so additional copies won't be placed if there's space for them
+    "Karmic Returner": 0,
+    "Karmic Transformer 2": 0,
+    "Karmic Transformer 6": 0,
+    "Karmic Transformer 5": 0,
+    "Karmic Transformer 4": 0,
+    "Karmic Transformer 3": 0,
+    "Karmic Transformer 8": 0,
+    "Karmic Transformer 7": 0,
+    "Karmic Transformer 9": 0,
+    "Karmic Transformer 1": 0
 }

@@ -15,7 +15,7 @@ exits = {
 events = {
     RegionNames.CURSED_SHINSHU_FIELD: {
         "Shinshu Field - Restore Guardian Sapling": EventData(
-            required_brush_techniques=[BrushTechniques.GREENSPROUT_BLOOM])
+            required_brush_techniques=[BrushTechniques.GREENSPROUT_BLOOM],precollected=lambda o:o.BloomGuardianSaplings)
     },
 }
 locations = {
