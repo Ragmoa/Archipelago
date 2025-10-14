@@ -52,6 +52,7 @@ locations = {
     },
 
     RegionNames.TAMA_HOUSE: {
+        #TODO: Add setting for chests by night to require crescent or not
         "Shinshu Field - Bakigami": LocData(17, required_items_events=["Kamiki Village - Restore Sakuya's Tree"],type=LocationType.CONSTELLATION)
     }
 }

@@ -29,6 +29,7 @@ events = {
                                                            precollected=lambda o: o.OpenGameStart,
                                                            required_items_events=[
                                                                "Kamiki Village - Restoring the villagers"]),
+        #TODO: Add setting for chests by night to require crescent or not
         "Kamiki Village - Get Orb from Hayabusa": EventData(id=145, mandatory_enemies=[OkamiEnnemies.HAYABUSA],
                                                             is_event_item=lambda o: o.CanineRewards != 0,
                                                             progress_type=lambda
