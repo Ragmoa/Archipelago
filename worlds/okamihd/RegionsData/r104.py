@@ -77,33 +77,35 @@ events = {
 }
 locations = {
     RegionNames.TSUTA_RUINS_1F_MAIN_PART: {
-        "Tsuta Ruins - Freestanding Chest at Entrance": LocData(78),
-        "Tsuta Ruins - Treasure Bud in Entrance Hall Middle": LocData(79, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Treasure Bud in Entrance Hall Right Side": LocData(80, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Chest in Entrance Hall near right side door": LocData(81),
-        "Tsuta Ruins - Treasure Bud on 1F rightside path before ledge": LocData(82, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Treasure Bud near glass ball": LocData(83, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Stray bead chest on 1F rightside path upper part": LocData(96, required_brush_techniques=[
+        "Tsuta Ruins - Freestanding Chest at Entrance": LocData(0x01050011),
+        "Tsuta Ruins - Treasure Bud in Entrance Hall Left": LocData(0x01050008, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud in Entrance Hall Middle": LocData(0x01050008, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud in Entrance Hall Right": LocData(0x0105000D, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Chest in Entrance Hall near right side door": LocData(0x0105001A),
+        "Tsuta Ruins - Treasure Bud on 1F right side path before ledge": LocData(0x01050000, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud near glass ball": LocData(0x0105000C, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Stray bead chest on 1F right side path upper part": LocData(0x0105000F, required_brush_techniques=[
             BrushTechniques.GREENSPROUT_VINE])
     },
     RegionNames.TSUTA_RUINS_MUSHROOMS: {
-        "Tsuta Ruins - Treasure bud behind logs in Mushrooms room": LocData(84, power_slash_level=1,
+        "Tsuta Ruins - Treasure bud behind logs in Mushrooms room": LocData(0x01050002, power_slash_level=1,
                                                                             type=LocationType.TREASURE_BUD)
     },
     RegionNames.TSUTA_RUINS_LEFT_SIDE: {
-        "Tsuta Ruins - Treasure Bud behind hidden bombable wall on third plaform.": LocData(85, cherry_bomb_level=1,
+        "Tsuta Ruins - Treasure Bud behind hidden bombable wall on third plaform.": LocData(0x01050001, cherry_bomb_level=1,
                                                                                             type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Treasure Bud behind Lockjaw": LocData(86, type=LocationType.TREASURE_BUD, required_items_events=[
+        "Tsuta Ruins - Treasure Bud behind Lockjaw": LocData(0x01050004, type=LocationType.TREASURE_BUD, required_items_events=[
             "Tsuta Ruins - Open Lockjaw with Exorcising Arrow"]),
-        "Tsuta Ruins - Left side hidden treasure bud": LocData(95, required_brush_techniques=[
-            BrushTechniques.GREENSPROUT_VINE], type=LocationType.TREASURE_BUD)
+        "Tsuta Ruins - Left side hidden treasure bud": LocData(0x01050012, required_brush_techniques=[
+            BrushTechniques.GREENSPROUT_VINE], type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - 2F Right side chest on ledge after Blockhead":LocData(0x0105001C)
     },
     RegionNames.TSUTA_RUINS_DEVIL_GATES: {
-        "Tsuta Ruins - Treasure Bud near Devil gates": LocData(87,type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Treasure Bud #2 near Devil gates": LocData(88, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Map Chest near poison pots": LocData(89, required_items_events=[
+        "Tsuta Ruins - Treasure Bud near Devil gates": LocData(0x01050017,type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud #2 near Devil gates": LocData(0x01050018, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Map Chest near poison pots": LocData(0x0105001B, required_items_events=[
             "Tsuta Ruins - Grow Mushrooms in Devil Gates Room"]),
-        "Tsuta Ruins - Treasure Bud behind waterfall bombable wall": LocData(90, required_items_events=[
+        "Tsuta Ruins - Treasure Bud behind waterfall bombable wall": LocData(0x01050019, required_items_events=[
             "Tsuta Ruins - Destroy Poison Pots"], cherry_bomb_level=1, type=LocationType.TREASURE_BUD)
     },
     RegionNames.TSUTA_RUINS_CENTRAL_STATUE: {
@@ -111,8 +113,8 @@ locations = {
             "Tsuta Ruins - Bloom every cursed patch inside statue"], type=LocationType.CONSTELLATION)
     },
     RegionNames.TSUTA_RUINS_SPIDER: {
-        "Tsuta Ruins - Left Chest before Spider queen": LocData(92),
-        "Tsuta Ruins - Right Chest before Spider queen": LocData(93),
+        "Tsuta Ruins - Left Chest before Spider queen": LocData(0x01050015),
+        "Tsuta Ruins - Right Chest before Spider queen": LocData(0x01050016),
         "Tsuta Ruins - Boss reward": LocData(94, required_items_events=["Tsuta Ruins - Defeat the spider queen"])
     }
 }
