@@ -60,7 +60,7 @@ events = {
     RegionNames.MOON_CAVE: {
         "Moon Cave - 1F Free Ajimi from soup": EventData(
             required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
-        "Moon Cave - 1F Main room geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT],
+        "Moon Cave - 1F Main room geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT],
                                                      special_rule=lambda s, w: has_soup_ingerdients(s, w, 1)),
         "Moon Cave - 1F Main room disturb lift": EventData(power_slash_level=1,
                                                            required_items_events=["Moon Cave - B1F Open lift hatch"]),
@@ -77,14 +77,14 @@ events = {
         "Moon Cave - 1F Locked Cave open eye door": EventData(power_slash_level=1, required_items_events=[
             "Moon Cave - Cross 1F Locked Cave"]),
         # Does this require Ogre Liver ?
-        "Moon Cave - 1F Locked Cave geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT]),
+        "Moon Cave - 1F Locked Cave geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT]),
     },
     RegionNames.MOON_CAVE_1F_LOCKED_CAVE_BACK: {
         "Moon Cave - Mandatory Ogre Encounter": EventData(mandatory_enemies=[]),
         "Moon Cave - Get Ogre Liver": EventData(event_item_name="Ogre Liver")
     },
     RegionNames.MOON_CAVE_2F_GEYSER_RAFTER: {
-        "Moon cave - 2F rafter's geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT])
+        "Moon cave - 2F rafter's geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT])
     },
     RegionNames.MOON_CAVE_2F: {
         "Moon Cave - 2F repair Bridge": EventData(required_brush_techniques=[BrushTechniques.REJUVENATION]),
@@ -96,13 +96,13 @@ events = {
     RegionNames.MOON_CAVE_B1F_LAKE: {
         # FIXME: Fill ennemies
         "Moon Cave - B1F Lake cursed Torii": EventData(mandatory_enemies=[]),
-        "Moon Cave - B1F Lake open valve": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT]),
-        "Moon Cave - B1F Lake geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT],
+        "Moon Cave - B1F Lake open valve": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT]),
+        "Moon Cave - B1F Lake geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT],
                                                  required_items_events=["Moon Cave - B1F Lake open valve"]),
     },
     RegionNames.MOON_CAVE_B1F_UNDER_LIFT: {
         "Moon Cave - B1F Open lift hatch": EventData(power_slash_level=1),
-        "Moon Cave - B1F under lift geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT])
+        "Moon Cave - B1F under lift geyser": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT])
     },
     RegionNames.MOON_CAVE_B2F_LIFT: {
         "Moon Cave - B2F oepn eyes door": EventData(power_slash_level=1)
@@ -132,13 +132,13 @@ events = {
     RegionNames.MOON_CAVE_2F_SAND: {
         # Pretty sure the invisible part of the path isn't solid when it's invisible
         # Lights the fireball torches in this dungeon
-        "Moon Cave - 2F Push the ball": EventData(required_brush_techniques=[BrushTechniques.GALESTROM]),
+        "Moon Cave - 2F Push the ball": EventData(required_brush_techniques=[BrushTechniques.GALESTORM]),
     },
     RegionNames.MOON_CAVE_2F_3F_RAFTERS: {
         "Moon Cave - 3F Rafters use flower": EventData(required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE])
     },
     RegionNames.MOON_CAVE_4F_RAFTERS: {
-        "Moon Cave - 4F Rafters cross banners": EventData(required_brush_techniques=[BrushTechniques.GALESTROM])
+        "Moon Cave - 4F Rafters cross banners": EventData(required_brush_techniques=[BrushTechniques.GALESTORM])
     },
     RegionNames.MOON_CAVE_4F_CANON: {
         "Moon Cave - 4F Fire the canon!": EventData(special_rule=lambda s, w: moon_cave_fire_rule(s, w)),
@@ -147,7 +147,7 @@ events = {
                                                     required_items_events=['Moon Cave - 4F Fire the canon!']),
     },
     RegionNames.MOON_CAVE_4F_AFTER_CANON: {
-        "Moon Cave - 4F Move Fireball": EventData(required_brush_techniques=[BrushTechniques.GALESTROM]),
+        "Moon Cave - 4F Move Fireball": EventData(required_brush_techniques=[BrushTechniques.GALESTORM]),
         "Moon Cave - 4F Melt Ice Blocks": EventData(special_rule=lambda s, w: moon_cave_fire_rule_4f(s, w)),
         "Moon Cave - 4F Black Demon Horn Torii": EventData(mandatory_enemies=[],
                                                            required_items_events=["Moon Cave - 4F Melt Ice Blocks"]),

@@ -52,14 +52,14 @@ events = {
 locations = {
     RegionNames.KUSA_VILLAGE: {
         "Kusa Village - Chest on rafters after banners": LocData(116,
-                                                                 required_brush_techniques=[BrushTechniques.GALESTROM,
+                                                                 required_brush_techniques=[BrushTechniques.GALESTORM,
                                                                                             BrushTechniques.GREENSPROUT_VINE]),
         "Kusa Village - Chest on rafters before banners": LocData(117,
                                                                   required_brush_techniques=[
                                                                       BrushTechniques.GREENSPROUT_VINE]),
         "Kusa Village - Stray Bead Chest on rafters after banners": LocData(118,
                                                                             required_brush_techniques=[
-                                                                                BrushTechniques.GALESTROM,
+                                                                                BrushTechniques.GALESTORM,
                                                                                 BrushTechniques.GREENSPROUT_VINE]),
         "Kusa Village - Buried Chest near Fuse's house": LocData(120, type=LocationType.BURIED_CHEST),
         "Kusa Village - Buried Chest near Gale Shrine Ledge": LocData(121, type=LocationType.BURIED_CHEST),

@@ -30,7 +30,7 @@ events = {
         # Gives a key
         "Gale Shrine - Cursed Door in 1F right side room": EventData(mandatory_enemies=[OkamiEnnemies.CHIMERA]),
         "Gale Shrine - Open Lift": EventData(required_items_events=["Gale Shrine - Cursed Door in 1F right side room"]),
-        "Gale Shrine - Move the Windmill Bridges": EventData(required_brush_techniques=[BrushTechniques.GALESTROM])
+        "Gale Shrine - Move the Windmill Bridges": EventData(required_brush_techniques=[BrushTechniques.GALESTORM])
     },
     RegionNames.GALE_SHRINE_LIFT: {
         "Gale Shrine - Use Lift": EventData(cherry_bomb_level=1)
@@ -40,15 +40,15 @@ events = {
         "Gale Shrine - 2F Cursed Scroll": EventData(mandatory_enemies=[OkamiEnnemies.CHIMERA]),
     },
     RegionNames.GALE_SHRINE_BACK: {
-        "Gale Shrine - Cross flame Hallway": EventData(required_brush_techniques=[BrushTechniques.GALESTROM])
+        "Gale Shrine - Cross flame Hallway": EventData(required_brush_techniques=[BrushTechniques.GALESTORM])
     },
     RegionNames.GALE_SHRINE_BOSS: {
         # Techinally galestrom is already required to beat the boss,
         # but if we ever randomize enemies/bosses, I've added the following Susano cutscene requirements here.
         "Gale Shrine - Defeat Crimson Helm": EventData(mandatory_enemies=[OkamiEnnemies.CRIMSON_HELM],
                                                        power_slash_level=1,
-                                                       required_brush_techniques=[BrushTechniques.GALESTROM],
-                                                        ),
+                                                       required_brush_techniques=[BrushTechniques.GALESTORM],
+                                                       ),
         "Gale Shrine - Get Serpent Crystal" :EventData(
             required_items_events=["Gale Shrine - Defeat Crimson Helm"],
             event_item_name="Serpent Crystal",
@@ -92,10 +92,10 @@ locations = {
                                                                          BrushTechniques.GREENSPROUT_VINE]),
         "Gale Shrine - 1F Chest in banner room between banners": LocData(168,
                                                                          required_brush_techniques=[
-                                                                             BrushTechniques.GALESTROM]),
+                                                                             BrushTechniques.GALESTORM]),
         "Gale Shrine - 1F Chest in banner room after banners": LocData(169,
                                                                        required_brush_techniques=[
-                                                                           BrushTechniques.GALESTROM])
+                                                                           BrushTechniques.GALESTORM])
     },
     RegionNames.GALE_SHRINE_BOSS:{
         "Gale Shrine - Crimson Helm Reward": LocData(170, required_items_events=["Gale Shrine - Defeat Crimson Helm"])

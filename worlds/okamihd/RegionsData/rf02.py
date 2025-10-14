@@ -43,7 +43,7 @@ locations = {
         "Shinshu Field - In Bombable cave near cat statue": LocData(37, cherry_bomb_level=1),
         "Shinshu Field - Buried Chest in leaf pile near Tama's house": LocData(38,
                                                                                type=LocationType.BURIED_UNDER_LEAF_PILE),
-        "Shinshu Field - Chest on Big Torii": LocData(39, required_brush_techniques=[BrushTechniques.WATERSPROUT],
+        "Shinshu Field - Chest on Big Torii": LocData(39, required_brush_techniques=[BrushTechniques.WATERSPOUT],
                                                       needs_swim=True),
         "Shinshu Field - Freestanding chest after Rejuvenation": LocData(40),
         "Shinshu Field - Freestanding chest near Agata Forest Cave": LocData(41),

@@ -20,7 +20,7 @@ exits = {
 events = {
     RegionNames.SASA_SANCTUARY: {
         "Sasa Sanctuary - Dig with Mr. Bamboo.": EventData(type=LocationType.DIGGING_MINIGAME_EARLY),
-        "Sasa Sanctuary - Open Bamboo grove Door": EventData(required_brush_techniques=[BrushTechniques.WATERSPROUT])
+        "Sasa Sanctuary - Open Bamboo grove Door": EventData(required_brush_techniques=[BrushTechniques.WATERSPOUT])
     },
     RegionNames.SASA_SANCTUARY_BAMBOO: {
         "Sasa Sanctuary - Save Take": EventData(power_slash_level=1),

@@ -120,7 +120,7 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
             case LocationType.TREASURE_BUD:
                 required_techinques += [BrushTechniques.GREENSPROUT_BLOOM]
             case LocationType.BURIED_UNDER_LEAF_PILE:
-                required_techinques += [BrushTechniques.GALESTROM]
+                required_techinques += [BrushTechniques.GALESTORM]
                 if world.options.BuriedChestsByNight:
                     required_techinques += [BrushTechniques.CRESCENT]
             case LocationType.BURIED_CHEST:
@@ -131,10 +131,10 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
                 if world.options.BuriedChestsByNight:
                     required_techinques += [BrushTechniques.CRESCENT]
             case LocationType.BURNING_CHEST:
-                add_rule(loc, lambda state: state.has(BrushTechniques.GALESTROM, world.player)
-                                            or state.has(BrushTechniques.WATERSPROUT, world.player))
+                add_rule(loc, lambda state: state.has(BrushTechniques.GALESTORM, world.player)
+                                            or state.has(BrushTechniques.WATERSPOUT, world.player))
             case LocationType.BURNING_CHEST_NO_WATER:
-                required_techinques += [BrushTechniques.GALESTROM]
+                required_techinques += [BrushTechniques.GALESTORM]
             case LocationType.UNDERWATER_CHEST:
                 required_power_slash_level = max(required_power_slash_level, 1)
             case LocationType.UNDERWATER_CHEST_SHALLOW:
@@ -147,8 +147,8 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
             case LocationType.DIGGING_MINIGAME_LATER:
                 required_power_slash_level = max(required_power_slash_level, 1)
                 required_cherry_bomb_level = max(required_cherry_bomb_level, 1)
-                required_techinques += [BrushTechniques.GREENSPROUT_BLOOM, BrushTechniques.WATERSPROUT,
-                                        BrushTechniques.GALESTROM]
+                required_techinques += [BrushTechniques.GREENSPROUT_BLOOM, BrushTechniques.WATERSPOUT,
+                                        BrushTechniques.GALESTORM]
             case LocationType.FROZEN_CHEST:
                 required_techinques+=[BrushTechniques.INFERNO]
 
