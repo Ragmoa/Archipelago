@@ -5,6 +5,7 @@ from ..Enums.BrushTechniques import BrushTechniques
 from ..Enums.LocationType import LocationType
 from ..Enums.OkamiEnnemies import OkamiEnnemies
 from ..Enums.RegionNames import RegionNames
+from ..Rules import night_check_rule
 from ..Types import ExitData, LocData, EventData
 
 if TYPE_CHECKING:
@@ -35,7 +36,8 @@ events = {
                                                             progress_type=lambda
                                                                 o: LocationProgressType.EXCLUDED if o.CanineRewards == 2
                                                             else LocationProgressType.DEFAULT,
-                                                            event_item_name="Loyalty Orb")
+                                                            event_item_name="Loyalty Orb",
+                                                            special_rule=lambda s,w:night_check_rule(s,w))
 
     },
     RegionNames.SUSANOS_UNDERGROUD: {

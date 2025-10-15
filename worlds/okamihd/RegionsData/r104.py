@@ -78,9 +78,9 @@ events = {
 locations = {
     RegionNames.TSUTA_RUINS_1F_MAIN_PART: {
         "Tsuta Ruins - Freestanding Chest at Entrance": LocData(0x01050011),
-        "Tsuta Ruins - Treasure Bud in Entrance Hall Left": LocData(0x01050008, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud in Entrance Hall Left": LocData(0x0105000D, type=LocationType.TREASURE_BUD),
         "Tsuta Ruins - Treasure Bud in Entrance Hall Middle": LocData(0x01050008, type=LocationType.TREASURE_BUD),
-        "Tsuta Ruins - Treasure Bud in Entrance Hall Right": LocData(0x0105000D, type=LocationType.TREASURE_BUD),
+        "Tsuta Ruins - Treasure Bud in Entrance Hall Right": LocData(0x01050009, type=LocationType.TREASURE_BUD),
         "Tsuta Ruins - Chest in Entrance Hall near right side door": LocData(0x0105001A),
         "Tsuta Ruins - Treasure Bud on 1F right side path before ledge": LocData(0x01050000, type=LocationType.TREASURE_BUD),
         "Tsuta Ruins - Treasure Bud near glass ball": LocData(0x0105000C, type=LocationType.TREASURE_BUD),

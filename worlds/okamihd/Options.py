@@ -16,9 +16,14 @@ def create_option_groups() -> List[OptionGroup]:
     return option_group_list
 
 
-class BuriedChestsByNight(Toggle):
-    """Buried chests logically require Crescent, as they're way more visible at night"""
-    display_name = "Buried chests by night"
+class NightTimeChecksRequireCrescent(Toggle):
+    """Makes all nighttime checks logically require Crescent.
+
+    Currently included:
+    - All buried chests
+    - Bakigami
+    - Hayabusa"""
+    display_name = "Night time checks require crescent"
     default = 1
 
 
@@ -117,7 +122,7 @@ class MoonCaveAccess(Choice):
 #
 @dataclass
 class OkamiOptions(PerGameCommonOptions):
-    BuriedChestsByNight: BuriedChestsByNight
+    NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
     OpenGameStart: OpenGameStart
     ProgressiveWeapons: ProgressiveWeapons
@@ -133,7 +138,7 @@ class OkamiOptions(PerGameCommonOptions):
 
 okami_option_groups: Dict[str, List[Any]] = {
     "General Options": [
-        BuriedChestsByNight,
+        NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
         ProgressiveWeapons,
@@ -151,7 +156,7 @@ okami_option_groups: Dict[str, List[Any]] = {
 }
 
 slot_data_options = {
-    "BuriedChestsByNight",
+    "NightTimeChecksRequireCrescent",
     "KarmicTransformers",
     "OpenGameStart",
     "ProgressiveWeapons",
