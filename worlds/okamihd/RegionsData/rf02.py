@@ -25,31 +25,30 @@ events = {
 }
 locations = {
     RegionNames.SHINSHU_FIELD: {
-        "Shinshu Field - Buried chest between near Guardian Sapling": LocData(27, type=LocationType.BURIED_CHEST),
-        "Shinshu Field - Freestanding chest near Guardian Sapling": LocData(28),
-        "Shinshu Field - Buried chest near Tama's house": LocData(29, type=LocationType.BURIED_CHEST),
-        "Shinshu Field - Buried chest near Lake": LocData(30, type=LocationType.BURIED_CHEST),
-        "Shinshu Field - Chest Under Bombable ground near Agata Forest": LocData(31, cherry_bomb_level=1,
+        "Shinshu Field - Buried chest between bushes behind merchant": LocData(0x01470000, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Freestanding chest behind Guardian Sapling": LocData(0x01470001),
+        "Shinshu Field - Buried chest between bushes near Tama's house": LocData(0x01470002, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Buried chest between bushes near Lake": LocData(0x01470003, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Chest Under Bombable ground near Agata Forest entrance": LocData(0x01470004, cherry_bomb_level=1,
                                                                                  required_brush_techniques=[
                                                                                      BrushTechniques.GREENSPROUT_BLOOM]),
-        "Shinshu Field - Buried chest near Dojo": LocData(32, type=LocationType.BURIED_CHEST),
-        "Shinshu Field - Chest after devil gate": LocData(33, mandatory_enemies=[OkamiEnnemies.GREEN_IMP,
+        "Shinshu Field - Buried chest between bushes near Dojo": LocData(0x01470005, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Chest after devil gate": LocData(0x01470006, mandatory_enemies=[OkamiEnnemies.GREEN_IMP,
                                                                                  OkamiEnnemies.RED_IMP,
                                                                                  OkamiEnnemies.YELLOW_IMP]),
-        # Probably should find a better name for this one
-        "Shinshu Field - Buried chest on ledge": LocData(34, type=LocationType.BURIED_CHEST),
-        "Shinshu Field - Buried chest near Ovens": LocData(35, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Buried chest between bushes on ledge near sapling": LocData(0x01470007, type=LocationType.BURIED_CHEST),
+        "Shinshu Field - Buried chest between bushes behind Klins": LocData(0x01470008, type=LocationType.BURIED_CHEST),
         # This is the cherry bomb tutorial. Need to check what happens if you blow the wall before doing the tutorial.
-        "Shinshu Field - In Bombable cave near Tama's house": LocData(36, cherry_bomb_level=1),
-        "Shinshu Field - In Bombable cave near cat statue": LocData(37, cherry_bomb_level=1),
-        "Shinshu Field - Buried Chest in leaf pile near Tama's house": LocData(38,
+        "Shinshu Field - In Bombable cave near Tama's house": LocData(0x01470009, cherry_bomb_level=1),
+        "Shinshu Field - In Bombable cave near cat statue": LocData(0x0147000A, cherry_bomb_level=1),
+        "Shinshu Field - Buried Chest in leaf pile near Tama's house": LocData(0x0147000D,
                                                                                type=LocationType.BURIED_UNDER_LEAF_PILE),
-        "Shinshu Field - Chest on Big Torii": LocData(39, required_brush_techniques=[BrushTechniques.WATERSPOUT],
+        "Shinshu Field - Chest on Big Torii": LocData(0x01470010, required_brush_techniques=[BrushTechniques.WATERSPOUT],
                                                       needs_swim=True),
-        "Shinshu Field - Freestanding chest after Rejuvenation": LocData(40),
-        "Shinshu Field - Freestanding chest near Agata Forest Cave": LocData(41),
-        "Shinshu Field - Freestanding chest near Tama's house": LocData(42),
-        "Shinshu Field - Buried Chest in burning leaf pile behind Dojo": LocData(43, type=LocationType.BURIED_UNDER_LEAF_PILE)
+        "Shinshu Field - Freestanding chest after Rejuvenating Guardian Sapling": LocData(0x01470013),
+        "Shinshu Field - Freestanding chest near Agata Forest Cave": LocData(0x01470014),
+        "Shinshu Field - Freestanding chest near Tama's house": LocData(0x01470019),
+        "Shinshu Field - Buried Chest in burning leaf pile behind Dojo": LocData(0x0147001A, type=LocationType.BURIED_UNDER_LEAF_PILE)
     },
 
     RegionNames.TAMA_HOUSE: {
