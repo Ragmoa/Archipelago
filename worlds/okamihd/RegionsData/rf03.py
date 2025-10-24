@@ -19,12 +19,12 @@ events = {
 }
 locations = {
     RegionNames.CURSED_AGATA_FOREST:{
-        "Agata Forest - Burning Chest near Madame Fawn's 1": LocData(58,type=LocationType.BURNING_CHEST),
-        "Agata Forest - Burning Chest near Madame Fawn's 2": LocData(59,type=LocationType.BURNING_CHEST),
-        "Agata Forest - Burning Chest near Madame Fawn's 3": LocData(60,type=LocationType.BURNING_CHEST),
-        "Agata Forest - Ledge chest near Madame Fawn's ": LocData(64, required_brush_techniques=[BrushTechniques.WATERSPOUT]),
+        "Agata Forest - Burning Chest near Madame Fawn's 1": LocData(0x0148000D,type=LocationType.BURNING_CHEST),
+        "Agata Forest - Burning Chest near Madame Fawn's 2": LocData(0x0148000E,type=LocationType.BURNING_CHEST),
+        "Agata Forest - Burning Chest near Madame Fawn's 3": LocData(0x0148000F,type=LocationType.BURNING_CHEST),
+        "Agata Forest - Ledge chest near Madame Fawn's ": LocData(0x01480013, required_brush_techniques=[BrushTechniques.WATERSPOUT]),
     },
     RegionNames.FAWNS_HOUSE:{
-        "Agata Forest - Stray Bead in Madame Fawn's":LocData(97)
+        "Agata Forest - Stray Bead in Madame Fawn's":LocData(0x010B0000)
     }
 }
