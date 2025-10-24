@@ -100,11 +100,6 @@ quest_items = {
     "Fox Rods": ItemData(0x46, ItemClassification.progression),
     "Thunder Brew": ItemData(0x47, ItemClassification.progression),
     "Shell Amulet": ItemData(0x48, ItemClassification.progression),
-    "Mask": ItemData(0x49, ItemClassification.progression),
-    "Ogre Liver": ItemData(0x4a, ItemClassification.progression),
-    "Lips of Ice": ItemData(0x4b, ItemClassification.progression),
-    "Eyeball of Fire": ItemData(0x4c, ItemClassification.progression),
-    "Black Demon Horn": ItemData(0x4d, ItemClassification.progression),
 
     "Golden Mushroom": ItemData(0x5f, ItemClassification.progression),
     "Gimmick Gear": ItemData(0x60, ItemClassification.progression),
@@ -211,7 +206,13 @@ event_items = {
     "Loyalty Orb": ItemData(0x4e, ItemClassification.progression, count_in_pool=0),
     "Justice Orb": ItemData(0x4f, ItemClassification.progression, count_in_pool=0),
     "Duty Orb": ItemData(0x50, ItemClassification.progression, count_in_pool=0),
-    "Serpent Crystal": ItemData(0x308,ItemClassification.progression, count_in_pool=0)
+    "Serpent Crystal": ItemData(0x308,ItemClassification.progression, count_in_pool=0),
+    "Mask": ItemData(0x49, ItemClassification.progression,count_in_pool=0),
+    "Ogre Liver": ItemData(0x4a, ItemClassification.progression,count_in_pool=0),
+    "Ice Lips": ItemData(0x4b, ItemClassification.progression,count_in_pool=0),
+    "Fire Eye": ItemData(0x4c, ItemClassification.progression,count_in_pool=0),
+    "Black Demon Horn": ItemData(0x4d, ItemClassification.progression,count_in_pool=0),
+
 }
 weapons_items = {
     "Divine Retribution": ItemData(0x10, ItemClassification.progression, count_in_pool=0),

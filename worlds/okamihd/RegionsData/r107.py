@@ -54,6 +54,7 @@ events = {
             event_item_name="Serpent Crystal",
             is_event_item=lambda o:o.MoonCaveAccess==0,
             precollected=lambda o:o.MoonCaveAccess==2,
+            id=191
         )
     }
 }
