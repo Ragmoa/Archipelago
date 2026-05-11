@@ -52,6 +52,8 @@ events = {
 }
 locations = {
     RegionNames.KUSA_VILLAGE: {
+        "Kusa Village - Static Meat Feedbag in Pot near Well":LocData(container_check_id(MapIds.KUSA_VILLAGE,44),static_item="Feedbag (Meat)"),
+        "Kusa Village - Static Meat Feedbag in Pot near Well 2":LocData(container_check_id(MapIds.KUSA_VILLAGE,45),static_item="Feedbag (Meat)"),
         "Kusa Village - Chest on rafters after banners": LocData(container_check_id(MapIds.KUSA_VILLAGE, 11),
                                                                  required_brush_techniques=[BrushTechniques.GALESTORM,
                                                                                             BrushTechniques.GREENSPROUT_VINE]),

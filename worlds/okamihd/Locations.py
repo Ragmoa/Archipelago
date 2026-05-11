@@ -4,6 +4,7 @@ from .Rules import apply_event_or_location_rules
 from .Types import LocData, OkamiLocation, OkamiItem, resolve_option_callable, EventData
 from typing import TYPE_CHECKING
 from .RegionsData import okami_locations, okami_events, okami_shop_locations
+from .Items import item_table, create_item
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -48,6 +49,10 @@ def create_location(location_name: str, location_data: EventData | LocData, reg:
     location.progress_type = progress_type
     apply_event_or_location_rules(location, location_name, location_data, world)
     reg.locations.append(location)
+    # If we've defined a static item, we place it at the location
+    if isinstance(location_data, LocData) and location_data.static_item is not None:
+        static_item = item_table.get(location_data.static_item)
+        location.place_locked_item(create_item(location_data.static_item, static_item.code, ItemClassification.progression, world))
     return location
 
 

@@ -41,6 +41,7 @@ class LocData(NamedTuple):
         [OkamiOptions], LocationProgressType] = LocationProgressType.DEFAULT
     # This rule overrides all other access rules
     special_rule: Rule | None = None
+    static_item: str | None = None
 
 
 class EventData(NamedTuple):
