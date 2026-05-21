@@ -51,6 +51,9 @@ class OkamiWorld(World):
         # DEBUG
         # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
 
+        # REGIONS EXPORTER FOR TRACKER
+        location_exporter(self.get_regions())
+
     def create_items(self):
         self.multiworld.itempool += self.create_itempool()
 
