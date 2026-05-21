@@ -1,8 +1,9 @@
-from json import JSONEncoder
+import json
 from typing import TYPE_CHECKING, Iterable, List
 
 import BaseClasses
 from BaseClasses import Region
+from Utils import output_path
 from .Enums.TrackerMaps import tracker_maps, custom_mappings
 from .Types import OkamiLocation
 
@@ -41,17 +42,17 @@ def location_exporter(world:"OkamiWorld"):
         export_map(map_name,map_regions,world)
 
 def export_map(map_name:str,map_regions:List[str],world:"OkamiWorld"):
-    filename=map_name+'.json'
+    filename=map_name.replace(' ','_')+'.json'
     # Build the children (1 per section with 1 item per section)
     children=[]
     for region_name in map_regions:
         reg = world.get_region(region_name)
         for l in reg.locations:
             children.append({
-                "name":format_location_name_for_tracker(l),
+                "name":format_location_name_for_tracker(l.name),
                 "section":[
                     {
-                    "name": format_location_name_for_tracker(l),
+                    "name": format_location_name_for_tracker(l.name),
                     "item_count": 1
                     }
                 ],
@@ -71,8 +72,8 @@ def export_map(map_name:str,map_regions:List[str],world:"OkamiWorld"):
 
     #Export the json.
 
-    with open(world.settings.general_options.output_path+"/tracker/"+filename,"w") as file_writer:
-        file_writer.write(JSONEncoder.encode(json_data))
+    with open(output_path()+"/tracker/"+filename,"w") as file_writer:
+        file_writer.write(json.dumps(json_data))
 
 def get_location_json(loc:OkamiLocation)-> dict:
     return {
