@@ -10,6 +10,8 @@ from .Rules import set_completion_rules
 from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
 from worlds.AutoWorld import World, WebWorld, CollectionState
 from typing import List
+
+from .TrackerHelper import location_exporter
 from .Types import OkamiItem, resolve_option_callable
 from .Enums.DivineInstruments import DivineInstruments
 from .Enums.RegionNames import RegionNames
@@ -52,7 +54,7 @@ class OkamiWorld(World):
         # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
 
         # REGIONS EXPORTER FOR TRACKER
-        location_exporter(self.get_regions())
+        location_exporter(self)
 
     def create_items(self):
         self.multiworld.itempool += self.create_itempool()
