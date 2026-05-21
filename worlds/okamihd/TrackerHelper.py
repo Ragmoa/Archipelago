@@ -35,7 +35,7 @@ def location_exporter(world:"OkamiWorld"):
             else:
                 tracker_maps[tracker_map].append(region.name)
         else:
-            print("No tracker map found for" + region.name + "!")
+            print("No tracker map found for " + region.name + "!")
 
     for map_name, map_regions in tracker_maps.items():
         print ("Exporting map "+ map_name)
@@ -50,7 +50,7 @@ def export_map(map_name:str,map_regions:List[str],world:"OkamiWorld"):
         for l in reg.locations:
             children.append({
                 "name":format_location_name_for_tracker(l.name),
-                "section":[
+                "sections":[
                     {
                     "name": format_location_name_for_tracker(l.name),
                     "item_count": 1

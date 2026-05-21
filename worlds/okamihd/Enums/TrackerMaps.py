@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 tracker_maps = {
     "Kamiki Village",
-    "River of the Heavens"
+    "River of the Heavens",
     "Cave of Nagi",
     "Shinshu Field",
     "Hana Valley",
