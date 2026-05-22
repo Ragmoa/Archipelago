@@ -42,6 +42,7 @@ def world_state_check_id(map_id: MapIds, bit_index: int) -> int:
 def collected_object_check_id(map_index: MapIndexes, bit_index: int) -> int:
     return COLLECTED_OBJECT_BASE + map_index.value * 1000 + bit_index
 
+
 # not sure which is used here map Id or Index
 def area_restored_check_id(map_id: MapIds, bit_index: int) -> int:
     return AREA_RESTORED_BASE + map_id.value * 1000 + bit_index
@@ -54,6 +55,21 @@ def global_flag_check_id(bit_index: int) -> int:
 def game_progress_check_id(bit_index: int) -> int:
     return GAME_PROGRESS_BASE + bit_index
 
+
 # Was previously levelId, it's the same value as MapId ?
 def container_check_id(map_id: MapIds, spawn_idx: int) -> int:
     return CONTAINER_BASE + map_id.value * 1000 + spawn_idx
+
+
+# Is the id in the container range ?
+def is_container(locid: int) -> bool:
+    return CONTAINER_BASE <= locid < CONTAINER_BASE + 1_000_000_000
+
+def is_brush_check(locid: int) -> bool:
+    return BRUSH_BASE <= locid < BRUSH_BASE + 1_000_000_000
+
+def get_map_and_spawn_id(container_id: int)-> (int,int):
+    split_id = container_id - CONTAINER_BASE
+    spawn_id = split_id % 1000
+    map_ip = int((split_id - spawn_id) / 1000)
+    return map_ip,spawn_id

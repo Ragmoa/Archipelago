@@ -80,6 +80,14 @@ class WarpData(NamedTuple):
     trigger_warp_to: Rule | True_ | False_
 
 
+class TrackerMapTransform(NamedTuple):
+    x1:float
+    x2:float
+    y1:float
+    y2:float
+    x_const:float
+    y_const:float
+
 T = TypeVar('T', str, int, bool)
 
 
