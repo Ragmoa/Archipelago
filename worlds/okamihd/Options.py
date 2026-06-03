@@ -133,6 +133,12 @@ class ShopSlots(Range):
     range_end = 12
     default = 6
 
+class MaxShopPrice(Range):
+    """The maximum price a shop item can cost"""
+    display_name="Maximum Shop Price"
+    range_start = 1000
+    range_end = 1000000
+
 
 #
 # class PraiseSanity(Choice):
@@ -152,6 +158,7 @@ class OkamiOptions(PerGameCommonOptions):
     RandomizeShops: RandomizeShops
     RandomizeBrushes: RandomizeBrushes
     ShopSlots: ShopSlots
+    MaxShopPrice: MaxShopPrice
     NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
     OpenGameStart: OpenGameStart
@@ -172,6 +179,7 @@ okami_option_groups: Dict[str, List[Any]] = {
         RandomizeShops,
         RandomizeBrushes,
         ShopSlots,
+        MaxShopPrice
     ],
     "General Options": [
         NightTimeChecksRequireCrescent,
@@ -196,6 +204,7 @@ slot_data_options = {
     "RandomizeShops",
     "RandomizeBrushes",
     "ShopSlots",
+    "MaxShopPrice",
     "NightTimeChecksRequireCrescent",
     "KarmicTransformers",
     "OpenGameStart",

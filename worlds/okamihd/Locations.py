@@ -22,6 +22,7 @@ def get_location_names():
     for region_key, region_shop_locations in okami_shop_locations.items():
         for location_name, location_data in region_shop_locations.items():
             location_names[location_name] = location_data.id
+
     return location_names
 
 

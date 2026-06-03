@@ -1,3 +1,5 @@
+
+
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld
 from Utils import visualize_regions
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
@@ -5,7 +7,7 @@ from .Items import item_table, create_item, create_multiple_items, create_junk_i
     progressive_weapons, create_standard_item, create_static_precollected_item_list
 from .Regions import create_regions, get_region_name
 from .Locations import get_location_names, get_total_locations
-from .RegionsData import okami_events,okami_locations
+from .RegionsData import okami_events, okami_locations, okami_shop_locations
 from .Rules import set_completion_rules
 from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
 from worlds.AutoWorld import World, WebWorld, CollectionState
@@ -13,7 +15,6 @@ from typing import List
 from .Types import OkamiItem, resolve_option_callable
 from .Enums.DivineInstruments import DivineInstruments
 from .Enums.RegionNames import RegionNames
-
 
 
 class OkamiWebWolrd(WebWorld):
@@ -25,7 +26,7 @@ class OkamiWebWolrd(WebWorld):
         "English",
         "setup_en.md",
         "setup/en",
-        ["Axertin","Ragmoa"]
+        ["Axertin", "Ragmoa"]
     )]
 
 
@@ -63,11 +64,14 @@ class OkamiWorld(World):
 
     def fill_slot_data(self) -> dict:
         slot_data: dict = {
-            "SeedNumber": str(self.multiworld.seed),  # For shop prices
+            "SeedNumber": str(self.multiworld.seed),
             "SeedName": self.multiworld.seed_name,
             "TotalLocations": get_total_locations(self),
             # Client configuration
             "supported_client_version": "0.8.2",  # Minimum client version required
+            # FIXME: generate prices before this stage, so they can use global random instead of the player one ?
+            # Not sure if this means generating the same seed wouldn't put the same prices for a deifned player ? if not, it isn't really important.
+            "shop_info": self.randomize_shop_prices()
         }
 
         # Add game options to slot_data
@@ -88,28 +92,29 @@ class OkamiWorld(World):
 
     def create_itempool(world: "OkamiWorld") -> List[Item]:
         itempool: List[Item] = []
-        precollected_items: List [Item] = []
+        precollected_items: List[Item] = []
 
         # Static Precollected Items
         precollected_items = create_static_precollected_item_list(world)
-
-
 
         if not world.options.ProgressiveWeapons:
             # Create normal weapons
             for (divine_instrument_data) in list(DivineInstruments):
                 if divine_instrument_data.value.item_name != DivineInstruments.DIVINE_RETRIBUTION.value.item_name:
-                    itempool+=[create_item(divine_instrument_data.value.item_name,divine_instrument_data.value.code,ItemClassification.progression,world)]
+                    itempool += [create_item(divine_instrument_data.value.item_name, divine_instrument_data.value.code,
+                                             ItemClassification.progression, world)]
         else:
-        # Create progressive weapons
+            # Create progressive weapons
             for (progressive_weapon_name, progressive_weapon) in progressive_weapons.items():
-        # Only Randomize 4 Progressive Mirrors since we start with Divine Retribution
+                # Only Randomize 4 Progressive Mirrors since we start with Divine Retribution
                 if progressive_weapon_name == 'Progressive Mirror':
-                    count= 4
+                    count = 4
                 else:
                     count = 5
                 for i in range(count):
-                    itempool += [create_item(progressive_weapon_name, progressive_weapon.code, progressive_weapon.classification, world)]
+                    itempool += [
+                        create_item(progressive_weapon_name, progressive_weapon.code, progressive_weapon.classification,
+                                    world)]
 
         match world.options.KarmicTransformers:
             case KarmicTransformers.option_precollected:
@@ -139,11 +144,11 @@ class OkamiWorld(World):
 
                         if is_event_item_state:
                             # With the current options this event becomes its own item, so we need to add it to the item pool
-                            itempool += [create_standard_item(world,event_data.event_item_name)]
+                            itempool += [create_standard_item(world, event_data.event_item_name)]
 
         for name in item_table.keys():
             item_type: ItemClassification = item_table.get(name).classification
-            item_count:int = resolve_option_callable(item_table.get(name).count_in_pool,world)
+            item_count: int = resolve_option_callable(item_table.get(name).count_in_pool, world)
             if item_count > 0:
                 itempool += create_multiple_items(world, name, item_count, item_type)
 
@@ -154,9 +159,40 @@ class OkamiWorld(World):
 
         return itempool
 
+    def randomize_shop_prices(self) -> dict:
 
+        prices = {}
+
+        for shop in okami_shop_locations.values():
+            for slot_name in shop:
+                max_price: int = self.options.MaxShopPrice.value
+                shop_location = None
+                try:
+                    shop_location = self.get_location(slot_name)
+                except Exception:
+                    print("shop_location " + slot_name + " not found.")
+                if shop_location is not None:
+                    shop_item = shop_location.item
+                    max_price_mult = 1
+                    match shop_item.classification:
+                        case ItemClassification.useful:
+                            max_price_mult = 0.5
+                        case ItemClassification.filler:
+                            max_price = min(30000, self.options.MaxShopPrice.value)
+                        case ItemClassification.trap:
+                            max_price = min(10000, self.options.MaxShopPrice.value)
+                    # Keep price above 100. I want to keep that one for when the price hasn't been set/correctly read by AP.
+                    prices[shop_location.address] = {
+                        "item_name": shop_item.name,
+                        "player": self.multiworld.player_name[shop_item.player],
+                        "price": max(int(min((abs(self.random.normalvariate(0, 0.35)) + 0.111), 1) * int(
+                            max_price * max_price_mult)), 101),
+                        "classification": shop_item.classification
+                    }
+        return prices
 
     # Probably has to be a better way to do this.
+
     item_name_groups = {
         "divine_instrument_tier_1": [DivineInstruments.DIVINE_RETRIBUTION.value.item_name,
                                      DivineInstruments.DEVOUT_BEADS.value.item_name,
@@ -184,7 +220,7 @@ class OkamiWorld(World):
             "Satomi Power Orb (Duty)"
         ],
 
-        "soup_ingredients":[
+        "soup_ingredients": [
             "Ogre Liver",
             "Ice Lips",
             "Fire Eye",
