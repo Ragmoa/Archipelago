@@ -86,8 +86,6 @@ def has_divine_instrument_tier(tier: int) -> Rule:
 
 
 def apply_event_or_location_rules(loc: Location, name: str, data: LocData | EventData, world: "OkamiWorld"):
-    ## RULE BUILDER REWORK:
-    # - FOR EACH LOCATION, BUILD AN ARRAY OF RULES THAT WILL BE ADDED TO THE world.set_rule(loc,AND(*Rules))
 
     rules: List[Rule] = []
 
@@ -146,6 +144,12 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
             required_power_slash_level = max(required_power_slash_level, 1)
         case LocationType.THUNDER_CHEST:
            rules.append(HasAny(BrushTechniques.THUNDERBOLT,BrushTechniques.THUNDERSTORM))
+        case LocationType.SHOP:
+            shop_id = str(data.id) if data.id is not None else None
+            if shop_id is not None:
+                # Generate a random price for this item.
+                price = world.get_random_shop_price(shop_id)
+                rules.append(Has("Yen",count=price))
 
         case _:
             required_techinques += []

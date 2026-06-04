@@ -96,3 +96,10 @@ def get_total_locations(world: "OkamiWorld") -> int:
         num_shops = len(okami_shop_locations)  # Number of regions with shops
         location_count += num_shops * shop_slots
     return location_count
+
+
+def get_shop_location_data(location_name: str) -> LocData | None:
+    for r in okami_shop_locations.values():
+        if r.get(location_name) is not None:
+            return r.get(location_name)
+    return None

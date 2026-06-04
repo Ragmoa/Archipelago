@@ -1,18 +1,18 @@
-
+import json
 
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld
 from Utils import visualize_regions
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
     karmic_transformers, \
-    progressive_weapons, create_standard_item, create_static_precollected_item_list
+    progressive_weapons, create_standard_item, create_static_precollected_item_list, treasure_sell_prices
 from .Regions import create_regions, get_region_name
-from .Locations import get_location_names, get_total_locations
+from .Locations import get_location_names, get_total_locations, get_shop_location_data
 from .RegionsData import okami_events, okami_locations, okami_shop_locations
 from .Rules import set_completion_rules
 from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
 from worlds.AutoWorld import World, WebWorld, CollectionState
 from typing import List
-from .Types import OkamiItem, resolve_option_callable
+from .Types import OkamiItem, resolve_option_callable, LocData
 from .Enums.DivineInstruments import DivineInstruments
 from .Enums.RegionNames import RegionNames
 
@@ -41,6 +41,7 @@ class OkamiWorld(World):
     options_dataclass = OkamiOptions
     options: OkamiOptions
     web = OkamiWebWolrd()
+    shop_prices = {}
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -51,7 +52,7 @@ class OkamiWorld(World):
         create_regions(self)
         # DEBUG
         # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
-
+        print(json.dumps(self.shop_prices))
     def create_items(self):
         self.multiworld.itempool += self.create_itempool()
 
@@ -73,6 +74,7 @@ class OkamiWorld(World):
             # Not sure if this means generating the same seed wouldn't put the same prices for a deifned player ? if not, it isn't really important.
             "shop_info": self.randomize_shop_prices()
         }
+        #raise Exception
 
         # Add game options to slot_data
         for name, value in self.options.as_dict(*slot_data_options).items():
@@ -81,11 +83,38 @@ class OkamiWorld(World):
         return slot_data
 
     def collect(self, state: "CollectionState", item: "Item") -> bool:
-        old_count: int = state.count(item.name, self.player)
+        # <=====IDEA FOR LOGIC====>
+        ## Computing prices by taking into account the item classification means we have to wait for item to ba placed.
+        ## Which mean we can't account for that into logic.
+        ## So, we generate a price for every shop slot before placing any item (we assume at this point that all items are progression)
+        ## Then, we can logically require each slot to have that amount of money to get the item
+        if item.player==self.player:
+            loc = item.location
+            #print("Collecting " + item.name + " at " + (loc.name if loc is not None else "Nowhere"))
+            current_avilable_yen = state.count("Yen", self.player)
+
+            if item.name in treasure_sell_prices.keys():
+                current_avilable_yen += treasure_sell_prices[item.name]
+                print("Getting " + str(treasure_sell_prices[item.name]) + " yen.")
+                print("Current avilable :" + str(current_avilable_yen) + " yen.")
+            #else:
+                #print (item.name + " is not a treasure")
+            # FIXME: Update later for yen fountains.
+            if loc is not None:
+                loc_data = get_shop_location_data(loc.name)
+
+                if loc_data is not None:
+                    price = self.shop_prices[str(loc_data.id)]
+                    current_avilable_yen -= price
+                    print("Using " + str(price) + " yen.")
+                    print("Current avilable :" + str(current_avilable_yen) + " yen.")
+            if current_avilable_yen!= state.count("Yen",self.player) and current_avilable_yen >0:
+                state.set_item("Yen", self.player,current_avilable_yen)
         change = super().collect(state, item)
         return change
 
     def remove(self, state: "CollectionState", item: "Item") -> bool:
+        print("Remove called!")
         old_count: int = state.count(item.name, self.player)
         change = super().remove(state, item)
         return change
@@ -158,6 +187,11 @@ class OkamiWorld(World):
             world.push_precollected(pi)
 
         return itempool
+
+    def get_random_shop_price(self, location_id: str) -> int:
+        random_price = self.random.randint(100, 50000)
+        self.shop_prices[location_id] = random_price
+        return random_price
 
     def randomize_shop_prices(self) -> dict:
 

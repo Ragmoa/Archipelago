@@ -51,56 +51,57 @@ def get_item_name_to_id_dict() -> dict:
         item_dict[d.item_name] = d.code
     return item_dict
 
+
 def create_static_precollected_item_list(world: "OkamiWorld") -> List[Item]:
     # TODO: Refacto this
-    precollected_items :List[Item] =[]
+    precollected_items: List[Item] = []
 
     rejuvenation = brush_techniques_items[BrushTechniques.REJUVENATION.value]
-    precollected_items.append(create_item(BrushTechniques.REJUVENATION,rejuvenation.code,rejuvenation.classification,world))
+    precollected_items.append(
+        create_item(BrushTechniques.REJUVENATION, rejuvenation.code, rejuvenation.classification, world))
 
     # Temp while power slash tutorial requires this.
-    #power_slash = brush_techniques_items[BrushTechniques.POWER_SLASH.value]
-    #precollected_items.append(create_item(BrushTechniques.POWER_SLASH, power_slash.code, power_slash.classification, world))
+    # power_slash = brush_techniques_items[BrushTechniques.POWER_SLASH.value]
+    # precollected_items.append(create_item(BrushTechniques.POWER_SLASH, power_slash.code, power_slash.classification, world))
 
     astral_pouch = useful_items['Astral Pouch']
     precollected_items.append(create_item('Astral Pouch', astral_pouch.code, astral_pouch.classification, world))
 
     # We always start with Divine Retribution:
     divine_retribution = DivineInstruments.DIVINE_RETRIBUTION.value
-    precollected_items.append(create_item(divine_retribution.item_name, divine_retribution.code, ItemClassification.progression, world))
+    precollected_items.append(
+        create_item(divine_retribution.item_name, divine_retribution.code, ItemClassification.progression, world))
 
     return precollected_items
 
 
-
-
 brush_techniques_items = {
     # Brush Techniques — item codes = 0x100 + game bitfield index (from BrushOverlay enum)
-    BrushTechniques.GREENSPROUT_BLOOM.value: ItemData(0x104, ItemClassification.progression),       # bit 4
-    BrushTechniques.GREENSPROUT_WATERLILY.value: ItemData(0x105, ItemClassification.progression),    # bit 5
-    BrushTechniques.GALESTORM.value: ItemData(0x106, ItemClassification.progression),               # bit 6
-    BrushTechniques.THUNDERSTORM.value: ItemData(0x108, ItemClassification.progression),            # bit 8
-    BrushTechniques.INFERNO.value: ItemData(0x10A, ItemClassification.progression),                 # bit 10
+    BrushTechniques.GREENSPROUT_BLOOM.value: ItemData(0x104, ItemClassification.progression),  # bit 4
+    BrushTechniques.GREENSPROUT_WATERLILY.value: ItemData(0x105, ItemClassification.progression),  # bit 5
+    BrushTechniques.GALESTORM.value: ItemData(0x106, ItemClassification.progression),  # bit 6
+    BrushTechniques.THUNDERSTORM.value: ItemData(0x108, ItemClassification.progression),  # bit 8
+    BrushTechniques.INFERNO.value: ItemData(0x10A, ItemClassification.progression),  # bit 10
     BrushTechniques.POWER_SLASH.value: ItemData(0x10C, ItemClassification.progression, count_in_pool=3),  # bit 12
-    BrushTechniques.WATERSPOUT.value: ItemData(0x10D, ItemClassification.progression),             # bit 13
-    BrushTechniques.VEIL_OF_MIST.value: ItemData(0x110, ItemClassification.progression),            # bit 16
-    BrushTechniques.CRESCENT.value: ItemData(0x112, ItemClassification.progression),                # bit 18
-    BrushTechniques.GREENSPROUT_VINE.value: ItemData(0x113, ItemClassification.progression),        # bit 19
+    BrushTechniques.WATERSPOUT.value: ItemData(0x10D, ItemClassification.progression),  # bit 13
+    BrushTechniques.VEIL_OF_MIST.value: ItemData(0x110, ItemClassification.progression),  # bit 16
+    BrushTechniques.CRESCENT.value: ItemData(0x112, ItemClassification.progression),  # bit 18
+    BrushTechniques.GREENSPROUT_VINE.value: ItemData(0x113, ItemClassification.progression),  # bit 19
     # You always start with that one
-    BrushTechniques.REJUVENATION.value: ItemData(0x116, ItemClassification.progression,count_in_pool=0),            # bit 22
-    BrushTechniques.BLIZZARD.value: ItemData(0x117, ItemClassification.progression),                # bit 23
+    BrushTechniques.REJUVENATION.value: ItemData(0x116, ItemClassification.progression, count_in_pool=0),  # bit 22
+    BrushTechniques.BLIZZARD.value: ItemData(0x117, ItemClassification.progression),  # bit 23
     BrushTechniques.CHERRY_BOMB.value: ItemData(0x119, ItemClassification.progression, count_in_pool=3),  # bit 25
-    BrushTechniques.SUNRISE.value: ItemData(0x11B, ItemClassification.progression),                 # bit 27
-    BrushTechniques.CATWALK.value: ItemData(0x11E, ItemClassification.progression),                 # bit 30
+    BrushTechniques.SUNRISE.value: ItemData(0x11B, ItemClassification.progression),  # bit 27
+    BrushTechniques.CATWALK.value: ItemData(0x11E, ItemClassification.progression),  # bit 30
     ## UPGRADES/SECRET
-    BrushTechniques.WHIRLWIND.value: ItemData(0x107, ItemClassification.progression),               # bit 7
-    BrushTechniques.THUNDERBOLT.value: ItemData(0x109, ItemClassification.progression),             # bit 9
-    BrushTechniques.FIREBURST.value: ItemData(0x10B, ItemClassification.progression),               # bit 11
-    BrushTechniques.DELUGE.value: ItemData(0x10E, ItemClassification.progression),                  # bit 14
-    BrushTechniques.FOUNTAIN.value: ItemData(0x10F, ItemClassification.progression),                # bit 15
-    BrushTechniques.MIST_WARP.value: ItemData(0x111, ItemClassification.progression),               # bit 17
+    BrushTechniques.WHIRLWIND.value: ItemData(0x107, ItemClassification.progression),  # bit 7
+    BrushTechniques.THUNDERBOLT.value: ItemData(0x109, ItemClassification.progression),  # bit 9
+    BrushTechniques.FIREBURST.value: ItemData(0x10B, ItemClassification.progression),  # bit 11
+    BrushTechniques.DELUGE.value: ItemData(0x10E, ItemClassification.progression),  # bit 14
+    BrushTechniques.FOUNTAIN.value: ItemData(0x10F, ItemClassification.progression),  # bit 15
+    BrushTechniques.MIST_WARP.value: ItemData(0x111, ItemClassification.progression),  # bit 17
     ## VERY SECRET ONE
-    BrushTechniques.ICESTORM.value: ItemData(0x118, ItemClassification.useful),                     # bit 24
+    BrushTechniques.ICESTORM.value: ItemData(0x118, ItemClassification.useful),  # bit 24
 }
 equips = {
     # Equips
@@ -144,20 +145,24 @@ bitable_items = {
     ### Edit: So this Sake only resets if you go outside Kamiki village or on of its interiors;
     ### I'm not sure how that's going to work with ER.
     "Vista of the Gods": ItemData(0x5C, ItemClassification.progression),
-    "Tsuta Ruins Key": ItemData(world_state_check_id(MapIds.HEALED_AGATA,16), ItemClassification.progression),
+    "Tsuta Ruins Key": ItemData(world_state_check_id(MapIds.HEALED_AGATA, 16), ItemClassification.progression),
     # "Oddly Shaped Turnip": ItemData(0x41, ItemClassification.progression)
 }
 useful_items = {
     # Useful items - Counts here are invalid, it's intended, to not fille the item pool with these
-    "Sun Fragment": ItemData(0x05, ItemClassification.useful,count_in_pool=4), # Should be 12
-    "Astral Pouch": ItemData(0x06, ItemClassification.useful,count_in_pool=0),# Intended
-    "Stray Bead": ItemData(0xCC, ItemClassification.useful,count_in_pool=0),# Should be 99, set to 0 for now cause they mess with container collection states
+    "Sun Fragment": ItemData(0x05, ItemClassification.useful, count_in_pool=4),  # Should be 12
+    "Astral Pouch": ItemData(0x06, ItemClassification.useful, count_in_pool=0),  # Intended
+    "Stray Bead": ItemData(0xCC, ItemClassification.useful, count_in_pool=0),
+    # Should be 99, set to 0 for now cause they mess with container collection states
     # probably will have to be changed to progession_skip balancing once DF shops get randomized
-    "Demon Fang": ItemData(0x1F, ItemClassification.useful,count_in_pool=0),# to see when DF shops get randomized
+    "Demon Fang": ItemData(0x1F, ItemClassification.useful, count_in_pool=0),  # to see when DF shops get randomized
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
-    "Mermaid Coin": ItemData(0x0e, ItemClassification.useful,count_in_pool=5),#Accurate count, kept it since it isn't too much
-    "Golden Peach": ItemData(0x0f, ItemClassification.useful,count_in_pool=5), # 14 in total... Probably not useful to have THAT many?,
-    "Gold Dust": ItemData(0x9e, ItemClassification.useful,count_in_pool=5) # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
+    "Mermaid Coin": ItemData(0x0e, ItemClassification.useful, count_in_pool=5),
+    # Accurate count, kept it since it isn't too much
+    "Golden Peach": ItemData(0x0f, ItemClassification.useful, count_in_pool=5),
+    # 14 in total... Probably not useful to have THAT many?,
+    "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=5)
+    # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
 }
 
 filler_items = {
@@ -228,7 +233,7 @@ event_items = {
     "Satomi Power Orb (Loyalty)": ItemData(0x4e, ItemClassification.progression, count_in_pool=0),
     "Satomi Power Orb (Justice)": ItemData(0x4f, ItemClassification.progression, count_in_pool=0),
     "Satomi Power Orb (Duty)": ItemData(0x50, ItemClassification.progression, count_in_pool=0),
-    "Serpent Crystal": ItemData(0x308,ItemClassification.progression, count_in_pool=0),
+    "Serpent Crystal": ItemData(0x308, ItemClassification.progression, count_in_pool=0),
     # MOON CAVE
     "Mask": ItemData(0x49, ItemClassification.progression, count_in_pool=0),
     "Ogre Liver": ItemData(0x4a, ItemClassification.progression, count_in_pool=0),
@@ -258,7 +263,7 @@ progressive_weapons = {
     "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0),
     "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0)
 }
-#classified as useful so they're ignored for junk fill
+# classified as useful so they're ignored for junk fill
 karmic_transformers = {
     "Karmic Returner": ItemData(0xc8, ItemClassification.useful, count_in_pool=0),
     "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0),
@@ -282,6 +287,8 @@ item_table = {
     **weapons_items,
     **progressive_weapons,
     **karmic_transformers,
+    ## Create a Yen item so it can be counted for logic, but we never do place any in containers
+    "Yen" : ItemData(0x999,ItemClassification.progression,count_in_pool=0),
 }
 junk_weights = {
     # TODO: Junk items weight - Based of the number of times it appears in chests in vanilla
@@ -290,7 +297,7 @@ junk_weights = {
     "Exorcism Slip S": 22,
     "Vengeance Slip": 19,
     "Inkfinity Stone": 15,
-    "Holy Bone L": 1, # Never found in chests,so it should be 0, buuut...
+    "Holy Bone L": 1,  # Never found in chests,so it should be 0, buuut...
     "Holy Bone S": 23,
     "White porcelain pot": 8,
     "Traveler's Charm": 13,
@@ -337,4 +344,43 @@ junk_weights = {
     "Cat's Eye Tassels": 1,
     "Amethyst Tassels": 1,
     "Jade Tassels": 1,
+}
+
+treasure_sell_prices = {
+    "White porcelain pot": 15000,
+    "Kutani Pottery": 12000,
+    "Incense Burner": 2000,
+    "Vase": 1900,
+    "Silver Pocket Watch": 30000,
+    "Rat Statue": 3300,
+    "Bull Horn": 3000,
+    "Etched Glass": 20000,
+    "Lacquerware Set": 2500,
+    "Wooden Bear": 1500,
+    "Glass Beads": 1000,
+    "Dragonfly Bead": 1100,
+    "Coral Fragment": 1700,
+    "Crystal": 5000,
+    "Pearl": 5500,
+    "Ruby Tassels": 9000,
+    "Bull Statue": 3400,
+    "Tiger Statue": 3500,
+    "Rabbit Statue": 3600,
+    "Dragon Statue": 3700,
+    "Snake Statue": 3800,
+    "Horse Statue": 3900,
+    "Sheep Statue": 4000,
+    "Monkey Statue": 4100,
+    "Rooster Statue": 4200,
+    "Dog Statue": 4300,
+    "Boar Statue": 4400,
+    "Cat Statue": 4500,
+    "Sapphire Tassels": 9500,
+    "Emerald Tassels": 10000,
+    "Turquoise Tassels": 8500,
+    "Agate Tassels": 8000,
+    "Amber Tassels": 6500,
+    "Cat's Eye Tassels": 7500,
+    "Amethyst Tassels": 6000,
+    "Jade Tassels": 7000,
 }
