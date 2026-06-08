@@ -91,25 +91,25 @@ class OkamiWorld(World):
         if item.player==self.player:
             loc = item.location
             #print("Collecting " + item.name + " at " + (loc.name if loc is not None else "Nowhere"))
-            current_avilable_yen = state.count("Yen", self.player)
+            current_available_yen = state.count("Yen", self.player)
 
             if item.name in treasure_sell_prices.keys():
-                current_avilable_yen += treasure_sell_prices[item.name]
+                current_available_yen += treasure_sell_prices[item.name]
                 print("Getting " + str(treasure_sell_prices[item.name]) + " yen.")
-                print("Current avilable :" + str(current_avilable_yen) + " yen.")
+                print("Current available :" + str(current_available_yen) + " yen.")
             #else:
                 #print (item.name + " is not a treasure")
             # FIXME: Update later for yen fountains.
-            if loc is not None:
+            if loc is not None and item.classification & ItemClassification.progression:
                 loc_data = get_shop_location_data(loc.name)
 
                 if loc_data is not None:
                     price = self.shop_prices[str(loc_data.id)]
-                    current_avilable_yen -= price
+                    current_available_yen -= price
                     print("Using " + str(price) + " yen.")
-                    print("Current avilable :" + str(current_avilable_yen) + " yen.")
-            if current_avilable_yen!= state.count("Yen",self.player) and current_avilable_yen >0:
-                state.set_item("Yen", self.player,current_avilable_yen)
+                    print("Current available :" + str(current_available_yen) + " yen.")
+            if current_available_yen!= state.count("Yen",self.player) and current_available_yen >0:
+                state.set_item("Yen", self.player,current_available_yen)
         change = super().collect(state, item)
         return change
 
