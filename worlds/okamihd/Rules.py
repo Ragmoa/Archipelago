@@ -145,10 +145,13 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
         case LocationType.THUNDER_CHEST:
            rules.append(HasAny(BrushTechniques.THUNDERBOLT,BrushTechniques.THUNDERSTORM))
         case LocationType.SHOP:
-            shop_id = str(data.id) if data.id is not None else None
+            shop_id = data.id if data.id is not None else None
+            #print(shop_id)
+            #print(world.shop_prices)
+            #print(world.shop_prices.get(shop_id))
             if shop_id is not None:
                 # Generate a random price for this item.
-                price = world.get_random_shop_price(shop_id)
+                price = world.shop_prices[shop_id]
                 rules.append(Has("Yen",count=price))
 
         case _:

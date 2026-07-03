@@ -48,11 +48,13 @@ class OkamiWorld(World):
 
     def create_regions(self):
         # noinspection PyClassVar
+        # Randomize Shop prices before creating regions
+        self.shop_prices = self.randomize_shop_prices()
 
         create_regions(self)
         # DEBUG
         # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
-        print(json.dumps(self.shop_prices))
+
     def create_items(self):
         self.multiworld.itempool += self.create_itempool()
 
@@ -70,11 +72,9 @@ class OkamiWorld(World):
             "TotalLocations": get_total_locations(self),
             # Client configuration
             "supported_client_version": "0.8.2",  # Minimum client version required
-            # FIXME: generate prices before this stage, so they can use global random instead of the player one ?
-            # Not sure if this means generating the same seed wouldn't put the same prices for a deifned player ? if not, it isn't really important.
-            "shop_info": self.randomize_shop_prices()
+            "shop_info": self.shop_prices
         }
-        #raise Exception
+        # raise Exception
 
         # Add game options to slot_data
         for name, value in self.options.as_dict(*slot_data_options).items():
@@ -82,23 +82,26 @@ class OkamiWorld(World):
 
         return slot_data
 
+
+
+
     def collect(self, state: "CollectionState", item: "Item") -> bool:
         # <=====IDEA FOR LOGIC====>
         ## Computing prices by taking into account the item classification means we have to wait for item to ba placed.
         ## Which mean we can't account for that into logic.
         ## So, we generate a price for every shop slot before placing any item (we assume at this point that all items are progression)
         ## Then, we can logically require each slot to have that amount of money to get the item
-        if item.player==self.player:
+        if item.player == self.player:
             loc = item.location
-            #print("Collecting " + item.name + " at " + (loc.name if loc is not None else "Nowhere"))
+            # print("Collecting " + item.name + " at " + (loc.name if loc is not None else "Nowhere"))
             current_available_yen = state.count("Yen", self.player)
 
             if item.name in treasure_sell_prices.keys():
                 current_available_yen += treasure_sell_prices[item.name]
-                print("Getting " + str(treasure_sell_prices[item.name]) + " yen.")
-                print("Current available :" + str(current_available_yen) + " yen.")
-            #else:
-                #print (item.name + " is not a treasure")
+                # print("Getting " + str(treasure_sell_prices[item.name]) + " yen.")
+                # print("Current available :" + str(current_available_yen) + " yen.")
+            # else:
+            # print (item.name + " is not a treasure")
             # FIXME: Update later for yen fountains.
             if loc is not None and item.classification & ItemClassification.progression:
                 loc_data = get_shop_location_data(loc.name)
@@ -108,13 +111,14 @@ class OkamiWorld(World):
                     current_available_yen -= price
                     print("Using " + str(price) + " yen.")
                     print("Current available :" + str(current_available_yen) + " yen.")
-            if current_available_yen!= state.count("Yen",self.player) and current_available_yen >0:
-                state.set_item("Yen", self.player,current_available_yen)
+            if current_available_yen != state.count("Yen", self.player):
+                if current_available_yen < 0:
+                    raise Exception("Needs more yen than avilable!!")
+                state.set_item("Yen", self.player, current_available_yen)
         change = super().collect(state, item)
         return change
 
     def remove(self, state: "CollectionState", item: "Item") -> bool:
-        print("Remove called!")
         old_count: int = state.count(item.name, self.player)
         change = super().remove(state, item)
         return change
@@ -188,11 +192,6 @@ class OkamiWorld(World):
 
         return itempool
 
-    def get_random_shop_price(self, location_id: str) -> int:
-        random_price = self.random.randint(100, 50000)
-        self.shop_prices[location_id] = random_price
-        return random_price
-
     def randomize_shop_prices(self) -> dict:
 
         prices = {}
@@ -200,30 +199,18 @@ class OkamiWorld(World):
         for shop in okami_shop_locations.values():
             for slot_name in shop:
                 max_price: int = self.options.MaxShopPrice.value
-                shop_location = None
-                try:
-                    shop_location = self.get_location(slot_name)
-                except Exception:
-                    print("shop_location " + slot_name + " not found.")
-                if shop_location is not None:
-                    shop_item = shop_location.item
-                    max_price_mult = 1
-                    match shop_item.classification:
-                        case ItemClassification.useful:
-                            max_price_mult = 0.5
-                        case ItemClassification.filler:
-                            max_price = min(30000, self.options.MaxShopPrice.value)
-                        case ItemClassification.trap:
-                            max_price = min(10000, self.options.MaxShopPrice.value)
-                    # Keep price above 100. I want to keep that one for when the price hasn't been set/correctly read by AP.
-                    prices[shop_location.address] = {
-                        "item_name": shop_item.name,
-                        "player": self.multiworld.player_name[shop_item.player],
-                        "price": max(int(min((abs(self.random.normalvariate(0, 0.35)) + 0.111), 1) * int(
-                            max_price * max_price_mult)), 101),
-                        "classification": shop_item.classification
-                    }
+                # get random float
+                rdnum= (abs(self.random.normalvariate(0, 0.35)) + 0.111)
+                #Make sure rdnum is at 1 or under:
+                rdnum =min(rdnum, 1)
+                #multipy by max price
+                price = int(rdnum* int(max_price))
+                #Ensure price is above 100 , which is reserved for invalid prices.
+                price = max(price, 101)
+                prices[shop[slot_name].id] = price
+                # print("Randomizing price for: " + slot_name + "=> " +  str(price) )
         return prices
+
 
     # Probably has to be a better way to do this.
 
