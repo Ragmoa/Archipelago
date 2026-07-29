@@ -25,8 +25,8 @@ exits = {
         ExitData(RegionNames.RYOSHIMA_COAST_LUNAR_LAGOON, one_way=True,
                  required_items_events=["Ryoshima Coast - Open Lunar Lagoon"], loading_screen=False),
         ExitData(RegionNames.RYOSHIMA_COAST_BANDIT_SPIDER,required_items_events=["Ryoshima Coast - Open Bandit Spider Cave"],one_way=True),
-        ExitData(RegionNames.SEIAN_CITY_TREASURE_EAST,required_items_events=["Ryoshima Coast - Open shortcut to Sei-an City"])
-
+        ExitData(RegionNames.SEIAN_CITY_TREASURE_EAST,required_items_events=["Ryoshima Coast - Open shortcut to Sei-an City"]),
+        ExitData(RegionNames.CITY_CHECKPOINT_RYOSHIMA,one_way=True)
     ],
     RegionNames.RYOSHIMA_COAST_SEA: [
         ExitData(RegionNames.RYOSHIMA_COAST_DOJO, needs_long_swim=True, loading_screen=False),
