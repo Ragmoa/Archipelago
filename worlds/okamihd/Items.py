@@ -263,6 +263,11 @@ progressive_weapons = {
     "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0)
 }
 # classified as useful so they're ignored for junk fill
+trap_items = {
+    "Evil Charm":      ItemData(0x400, ItemClassification.trap, count_in_pool=0),
+    "Dry Inkwell":     ItemData(0x401, ItemClassification.trap, count_in_pool=0),
+    "Hungry Spirit":   ItemData(0x402, ItemClassification.trap, count_in_pool=0),
+}
 karmic_transformers = {
     "Karmic Returner": ItemData(0xc8, ItemClassification.useful, count_in_pool=0),
     "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0),
@@ -288,6 +293,7 @@ item_table = {
     **weapons_items,
     **progressive_weapons,
     **karmic_transformers,
+    **trap_items,
 }
 junk_weights = {
     # TODO: Junk items weight - Based of the number of times it appears in chests in vanilla

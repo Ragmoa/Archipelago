@@ -133,6 +133,21 @@ class ShopSlots(Range):
     range_end = 12
     default = 6
 
+class EnableTraps(Toggle):
+    """Add trap items to the item pool. Traps apply negative effects when received:
+    Evil Charm (damage), Dry Inkwell (ink drain), Hungry Spirit (food drain)."""
+    display_name = "Enable Traps"
+    default = 0
+
+
+class TrapChance(Range):
+    """Percentage of junk (filler) items replaced by traps. Requires Enable Traps."""
+    display_name = "Trap Chance"
+    range_start = 0
+    range_end = 100
+    default = 20
+
+
 class IngredientsInMoonCave(Toggle):
     """Place the 4 ingredients for Orochi's Soup in Moon Cave"""
     display_name="Randomize Ingredients in Moon Cave"
@@ -165,7 +180,9 @@ class OkamiOptions(PerGameCommonOptions):
     CanineRewards: CanineRewards
     MoonCaveAccess: MoonCaveAccess
     BloomGuardianSaplings: BloomGuardianSaplings
-    IngredientsInMoonCave:IngredientsInMoonCave
+    IngredientsInMoonCave: IngredientsInMoonCave
+    EnableTraps: EnableTraps
+    TrapChance: TrapChance
 
 
 #    PraiseSanity:PraiseSanity
@@ -193,6 +210,10 @@ okami_option_groups: Dict[str, List[Any]] = {
         CanineRewards,
         MoonCaveAccess,
         IngredientsInMoonCave
+    ],
+    "Traps": [
+        EnableTraps,
+        TrapChance,
     ]
 
 }
