@@ -3,14 +3,14 @@ from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld, Location
 from Utils import visualize_regions
 from .Enums.LocationType import excluded_biteable_location_types
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
-    karmic_transformers, \
+    karmic_transformers, trap_items, \
     progressive_weapons, create_standard_item, create_static_precollected_item_list, global_local_items, \
     soup_ingredient_local_items
 from .Regions import create_regions, get_region_name
 from .Locations import get_location_names, get_total_locations, get_unfilled_locations_count
 from .RegionsData import okami_events, okami_locations, okami_shop_locations
 from .Rules import set_completion_rules
-from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
+from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers, EnableTraps
 from worlds.AutoWorld import World, WebWorld, CollectionState
 from typing import List
 from .Types import OkamiItem, resolve_option_callable, LocalItem
@@ -204,6 +204,15 @@ class OkamiWorld(World):
                 itempool += create_multiple_items(self, name, item_count, item_type)
         # Create a number of junk items equal to the locations remaining, minus items that have a fixed count in the item pool, and the locally placed ones.
         junk_fill_count = get_unfilled_locations_count(self) - len(itempool) - len(self.get_local_items_name())
+
+        if self.options.EnableTraps:
+            trap_names = list(trap_items.keys())
+            trap_count = junk_fill_count * self.options.TrapChance.value // 100
+            junk_fill_count -= trap_count
+            for _ in range(trap_count):
+                trap_name = self.random.choice(trap_names)
+                itempool.append(create_item(trap_name, trap_items[trap_name].code, ItemClassification.trap, self))
+
         itempool += create_junk_items(self, junk_fill_count)
 
         for pi in precollected_items:
