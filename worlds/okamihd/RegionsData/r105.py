@@ -25,8 +25,8 @@ exits = {
     RegionNames.CITY_CHECKPOINT_RYOSHIMA: [
         ExitData(RegionNames.CITY_CHECKPOINT_RIVER, loading_screen=False, one_way=True),
         ExitData(RegionNames.CURSED_RYOSHIMA_COAST),
-        ExitData(RegionNames.RYOSHIMA_COAST, required_items_events=["Ryoshima Coast - Bloom the Guardian Sapling"]),
-    ],
+        ExitData(RegionNames.RYOSHIMA_COAST, required_items_events=["Ryoshima Coast - Bloom the Guardian Sapling"],one_way=True),
+    ]
 
 }
 events = {
