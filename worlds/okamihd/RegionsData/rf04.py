@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
 from BaseClasses import LocationProgressType
-from rule_builder.rules import True_, Has
+from rule_builder.rules import Has
 from ..CheckIds import brush_check_id, container_check_id, shop_check_id
 from ..Enums.BrushTechniques import BrushTechniques
 from ..Enums.LocationType import LocationType
@@ -25,7 +25,8 @@ exits = {
         ExitData(RegionNames.TSUTA_RUINS_1F_MAIN_PART,
                  required_items_events=["Agata Forest - Open Ruins Door"]),
         ExitData(RegionNames.SHINSHU_AGATA_SHORTCUT_LEDGE,
-                 required_items_events=["Agata Forest - Open shortcut to Shinshu Field"])
+                 required_items_events=["Agata Forest - Open shortcut to Shinshu Field"]),
+        ExitData(RegionNames.FAWNS_HOUSE,one_way=True)
     ],
     RegionNames.AGATA_FOREST_TAKA: [
         ExitData(RegionNames.CURSED_TAKA_PASS, one_way=True),
@@ -124,7 +125,7 @@ locations = {
     RegionNames.AGATA_FOREST_TAKA: {
         "Agata Forest - Chest near Taka Entrance": LocData(container_check_id(MapIds.HEALED_AGATA, 47)),
         "Agata Forest - Chest under leaf pile near Taka Entrance": LocData(container_check_id(MapIds.HEALED_AGATA, 45),
-                                                                           type=LocationType.BURIED_UNDER_LEAF_PILE)
+                                                                           type=LocationType.BURIED_UNDER_LEAF_PILE_NO_FIRE_SOURCE)
 
     }
 }

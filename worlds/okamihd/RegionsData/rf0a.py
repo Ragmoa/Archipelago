@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from rule_builder.rules import Has, True_
+from rule_builder.rules import Has
 from ..CheckIds import container_check_id, shop_check_id
 from ..Enums.BrushTechniques import BrushTechniques
 from ..Enums.LocationType import LocationType
@@ -25,8 +25,8 @@ exits = {
         ExitData(RegionNames.RYOSHIMA_COAST_LUNAR_LAGOON, one_way=True,
                  required_items_events=["Ryoshima Coast - Open Lunar Lagoon"], loading_screen=False),
         ExitData(RegionNames.RYOSHIMA_COAST_BANDIT_SPIDER,required_items_events=["Ryoshima Coast - Open Bandit Spider Cave"],one_way=True),
-        ExitData(RegionNames.SEIAN_CITY_TREASURE_EAST,required_items_events=["Ryoshima Coast - Open shortcut to Sei-an City"])
-
+        ExitData(RegionNames.SEIAN_CITY_TREASURE_EAST,required_items_events=["Ryoshima Coast - Open shortcut to Sei-an City"]),
+        ExitData(RegionNames.CITY_CHECKPOINT_RYOSHIMA,one_way=True)
     ],
     RegionNames.RYOSHIMA_COAST_SEA: [
         ExitData(RegionNames.RYOSHIMA_COAST_DOJO, needs_long_swim=True, loading_screen=False),

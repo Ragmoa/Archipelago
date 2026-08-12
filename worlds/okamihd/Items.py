@@ -357,6 +357,7 @@ global_local_items = [
               ),
     LocalItem(["Mask"], [RegionNames.CALCIFIED_CAVERN], is_biteable=False,
               exclude_locations=["Calcified Cavern - Freestanding item"]),
+    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE],is_biteable=False)
 ]
 soup_ingredient_local_items = LocalItem(["Ogre Liver",
                                          "Ice Lips",
