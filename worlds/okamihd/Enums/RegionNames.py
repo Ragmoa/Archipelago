@@ -59,7 +59,7 @@ class RegionNames(StrEnum):
 
     ## TSUTA RUINS
     TSUTA_RUINS_1F_MAIN_PART = "Tsuta Ruins (1F - Main Part)"
-    TUSTA_RUINS_1F_AFTER_WATERFALL= "Tsuta Ruins (1F - After Waterfall )"
+    TUSTA_RUINS_1F_AFTER_WATERFALL = "Tsuta Ruins (1F - After Waterfall )"
     TSUTA_RUINS_MUSHROOMS = "Tsuta Ruins (Mushrooms)"
     TSUTA_RUINS_LEFT_SIDE = "Tsuta Ruins (Left Side)"
     TSUTA_RUINS_DEVIL_GATES = "Tsuta Ruins (Devil Gates)"
@@ -290,8 +290,17 @@ class RegionNames(StrEnum):
     ONI_ISLAND_INTERIOR_POST_TOBI_9 = "Oni Island (Post Tobi #9)"
     ONI_ISLAND_NINETAILS = "Oni Island (Ninetails Arena)"
 
+    # KAMUI (The whole island)
+
+    ## Kamui (The map itself)
+    CURSED_KAMUI_PRE_FIGHT = "Cursed Kamui (Pre-mandatory fights)"
+    CURSED_KAMUI = "Cursed Kamui (Pre mandatory fight)"
+    KAMUI_COMMON_LOGIC = "Kamui (Common Logic)"
+    KAMUI = "Kamui"
+    KAMUI_DOJO = "Kamui (Dojo)"
+
     # SPECIAL REGIONS
-    # Special Hub regions to handle warps
+    ## Special Hub regions to handle warps
     MIST_WARP_HUB = "Mist Warp Hub"
     MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
 
@@ -328,7 +337,7 @@ class MapIds(Enum):
     IMPERIAL_PALACE_SMALL = 0x207
     ONI_ISLAND_LOWER_INT = 0x208
     CATCALL_TOWER = 0x20A
-    SEIAN_KIMONO=0x20C
+    SEIAN_KIMONO = 0x20C
     ONI_ISLAND_EXT = 0x20D
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
@@ -341,6 +350,7 @@ class MapIds(Enum):
     CURSED_RYOSHIMA = 0xF09
     HEALED_RYOSHIMA = 0xF0A
     NORTHERN_RYOSHIMA = 0xF0C
+    KAMUI = 0xF12
 
 
 class MapIndexes(Enum):

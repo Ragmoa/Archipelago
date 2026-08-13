@@ -184,7 +184,6 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
             required_power_slash_level = max(required_power_slash_level, 1)
         case LocationType.THUNDER_CHEST:
             rules.append(HasAny(BrushTechniques.THUNDERBOLT, BrushTechniques.THUNDERSTORM))
-
         case _:
             required_techinques += []
 
