@@ -37,22 +37,7 @@ events = {
 locations = {
 }
 # TODO: Check if this merchant is avilable from cursed
-shop_locations = {
-    RegionNames.CURSED_KAMUI: {
-        "Kamui - Shop Slot 1": LocData(shop_check_id(7, 0), type=LocationType.SHOP),
-        "Kamui - Shop Slot 2": LocData(shop_check_id(7, 1), type=LocationType.SHOP),
-        "Kamui - Shop Slot 3": LocData(shop_check_id(7, 2), type=LocationType.SHOP),
-        "Kamui - Shop Slot 4": LocData(shop_check_id(7, 3), type=LocationType.SHOP),
-        "Kamui - Shop Slot 5": LocData(shop_check_id(7, 4), type=LocationType.SHOP),
-        "Kamui - Shop Slot 6": LocData(shop_check_id(7, 5), type=LocationType.SHOP),
-        "Kamui - Shop Slot 7": LocData(shop_check_id(7, 6), type=LocationType.SHOP),
-        "Kamui - Shop Slot 8": LocData(shop_check_id(7, 7), type=LocationType.SHOP),
-        "Kamui - Shop Slot 9": LocData(shop_check_id(7, 8), type=LocationType.SHOP),
-        "Kamui - Shop Slot 10": LocData(shop_check_id(7, 9), type=LocationType.SHOP),
-        "Kamui - Shop Slot 11": LocData(shop_check_id(7, 10), type=LocationType.SHOP),
-        "Kamui - Shop Slot 12": LocData(shop_check_id(7, 11), type=LocationType.SHOP),
-    }
-}
+
 
 warps = {
     RegionNames.CURSED_KAMUI_PRE_FIGHT: [

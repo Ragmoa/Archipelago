@@ -298,6 +298,8 @@ class RegionNames(StrEnum):
     KAMUI_COMMON_LOGIC = "Kamui (Common Logic)"
     KAMUI = "Kamui"
     KAMUI_DOJO = "Kamui (Dojo)"
+    KAMUI_NORTHERN = "Kamui (Northern Part)"
+    KAMUI_IGLOO_FIGHT ="Kamui (After Igloo)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
