@@ -295,7 +295,6 @@ class RegionNames(StrEnum):
     ## Kamui (The map itself)
     CURSED_KAMUI_PRE_FIGHT = "Cursed Kamui (Pre-mandatory fights)"
     CURSED_KAMUI = "Cursed Kamui (Pre mandatory fight)"
-    KAMUI_COMMON_LOGIC = "Kamui (Common Logic)"
     KAMUI = "Kamui"
     KAMUI_DOJO = "Kamui (Dojo)"
     KAMUI_NORTHERN = "Kamui (Northern Part)"
