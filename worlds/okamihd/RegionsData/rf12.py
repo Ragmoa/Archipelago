@@ -25,7 +25,8 @@ exits = {
                  required_items_events=["Kamui - Mandatory Igloo Turtle Fight"]),
     ],
     RegionNames.KAMUI_NORTHERN: [
-        ExitData(RegionNames.KAMUI_IGLOO_FIGHT, one_way=True, loading_screen=False)
+        ExitData(RegionNames.KAMUI_IGLOO_FIGHT, one_way=True, loading_screen=False),
+        ExitData(RegionNames.WEP_KEER)
     ]
 }
 events = {
@@ -82,7 +83,6 @@ locations = {
 }
 
 shop_locations = {
-    #Didn't get randomized, unsure why.
     RegionNames.KAMUI: {
         "Kamui - Shop Slot 1": LocData(shop_check_id(7, 0), type=LocationType.SHOP),
         "Kamui - Shop Slot 2": LocData(shop_check_id(7, 1), type=LocationType.SHOP),
