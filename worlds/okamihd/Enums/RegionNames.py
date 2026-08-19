@@ -299,8 +299,13 @@ class RegionNames(StrEnum):
     KAMUI_DOJO = "Kamui (Dojo)"
     KAMUI_NORTHERN = "Kamui (Northern Part)"
     KAMUI_IGLOO_FIGHT = "Kamui (After Igloo)"
+
+    ## Wep'keer
     WEP_KEER = "Wep'keer"
     WEP_KEER_MERCHANT = "Wep'keer (Merchant)"
+
+    ## Wep'keer Square
+    WEP_KEER_SQUARE= "Wep'keer (Sqaure)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -345,6 +350,7 @@ class MapIds(Enum):
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
     WEP_KEER = 0x301
+    WEP_KEER_SQUARE = 0x313
     CURSED_SHINSHU = 0xF01
     HEALED_SHINSHU = 0xF02
     CURSED_AGATA = 0xF03
