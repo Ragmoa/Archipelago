@@ -14,7 +14,8 @@ if TYPE_CHECKING:
 
 exits = {
     RegionNames.CURSED_KAMUI_PRE_FIGHT: [
-        ExitData(RegionNames.CURSED_KAMUI, required_items_events=["Kamui - Fight Oki"], one_way=True)
+        ExitData(RegionNames.CURSED_KAMUI, required_items_events=["Kamui - Fight Oki"], one_way=True),
+        ExitData(RegionNames.SHINSHU_PLATEAU,one_way=True)
     ],
     RegionNames.CURSED_KAMUI: [
         ExitData(RegionNames.KAMUI, required_items_events=["Kamui - Bloom Guardian Sapling"], one_way=True)
@@ -36,8 +37,6 @@ events = {
 }
 locations = {
 }
-# TODO: Check if this merchant is avilable from cursed
-
 
 warps = {
     RegionNames.CURSED_KAMUI_PRE_FIGHT: [

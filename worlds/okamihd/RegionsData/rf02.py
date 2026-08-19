@@ -31,11 +31,11 @@ exits = {
                                                         "Agata Forest - Restore Guardian Sapling"]),
                                            ],
     RegionNames.SHINSHU_AGATA_SHORTCUT_LEDGE: [ExitData(RegionNames.SHINSHU_FIELD, one_way=True, loading_screen=False)],
-    ## One way: Existing Kamui will always put you in Healed Shinshu field (pretty sure you'd be stuck inside thunderhead?)
+    ## One way: Existing Kamui will always put you in Healed Shinshu field
     RegionNames.SHINSHU_PLATEAU: [
         ExitData(RegionNames.CURSED_KAMUI_PRE_FIGHT, required_items_events=["Shinshu Field - Open Thunderhead"],
                  one_way=True),
-        ExitData(RegionNames.KAMUI, required_items_events=["Kamui - Bloom Guardian Sapling"],
+        ExitData(RegionNames.KAMUI, required_items_events=["Kamui - Bloom Guardian Sapling","Shinshu Field - Open Thunderhead"],
                  one_way=True),
     ]
 
