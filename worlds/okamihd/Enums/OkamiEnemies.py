@@ -64,6 +64,11 @@ class OkamiEnemies(Enum):
     HALO_GUARDIAN = EnemyData(0x73, "Halo Guardian", 3)
     EXECUTIONER_GUARDIAN = EnemyData(0x74, "Executioner Guardian", 3)
     NINETAILS_1 = EnemyData(0x61, "Ninetails", 3, defeat_condition=Has(BrushTechniques.THUNDERSTORM))
+    NAMAHAGE = EnemyData(0x77, "Namahage", 4)
+    BLADE_NAMAHAGE = EnemyData(0x78, "Blade Namahage", 4, defeat_condition=Has(BrushTechniques.POWER_SLASH))
+    BUCKET_NAMAHAGE = EnemyData(0x79, "Bucket Namahage", 4)
+    IGLOO_TURTLE=EnemyData(0x50 ,"Igloo Turtle",4,defeat_condition=Has(BrushTechniques.INFERNO))
+    OKI = EnemyData(0x09, "Oki", 4)
 
     @staticmethod
     def list():
