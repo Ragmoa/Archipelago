@@ -14,7 +14,8 @@ if TYPE_CHECKING:
 
 exits = {
     RegionNames.WEP_KEER:[
-        ExitData(RegionNames.WEP_KEER_MERCHANT,one_way=True,loading_screen=False,required_items_events=["Wep'keer - Meet Kemu"])
+        ExitData(RegionNames.WEP_KEER_MERCHANT,one_way=True,loading_screen=False,required_items_events=["Wep'keer - Meet Kemu"]),
+        ExitData(RegionNames.WEP_KEER_SQUARE,one_way=True,required_items_events=["Wep'keer - Meet Kemu"])
     ]
 }
 events = {
