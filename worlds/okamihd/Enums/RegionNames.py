@@ -303,9 +303,15 @@ class RegionNames(StrEnum):
     ## Wep'keer
     WEP_KEER = "Wep'keer"
     WEP_KEER_MERCHANT = "Wep'keer (Merchant)"
+    WEP_KEER_SQUARE = "Wep'keer (Sqaure)"
 
-    ## Wep'keer Square
-    WEP_KEER_SQUARE= "Wep'keer (Sqaure)"
+    ## Yoshpet
+    YOSHPET_ENTRANCE = "Yoshpet (Entrance)"
+    YOSHPET_1_1 = "Yoshpet (First Section)"
+    YOSHPET_1_2 = "Yoshpet (First Section, after high vine wall)"
+    YOSHPET_2_1 = "Yoshpet (Second Section)"
+    YOSHPET_3_1 = "Yoshpet (Third Section)"
+    YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -350,6 +356,7 @@ class MapIds(Enum):
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
     WEP_KEER = 0x301
+    YOSHPET = 0x310
     WEP_KEER_SQUARE = 0x313
     CURSED_SHINSHU = 0xF01
     HEALED_SHINSHU = 0xF02

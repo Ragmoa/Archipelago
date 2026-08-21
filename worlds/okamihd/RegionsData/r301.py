@@ -29,7 +29,7 @@ locations = {
         "Wep'keer - Buried Chest near south waterfall ledge":LocData(container_check_id(MapIds.WEP_KEER,1),type=LocationType.BURIED_CHEST),
         "Wep'keer - Buried Chest near Squirrel girl's house ":LocData(container_check_id(MapIds.WEP_KEER,3),type=LocationType.BURIED_CHEST),
         "Wep'keer - Buried Chest house right of merchant":LocData(container_check_id(MapIds.WEP_KEER,4),type=LocationType.BURIED_CHEST),
-        "Wep'keer - Freestanding Chest near in bear nook": LocData(container_check_id(MapIds.WEP_KEER, 5)),
+        "Wep'keer - Freestanding Chest in bear nook": LocData(container_check_id(MapIds.WEP_KEER, 5)),
         "Wep'keer - Buried Chest near on ledge above square entrance": LocData(container_check_id(MapIds.WEP_KEER, 7),type=LocationType.BURIED_CHEST),
         "Wep'keer - Freestanding chest under bridge behind Kai's house ": LocData(container_check_id(MapIds.WEP_KEER, 9)),
         "Wep'keer - Buried chest near bears outside Kemu's house ": LocData(

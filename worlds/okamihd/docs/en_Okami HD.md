@@ -46,7 +46,7 @@ Currently, the items randomized are:
 - Moon Cave ingredients will be randomized in Moon Cave. (You can bypass this with the settings.)
 - Leaf piles may also be destroyed with Inferno or Fireburst
 - The NightTimeChecks options no longer assumes you need Crescent for chests under leaf piles, as their locations are made
-  obvious.
+  obvious. The buried Chests in Yoshpet also never require Crescent, since you can't use it in there.
 
 ## Healed areas available without blooming their guardian sapling:
 
