@@ -26,7 +26,8 @@ exits = {
     ],
     RegionNames.KAMUI_NORTHERN: [
         ExitData(RegionNames.KAMUI_IGLOO_FIGHT, one_way=True, loading_screen=False),
-        ExitData(RegionNames.WEP_KEER)
+        ExitData(RegionNames.WEP_KEER),
+        ExitData(RegionNames.YOSHPET_ENTRANCE,one_way=True,required_items_events=["Kamui - Mandatory encounter before Yoshpet","Sewaprolo"])
     ]
 }
 events = {
@@ -40,7 +41,9 @@ events = {
     },
     RegionNames.KAMUI_NORTHERN: {
         "Kamui - Clear lake cursed torii": EventData(
-            mandatory_enemies=[OkamiEnemies.BLADE_NAMAHAGE, OkamiEnemies.BUCKET_NAMAHAGE])
+            mandatory_enemies=[OkamiEnemies.BLADE_NAMAHAGE, OkamiEnemies.BUCKET_NAMAHAGE]),
+        "Kamui - Mandatory encounter before Yoshpet": EventData(
+            mandatory_enemies=[OkamiEnemies.BULL_CHARGER],required_items_events=["Sewaprolo"])
     }
 }
 locations = {
