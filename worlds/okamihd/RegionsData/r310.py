@@ -37,8 +37,7 @@ exits = {
         ExitData(RegionNames.YOSHPET_ENTRANCE, one_way=True)
     ],
     RegionNames.YOSHPET_MIDDLE: [
-        #FIXME: Stub for Ponc'tan logic. Doesn't require anything.
-        #ExitData(RegionNames.PONC_TAN)
+        ExitData(RegionNames.PONC_TAN),
         ExitData(RegionNames.YOSHPET_ENTRANCE, one_way=True)
     ]
 }
