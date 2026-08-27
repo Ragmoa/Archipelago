@@ -312,6 +312,7 @@ class RegionNames(StrEnum):
     YOSHPET_2_1 = "Yoshpet (Second Section)"
     YOSHPET_3_1 = "Yoshpet (Third Section)"
     YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
+    INNER_YOSHPET_ENTRANCE = "Inner Yoshpet (entrance)"
 
     ## Ponc'tan
     PONC_TAN = "Ponc'tan"

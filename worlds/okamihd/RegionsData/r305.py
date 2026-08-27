@@ -13,11 +13,13 @@ if TYPE_CHECKING:
     from .. import OkamiWorld
 
 exits = {
-    RegionNames.PONC_TAN:[
-        ExitData(RegionNames.PONC_TAN_WATERFALL,required_items_events=[BrushTechniques.GREENSPROUT_VINE])
+    RegionNames.PONC_TAN: [
+        ExitData(RegionNames.PONC_TAN_WATERFALL, required_items_events=[BrushTechniques.GREENSPROUT_VINE])
     ]
 }
 events = {
+    "Ponc'tan - Meet Ishaku": EventData(),
+    "Ponc'tan - Meet Myia": EventData()
 }
 locations = {
     RegionNames.PONC_TAN: {
@@ -27,7 +29,7 @@ locations = {
         "Ponc'tan - Freestanding Chest on west leaf behind Gengo's shop": LocData(
             container_check_id(MapIds.PONC_TAN, 11)),
         "Ponc'tan - Freestanding Chest on lone northwest leaf": LocData(
-            container_check_id(MapIds.PONC_TAN, 4),required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
+            container_check_id(MapIds.PONC_TAN, 4), required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
         "Ponc'tan - Freestanding Chest on lone northeast leaf": LocData(
             container_check_id(MapIds.PONC_TAN, 3), required_brush_techniques=[BrushTechniques.GREENSPROUT_VINE]),
         "Ponc'tan - Freestanding Chest on lone southeast leaf": LocData(
@@ -40,15 +42,16 @@ locations = {
             container_check_id(MapIds.PONC_TAN, 8)),
 
     },
-    RegionNames.PONC_TAN_WATERFALL:{
+    RegionNames.PONC_TAN_WATERFALL: {
         "Ponc'tan - Freestanding Chest on leaf near waterfall": LocData(
             container_check_id(MapIds.PONC_TAN, 6)),
         "Ponc'tan - Freestanding Chest on leaf above waterfall": LocData(
-            container_check_id(MapIds.PONC_TAN, 5),special_rule=HasAny(BrushTechniques.GREENSPROUT_VINE,BrushTechniques.GREENSPROUT_VINE)),
+            container_check_id(MapIds.PONC_TAN, 5),
+            special_rule=HasAny(BrushTechniques.GREENSPROUT_VINE, BrushTechniques.GREENSPROUT_VINE)),
     }
 }
-shop_locations={
-    RegionNames.PONC_TAN:{
+shop_locations = {
+    RegionNames.PONC_TAN: {
         "Ponc'tan - Gengo's shop Slot 1": LocData(shop_check_id(13, 0), type=LocationType.SHOP),
         "Ponc'tan - Gengo's shop Slot 2": LocData(shop_check_id(13, 1), type=LocationType.SHOP),
         "Ponc'tan - Gengo's shop Slot 3": LocData(shop_check_id(13, 2), type=LocationType.SHOP),
