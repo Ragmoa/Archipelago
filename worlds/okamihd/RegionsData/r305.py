@@ -18,8 +18,10 @@ exits = {
     ]
 }
 events = {
-    "Ponc'tan - Meet Ishaku": EventData(),
-    "Ponc'tan - Meet Myia": EventData()
+    RegionNames.PONC_TAN:{
+        "Ponc'tan - Meet Ishaku": EventData(),
+        "Ponc'tan - Meet Myia": EventData()
+    }
 }
 locations = {
     RegionNames.PONC_TAN: {
