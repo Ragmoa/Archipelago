@@ -7,6 +7,7 @@ from ..Enums.LocationType import LocationType
 from ..Enums.OkamiEnemies import OkamiEnemies
 from ..Enums.RegionNames import RegionNames, MapIds
 from ..Enums.WarpType import WarpType
+from ..Rules import yoshpet_holy_eagle_rule
 from ..Types import ExitData, EventData, WarpData, LocData
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ exits = {
     ],
     RegionNames.YOSHPET_1_1: [
         ExitData(RegionNames.YOSHPET_1_2, loading_screen=False,
-                 required_items_events=["Yoshpet - First section - Pass high vine wall"]),
+                 special_rule=yoshpet_holy_eagle_rule),
     ],
     RegionNames.YOSHPET_1_2: [
         ExitData(RegionNames.YOSHPET_2_1),
@@ -44,10 +45,6 @@ exits = {
     ]
 }
 events = {
-    RegionNames.YOSHPET_1_1: {
-        # Can be bypassed with a walljump.
-        "Yoshpet - First section - Pass high vine wall": EventData(required_items_events=["Holy Eagle"])
-    }
 }
 locations = {
     RegionNames.YOSHPET_1_1: {
