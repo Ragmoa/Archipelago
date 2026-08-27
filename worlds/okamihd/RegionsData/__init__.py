@@ -202,6 +202,7 @@ okami_warps = {
     **r203.warps,
     **r20a.warps,
     **r301.warps,
+    **r311.warps,
     **rf02.warps,
     **rf03.warps,
     **rf04.warps,

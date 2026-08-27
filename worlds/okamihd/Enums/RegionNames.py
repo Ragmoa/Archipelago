@@ -313,7 +313,12 @@ class RegionNames(StrEnum):
     YOSHPET_3_1 = "Yoshpet (Third Section)"
     YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
     INNER_YOSHPET_ENTRANCE = "Inner Yoshpet (entrance)"
-    INNER_YOSHPET_1_1="Inner Yoshpet (First Section)"
+    INNER_YOSHPET_1_1 = "Inner Yoshpet (First Section)"
+    INNER_YOSHPET_2_1 = "Inner Yoshpet (Second Section)"
+    INNER_YOSHPET_3_1 = "Inner Yoshpet (Third Section)"
+    INNER_YOSHPET_3_2 = "Inner Yoshpet (Third Section, in catwalk pit)"
+    INNER_YOSHPET_3_3 = "Inner Yoshpet (Third Section, after catwalk pit)"
+    INNER_YOSHPET_GATE = "Inner Yoshpet (Spirit Gate)"
 
     ## Ponc'tan
     PONC_TAN = "Ponc'tan"
