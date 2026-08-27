@@ -312,6 +312,11 @@ class RegionNames(StrEnum):
     YOSHPET_2_1 = "Yoshpet (Second Section)"
     YOSHPET_3_1 = "Yoshpet (Third Section)"
     YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
+    INNER_YOSHPET_ENTRANCE = "Inner Yoshpet (entrance)"
+
+    ## Ponc'tan
+    PONC_TAN = "Ponc'tan"
+    PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -356,6 +361,7 @@ class MapIds(Enum):
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
     WEP_KEER = 0x301
+    PONC_TAN = 0x305
     YOSHPET = 0x310
     WEP_KEER_SQUARE = 0x313
     CURSED_SHINSHU = 0xF01
