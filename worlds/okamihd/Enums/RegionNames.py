@@ -320,6 +320,10 @@ class RegionNames(StrEnum):
     INNER_YOSHPET_3_3 = "Inner Yoshpet (Third Section, after catwalk pit)"
     INNER_YOSHPET_GATE = "Inner Yoshpet (Spirit Gate)"
 
+    ## KAMIKI VILLAGE (100 YEARS AGO)
+    KAMIKI_100 = "Kamiki Village, 100 years ago"
+    KAMIKI_100_ISLANDS = "Kamiki Village Islands, 100 years ago"
+
     ## Ponc'tan
     PONC_TAN = "Ponc'tan"
     PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"
@@ -367,6 +371,7 @@ class MapIds(Enum):
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
     WEP_KEER = 0x301
+    KAMIKI_100 = 0x302
     PONC_TAN = 0x305
     YOSHPET = 0x310
     INNER_YOSHPET = 0x311

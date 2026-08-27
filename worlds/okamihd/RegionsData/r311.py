@@ -38,7 +38,8 @@ exits = {
         ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True)
     ],
     RegionNames.INNER_YOSHPET_GATE: [
-        ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True)
+        ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True),
+        ExitData(RegionNames.KAMIKI_100)
     ]
 }
 events = {
