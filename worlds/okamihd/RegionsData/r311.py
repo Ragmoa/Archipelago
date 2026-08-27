@@ -7,6 +7,7 @@ from ..Enums.LocationType import LocationType
 from ..Enums.OkamiEnemies import OkamiEnemies
 from ..Enums.RegionNames import RegionNames, MapIds
 from ..Enums.WarpType import WarpType
+from ..Rules import yoshpet_holy_eagle_rule
 from ..Types import ExitData, EventData, WarpData, LocData
 
 if TYPE_CHECKING:
@@ -25,11 +26,11 @@ exits = {
         ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True)
     ],
     RegionNames.INNER_YOSHPET_3_1: [
-        ExitData(RegionNames.INNER_YOSHPET_3_2, loading_screen=False, required_items_events=["Holy Eagle"]),
+        ExitData(RegionNames.INNER_YOSHPET_3_2, loading_screen=False, special_rule=yoshpet_holy_eagle_rule),
         ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True)
     ],
     RegionNames.INNER_YOSHPET_3_2: [
-        ExitData(RegionNames.INNER_YOSHPET_3_3, loading_screen=False, required_items_events=["Holy Eagle"]),
+        ExitData(RegionNames.INNER_YOSHPET_3_3, loading_screen=False, special_rule=yoshpet_holy_eagle_rule),
         ExitData(RegionNames.INNER_YOSHPET_ENTRANCE, one_way=True)
     ],
     RegionNames.INNER_YOSHPET_3_3: [
