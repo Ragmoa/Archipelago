@@ -313,6 +313,7 @@ class RegionNames(StrEnum):
     YOSHPET_3_1 = "Yoshpet (Third Section)"
     YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
     INNER_YOSHPET_ENTRANCE = "Inner Yoshpet (entrance)"
+    INNER_YOSHPET_1_1="Inner Yoshpet (First Section)"
 
     ## Ponc'tan
     PONC_TAN = "Ponc'tan"
@@ -363,6 +364,7 @@ class MapIds(Enum):
     WEP_KEER = 0x301
     PONC_TAN = 0x305
     YOSHPET = 0x310
+    INNER_YOSHPET = 0x311
     WEP_KEER_SQUARE = 0x313
     CURSED_SHINSHU = 0xF01
     HEALED_SHINSHU = 0xF02
