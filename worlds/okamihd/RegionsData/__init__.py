@@ -61,7 +61,8 @@ okami_exits = {
     **rf0a.exits,
     **rf0c.exits,
     **rf11.exits,
-    **rf12.exits
+    **rf12.exits,
+    **r20f.exits,
 }
 
 okami_locations = {
@@ -117,7 +118,8 @@ okami_locations = {
     **rf0a.locations,
     **rf0c.locations,
     **rf11.locations,
-    **rf12.locations
+    **rf12.locations,
+    **r20f.locations,
 }
 
 okami_events = {
@@ -173,7 +175,8 @@ okami_events = {
     **rf0a.events,
     **rf0c.events,
     **rf11.events,
-    **rf12.events
+    **rf12.events,
+    **r20f.events,
 }
 
 # Shop locations are separate because they're conditionally created based on RandomizeShops

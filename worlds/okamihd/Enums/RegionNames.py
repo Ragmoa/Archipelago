@@ -320,16 +320,22 @@ class RegionNames(StrEnum):
     INNER_YOSHPET_3_3 = "Inner Yoshpet (Third Section, after catwalk pit)"
     INNER_YOSHPET_GATE = "Inner Yoshpet (Spirit Gate)"
 
+    ## Ponc'tan
+    PONC_TAN = "Ponc'tan"
+    PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"
+
     ## KAMIKI VILLAGE (100 YEARS AGO)
     KAMIKI_100 = "Kamiki Village, 100 years ago"
     KAMIKI_100_ISLANDS = "Kamiki Village Islands, 100 years ago"
 
     ## KAMIKI Field (100 YEARS AGO)
+    SHINSHU_100_PRE_CLAY = "Shinshu Field, 100 years ago (Pre mandatory clay encounter)"
+    SHINSHU_100_CLAY = "Shinshu Field, 100 years ago (mandatory clay encounter)"
     SHINSHU_100 = "Shinshu Field, 100 years ago"
 
-    ## Ponc'tan
-    PONC_TAN = "Ponc'tan"
-    PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"
+    ## MOON CAVE (100 YEARS AGO)
+
+    MOON_CAVE_100_OUTSIDE = "Moon Cave, 100 years ago (Outside Entrance)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -389,6 +395,7 @@ class MapIds(Enum):
     HEALED_RYOSHIMA = 0xF0A
     NORTHERN_RYOSHIMA = 0xF0C
     KAMUI = 0xF12
+    SHINSHU_100 = 0xF20
 
 
 class MapIndexes(Enum):
