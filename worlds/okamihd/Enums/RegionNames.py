@@ -324,6 +324,9 @@ class RegionNames(StrEnum):
     KAMIKI_100 = "Kamiki Village, 100 years ago"
     KAMIKI_100_ISLANDS = "Kamiki Village Islands, 100 years ago"
 
+    ## KAMIKI Field (100 YEARS AGO)
+    SHINSHU_100 = "Shinshu Field, 100 years ago"
+
     ## Ponc'tan
     PONC_TAN = "Ponc'tan"
     PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"

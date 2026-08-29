@@ -15,11 +15,15 @@ if TYPE_CHECKING:
 
 exits = {
     RegionNames.KAMIKI_100:[
-        ExitData(RegionNames.KAMIKI_100_ISLANDS,special_rule=long_swim_rule,loading_screen=False)
+        ExitData(RegionNames.KAMIKI_100_ISLANDS,special_rule=long_swim_rule,loading_screen=False),
+        ExitData(RegionNames.SHINSHU_100,one_way=True,required_items_events=["Kamiki Village, 100 years ago - Steal Nami's Robe"])
     ]
 }
 events = {
-
+    RegionNames.KAMIKI_100:{
+        "Kamiki Village, 100 years ago - Defeat Nagi" : EventData(mandatory_enemies=[OkamiEnemies.NAGI]),
+        "Kamiki Village, 100 years ago - Steal Nami's Robe" : EventData(required_items_events=["Kamiki Village, 100 years ago - Defeat Nagi"])
+    }
 }
 locations = {
     RegionNames.KAMIKI_100: {

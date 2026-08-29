@@ -70,6 +70,7 @@ class OkamiEnemies(Enum):
     IGLOO_TURTLE = EnemyData(0x50, "Igloo Turtle", 4, defeat_condition=Has(BrushTechniques.INFERNO))
     OKI = EnemyData(0x09, "Oki", 4)
     BULL_CHARGER = EnemyData(0x65, "Bull Charger", 4)
+    NAGI = EnemyData(0x7F,"Nagi",4)
 
     @staticmethod
     def list():
