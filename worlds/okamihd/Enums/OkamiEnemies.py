@@ -42,6 +42,7 @@ class OkamiEnemies(Enum):
     CRIMSON_HELM = EnemyData(0x11, "Crimson Helm", 1, defeat_condition=Has(BrushTechniques.GALESTORM))
     FIRE_EYE = EnemyData(0x52, "Fire Eye", 1)
     OROCHI_1 = EnemyData(0x69, "Orochi (Moon Cave)", 1, defeat_condition=Has(BrushTechniques.WATERSPOUT))
+    OROCHI_2 = EnemyData(0x6c, "Orochi (100 years ago)", 4, defeat_condition=Has(BrushTechniques.WATERSPOUT))
     UBUME = EnemyData(0x58, "Ubume", 1, defeat_condition=Has(BrushTechniques.GALESTORM))
     ICE_LIPS = EnemyData(0x53, "Ice Lips", 1)
     JIRO = EnemyData(0x13, "Jiro", 2)
@@ -73,6 +74,7 @@ class OkamiEnemies(Enum):
     NAGI = EnemyData(0x7F, "Nagi", 4)
     CLAY_SOLDIER = EnemyData(0x80, "Clay Solider", 4)
     CLAY_SAMURAI = EnemyData(0x81, "Clay Samurai", 4)
+    DOGU = EnemyData(0x7d, "Dogu", 4)
 
     @staticmethod
     def list():

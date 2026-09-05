@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 from . import menu, r100, r122, r101, r102, r103, r104, rf01, rf02, rf03, rf04, rf07, rf08, r108, r109, r107, r10e, \
     r110, rf06, r105, rf09, rf0a, r201, r205, r200, r206, r207, r202, r10a, rf0c, r113, r114, r116, r117, r11a, r11d, \
-    r20a, r203, r11c, r204, r20d, r208, r20f, r20e, r209, r20c, rf11, rf12, r301, r313, r310, r305, r311, r302
+    r20a, r203, r11c, r204, r20d, r208, r20f, r20e, r209, r20c, rf11, rf12, r301, r313, r310, r305, r311, r302, rf20,r306
 
 if TYPE_CHECKING:
     from .. import OkamiWorld
@@ -47,6 +47,7 @@ okami_exits = {
     **r301.exits,
     **r302.exits,
     **r305.exits,
+    **r306.exits,
     **r310.exits,
     **r311.exits,
     **r313.exits,
@@ -62,7 +63,7 @@ okami_exits = {
     **rf0c.exits,
     **rf11.exits,
     **rf12.exits,
-    **r20f.exits,
+    **rf20.exits,
 }
 
 okami_locations = {
@@ -104,6 +105,7 @@ okami_locations = {
     **r301.locations,
     **r302.locations,
     **r305.locations,
+    **r306.locations,
     **r310.locations,
     **r311.locations,
     **r313.locations,
@@ -119,7 +121,7 @@ okami_locations = {
     **rf0c.locations,
     **rf11.locations,
     **rf12.locations,
-    **r20f.locations,
+    **rf20.locations,
 }
 
 okami_events = {
@@ -161,6 +163,7 @@ okami_events = {
     **r301.events,
     **r302.events,
     **r305.events,
+    **r306.events,
     **r310.events,
     **r311.events,
     **r313.events,
@@ -176,7 +179,7 @@ okami_events = {
     **rf0c.events,
     **rf11.events,
     **rf12.events,
-    **r20f.events,
+    **rf20.events,
 }
 
 # Shop locations are separate because they're conditionally created based on RandomizeShops
