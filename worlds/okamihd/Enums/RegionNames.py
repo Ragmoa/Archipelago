@@ -336,6 +336,8 @@ class RegionNames(StrEnum):
     ## MOON CAVE (100 YEARS AGO)
 
     MOON_CAVE_100_OUTSIDE = "Moon Cave, 100 years ago (Outside Entrance)"
+    MOON_CAVE_100 = "Moon Cave, 100 years ago (Stairs)"
+    MOON_CAVE_100_OROCHI = "Moon Cave, 100 years ago (Orochi Arena)"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
