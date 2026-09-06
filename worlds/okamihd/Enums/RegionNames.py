@@ -295,10 +295,14 @@ class RegionNames(StrEnum):
     ## Kamui (The map itself)
     CURSED_KAMUI_PRE_FIGHT = "Cursed Kamui (Pre-mandatory fights)"
     CURSED_KAMUI = "Cursed Kamui (Pre mandatory fight)"
+
     KAMUI = "Kamui"
     KAMUI_DOJO = "Kamui (Dojo)"
     KAMUI_NORTHERN = "Kamui (Northern Part)"
     KAMUI_IGLOO_FIGHT = "Kamui (After Igloo)"
+    KAMUI_CB3_CAVE = "Kamui (Cherry Bomb 3 Cave)"
+    KAMUI_BLOCKHEAD = "Kamui (Blockhead Grande Cave)"
+    KAMUI_BANDIT_SPIDER = "Kamui (Bandit Spider Cave)"
 
     ## Wep'keer
     WEP_KEER = "Wep'keer"
@@ -342,6 +346,8 @@ class RegionNames(StrEnum):
     KAMUI_EZOFUJI = "Kamui (Ezofuji)"
     KAMUI_EZOFUJI_PLATFORM = "Kamui (Ezofuji) - vine platforms"
     KAMUI_EZOFUJI_ROCKY = "Kamui (Ezofuji) - Rocky Area"
+    KAMUI_EZOFUJI_PS3_CAVE = "Kamui (Ezofuji) - Power Slash 3 Cave"
+
 
     ## WAWKU SHRINE
     WAWKU_SHRINE_1F_CANONS = "Wawku Shrine (1F Canons)"
@@ -365,7 +371,6 @@ class RegionNames(StrEnum):
     WAWKU_SHRINE_4F_CLOCKWORK_AFTER_GAP = "Wawku Shrine (4F, after clockwork door, after gap)"
     WAWKU_SHRINE_4F_LECHKU_ARENA = "Wawku Shrine (4F, Lechku Arena)"
 
-
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
     MIST_WARP_HUB = "Mist Warp Hub"
@@ -388,9 +393,13 @@ class MapIds(Enum):
     MOON_CAVE = 0x110
     RYOSHIMA_BANDIT_SPIDER = 0x113
     TAKA_PASS_CAVE = 0x114
+    CHERRY_BOMB_3_CAVE = 0x115
     POWER_SLASH_2_CAVE = 0x116
     CHERRY_BOMB_2_CAVE = 0x117
+    POWER_SLASH_3_CAVE = 0x118
+    BLOCKHEAD_GRANDE_CAVE = 0x119
     NORTHERN_RYOSHIMA_BANDIT_SPIDER = 0x11A
+    KAMUI_BANDIT_SPIDER = 0x11B
     DRAGON_PALACE_TREASURE = 0x11C
     NORTHERN_RYOSHIMA_TREASURE = 0x11D
     RIVER_OF_THE_HEAVENS = 0x122
