@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, NamedTuple
 from enum import Enum
 
-from rule_builder.rules import Has, Rule, HasAll
+from rule_builder.rules import Has, Rule, HasAll, HasAny
 from .BrushTechniques import BrushTechniques
 from ..Rules import slowdown_rule
 
@@ -68,16 +68,21 @@ class OkamiEnemies(Enum):
     NAMAHAGE = EnemyData(0x77, "Namahage", 4)
     BLADE_NAMAHAGE = EnemyData(0x78, "Blade Namahage", 4, defeat_condition=Has(BrushTechniques.POWER_SLASH))
     BUCKET_NAMAHAGE = EnemyData(0x79, "Bucket Namahage", 4)
+    UMBRELLA_NAMAHAGE = EnemyData(0x7A, "Umbrella Namahage", 4, defeat_condition=HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND))
+    CANNON_NAMAHAGE = EnemyData(0x7B, "Cannon Namahage",4)
     IGLOO_TURTLE = EnemyData(0x50, "Igloo Turtle", 4, defeat_condition=Has(BrushTechniques.INFERNO))
     OKI = EnemyData(0x09, "Oki", 4)
     BULL_CHARGER = EnemyData(0x65, "Bull Charger", 4)
     NAGI = EnemyData(0x7F, "Nagi", 4)
     CLAY_SOLDIER = EnemyData(0x80, "Clay Solider", 4)
     CLAY_SAMURAI = EnemyData(0x81, "Clay Samurai", 4)
+    CLAY_DRUMMER = EnemyData(0x82, "Clay Solider", 4)
+    CLAY_SHOGUN = EnemyData(0x84, "Clay Shogun", 4)
     DOGU = EnemyData(0x7d, "Dogu", 4)
     GREAT_TENGU = EnemyData(0x27, "Great Tengu", 4)
     NECHKU = EnemyData(0x2e,"Nechku",5,defeat_condition=HasAll(BrushTechniques.POWER_SLASH,BrushTechniques.INFERNO, BrushTechniques.GREENSPROUT_BLOOM))
     LECHKU = EnemyData(0x2f,"Lechku",5,defeat_condition=HasAll(BrushTechniques.THUNDERSTORM,BrushTechniques.POWER_SLASH))
+    EVIL_RAO = EnemyData(0x05, "Evil Rao", 4)
 
     @staticmethod
     def list():
