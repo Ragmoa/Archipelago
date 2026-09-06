@@ -334,10 +334,16 @@ class RegionNames(StrEnum):
     SHINSHU_100 = "Shinshu Field, 100 years ago"
 
     ## MOON CAVE (100 YEARS AGO)
-
     MOON_CAVE_100_OUTSIDE = "Moon Cave, 100 years ago (Outside Entrance)"
     MOON_CAVE_100 = "Moon Cave, 100 years ago (Stairs)"
     MOON_CAVE_100_OROCHI = "Moon Cave, 100 years ago (Orochi Arena)"
+
+    ## KAMUI (EZOFUJI)
+    KAMUI_EZOFUJI = "Kamui (Ezofuji)"
+    KAMUI_EZOFUJI_PLATFORM = "Kamui (Ezofuji) - vine platforms"
+    KAMUI_EZOFUJI_ROCKY = "Kamui (Ezofuji) - Rocky Area"
+
+    WAWKU_SHRINE = "Wawku Shrine"
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -397,6 +403,7 @@ class MapIds(Enum):
     HEALED_RYOSHIMA = 0xF0A
     NORTHERN_RYOSHIMA = 0xF0C
     KAMUI = 0xF12
+    KAMUI_EZOFUJI = 0xF13
     SHINSHU_100 = 0xF20
 
 

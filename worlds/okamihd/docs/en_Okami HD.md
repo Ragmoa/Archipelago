@@ -34,6 +34,7 @@ Currently, the items randomized are:
 - Fishing with Kokari for the whooper without having caught the giant salmon before will crash the game
 - Kaguya and Canine warriors cutscenes in Sasa Sanctuary may overlap, which may lead to a softlock; To bypass, refuse to
   fight the dog before doing the digging minigame with Kaguya.
+- Trying to meet Kemu for the first time after saving Lika will crash the game
 
 ## Other info
 
