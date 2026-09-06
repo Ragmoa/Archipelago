@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+from BaseClasses import LocationProgressType
 from rule_builder.rules import True_, Has, HasAny
 from ..CheckIds import container_check_id, shop_check_id
 from ..Enums.BrushTechniques import BrushTechniques
@@ -18,7 +19,7 @@ exits = {
                  required_items_events=["Moon Cave, 100 years ago - Mandatory Dogu fight at entrance"])
     ],
     RegionNames.MOON_CAVE_100: [
-        ExitData(RegionNames.MOON_CAVE_100_OROCHI,loading_screen=False)
+        ExitData(RegionNames.MOON_CAVE_100_OROCHI, loading_screen=False)
     ],
 
 }
@@ -37,5 +38,8 @@ events = {
     }
 }
 locations = {
-
+    RegionNames.MOON_CAVE_100_OROCHI: {
+        "Moon Cave, 100 years ago - Orochi reward": LocData(id=2000, required_items_events=[
+            "Moon Cave, 100 years ago - Defeat Orochi Cutscene"], progress_type=LocationProgressType.EXCLUDED)
+    }
 }
