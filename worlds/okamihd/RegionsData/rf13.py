@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 exits = {
     RegionNames.KAMUI_EZOFUJI: [
-        ExitData(RegionNames.WAWKU_SHRINE, required_items_events=["Kamui (Ezofuiji) - Deliver Lika to Kai"]),
+        ExitData(RegionNames.WAWKU_SHRINE_1F_CANONS, required_items_events=["Kamui (Ezofuiji) - Deliver Lika to Kai"]),
         ExitData(RegionNames.KAMUI_EZOFUJI_PLATFORM, required_items_events=[BrushTechniques.GREENSPROUT_VINE])
     ]
 }
@@ -43,9 +43,6 @@ locations = {
         "Kamui (Ezofuiji) - buried chest on northernmost platform": LocData(
             container_check_id(MapIds.KAMUI_EZOFUJI, 10),type=LocationType.BURIED_CHEST)
     }
-
-}
-shop_locations = {
 
 }
 warps = {

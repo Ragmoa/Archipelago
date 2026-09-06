@@ -69,6 +69,8 @@ oni_island_5f_thunder_rule = Or(has_portable_thunder_source,
 yoshpet_holy_eagle_rule = Has("Holy Eagle",options=[
     OptionFilter(YoshpetWithoutHolyEagle, YoshpetWithoutHolyEagle.option_false)], filtered_resolution=True)
 
+
+
 def has_divine_instrument_tier(tier: int) -> Rule:
     # Special Rule for mirrors, if we check for tier 1 weapon, then Divine retribution, elese we check for tier-1 porgressive mirrors.
     if tier == 1:
