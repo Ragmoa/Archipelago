@@ -343,7 +343,28 @@ class RegionNames(StrEnum):
     KAMUI_EZOFUJI_PLATFORM = "Kamui (Ezofuji) - vine platforms"
     KAMUI_EZOFUJI_ROCKY = "Kamui (Ezofuji) - Rocky Area"
 
-    WAWKU_SHRINE = "Wawku Shrine"
+    ## WAWKU SHRINE
+    WAWKU_SHRINE_1F_CANONS = "Wawku Shrine (1F Canons)"
+    WAWKU_SHRINE_1F_LOBBY = "Wawku Shrine (1F Lobby)"
+    WAWKU_SHRINE_1F_SCALES = "Wawku Shrine (1F Scales Room)"
+    WAWKU_SHRINE_1F_TOWER = "Wawku Shrine (1F Tower)"
+    WAWKU_SHRINE_1F_LEDGE = "Wawku Shrine (1F Tower Ledge)"
+    WAWKU_SHRINE_2F_TOWER = "Wawku Shrine (2F Tower)"
+    WAWKU_SHRINE_2F_TOWER_BOMB = "Wawku Shrine (2F Tower, behind bombable wall)"
+    WAWKU_SHRINE_3F_TOWER = "Wawku Shrine (3F Tower)"
+    WAWKU_SHRINE_4F_TOWER = "Wawku Shrine (4F Tower)"
+    WAWKU_SHRINE_4F_OUTSIDE = "Wawku Shrine (4F Outside)"
+    WAWKU_SHRINE_4F_GATCHA = "Wawku Shrine (4F Outside, Gatcha Machine)"
+    WAWKU_SHRINE_4F_LEDGE = "Wawku Shrine (4F Tower ledge)"
+    WAWKU_SHRINE_5F_TOWER = "Wawku Shrine (5F Tower)"
+    WAWKU_SHRINE_5F_TOWER_OUTER = "Wawku Shrine (5F Tower, Outer part)"
+    WAWKU_SHRINE_6F = "Wawku Shrine (6F)"
+    WAWKU_SHRINE_6F_OUTSIDE = "Wawku Shrine (6F Outside)"
+    WAWKU_SHRINE_6F_NECHKU = "Wawku Shrine (6F Nechku)"
+    WAWKU_SHRINE_4F_CLOCKWORK = "Wawku Shrine (4F, after clockwork door)"
+    WAWKU_SHRINE_4F_CLOCKWORK_AFTER_GAP = "Wawku Shrine (4F, after clockwork door, after gap)"
+    WAWKU_SHRINE_4F_LECHKU_ARENA = "Wawku Shrine (4F, Lechku Arena)"
+
 
     # SPECIAL REGIONS
     ## Special Hub regions to handle warps
@@ -389,6 +410,7 @@ class MapIds(Enum):
     ONI_ISLAND_SIDESCROLLER = 0x20F
     WEP_KEER = 0x301
     KAMIKI_100 = 0x302
+    WAWKU_SHRINE = 0x303
     PONC_TAN = 0x305
     YOSHPET = 0x310
     INNER_YOSHPET = 0x311
