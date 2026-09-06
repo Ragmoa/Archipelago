@@ -39,7 +39,7 @@ events = {
 }
 locations = {
     RegionNames.MOON_CAVE_100_OROCHI: {
-        "Moon Cave, 100 years ago - Defeat Orochi Again": LocData(id=2000, required_items_events=[
+        "Moon Cave, 100 years ago - Orochi reward": LocData(id=2000, required_items_events=[
             "Moon Cave, 100 years ago - Defeat Orochi Cutscene"], progress_type=LocationProgressType.EXCLUDED)
     }
 }
