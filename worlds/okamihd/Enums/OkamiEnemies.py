@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING, NamedTuple
 from enum import Enum
 
-from rule_builder.rules import Has, Rule
+from rule_builder.rules import Has, Rule, HasAll
 from .BrushTechniques import BrushTechniques
 from ..Rules import slowdown_rule
 
@@ -42,6 +42,7 @@ class OkamiEnemies(Enum):
     CRIMSON_HELM = EnemyData(0x11, "Crimson Helm", 1, defeat_condition=Has(BrushTechniques.GALESTORM))
     FIRE_EYE = EnemyData(0x52, "Fire Eye", 1)
     OROCHI_1 = EnemyData(0x69, "Orochi (Moon Cave)", 1, defeat_condition=Has(BrushTechniques.WATERSPOUT))
+    OROCHI_2 = EnemyData(0x6c, "True Orochi", 4, defeat_condition=Has(BrushTechniques.WATERSPOUT))
     UBUME = EnemyData(0x58, "Ubume", 1, defeat_condition=Has(BrushTechniques.GALESTORM))
     ICE_LIPS = EnemyData(0x53, "Ice Lips", 1)
     JIRO = EnemyData(0x13, "Jiro", 2)
@@ -64,6 +65,19 @@ class OkamiEnemies(Enum):
     HALO_GUARDIAN = EnemyData(0x73, "Halo Guardian", 3)
     EXECUTIONER_GUARDIAN = EnemyData(0x74, "Executioner Guardian", 3)
     NINETAILS_1 = EnemyData(0x61, "Ninetails", 3, defeat_condition=Has(BrushTechniques.THUNDERSTORM))
+    NAMAHAGE = EnemyData(0x77, "Namahage", 4)
+    BLADE_NAMAHAGE = EnemyData(0x78, "Blade Namahage", 4, defeat_condition=Has(BrushTechniques.POWER_SLASH))
+    BUCKET_NAMAHAGE = EnemyData(0x79, "Bucket Namahage", 4)
+    IGLOO_TURTLE = EnemyData(0x50, "Igloo Turtle", 4, defeat_condition=Has(BrushTechniques.INFERNO))
+    OKI = EnemyData(0x09, "Oki", 4)
+    BULL_CHARGER = EnemyData(0x65, "Bull Charger", 4)
+    NAGI = EnemyData(0x7F, "Nagi", 4)
+    CLAY_SOLDIER = EnemyData(0x80, "Clay Solider", 4)
+    CLAY_SAMURAI = EnemyData(0x81, "Clay Samurai", 4)
+    DOGU = EnemyData(0x7d, "Dogu", 4)
+    GREAT_TENGU = EnemyData(0x27, "Great Tengu", 4)
+    NECHKU = EnemyData(0x2e,"Nechku",5,defeat_condition=HasAll(BrushTechniques.POWER_SLASH,BrushTechniques.INFERNO, BrushTechniques.GREENSPROUT_BLOOM))
+    LECHKU = EnemyData(0x2f,"Lechku",5,defeat_condition=HasAll(BrushTechniques.THUNDERSTORM,BrushTechniques.POWER_SLASH))
 
     @staticmethod
     def list():

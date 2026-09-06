@@ -37,7 +37,9 @@ class LocationType(Enum):
     FROZEN_CHEST_SPECIAL_SOURCE = 21
     # + Holy Eagle + Golden Ink Pot
     DIGGING_MINIGAME_HARD = 22
-    BURIED_UNDER_LEAF_PILE_NO_FIRE_SOURCE = 23,
+    BURIED_UNDER_LEAF_PILE_NO_FIRE_SOURCE = 23
+    # Specific for Yoshpet
+    HOURGLASS_ORB = 24
 
 
 excluded_biteable_location_types = [LocationType.CONSTELLATION, LocationType.EVENT, LocationType.DIGGING_MINIGAME_EARLY,

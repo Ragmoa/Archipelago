@@ -52,7 +52,7 @@ class OkamiWorld(World):
 
         create_regions(self)
         # DEBUG
-        #visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
+        # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
 
     def create_items(self):
         self.prepare_local_items()
@@ -76,7 +76,7 @@ class OkamiWorld(World):
             "SeedName": self.multiworld.seed_name,
             "TotalLocations": get_total_locations(self),
             # Client configuration
-            "supported_client_version": "0.8.2",  # Minimum client version required
+            "supported_client_version": "0.8.3",  # Minimum client version required
         }
 
         # Add game options to slot_data

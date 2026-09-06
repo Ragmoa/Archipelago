@@ -2,7 +2,8 @@ from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, And, Rule, OptionFilter, Or, HasGroup, HasAny, HasAll
 from .Enums.BrushTechniques import BrushTechniques
 from .Enums.DivineInstruments import DivineInstruments
-from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown
+from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown, \
+    YoshpetWithoutHolyEagle
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -63,6 +64,11 @@ oni_island_1f_thunder_rule = Or(has_portable_thunder_source_strict,
 
 oni_island_5f_thunder_rule = Or(has_portable_thunder_source,
                                 HasAll("Oni Island - 4F Grab Thunder Key", BrushTechniques.THUNDERSTORM))
+
+
+yoshpet_holy_eagle_rule = Has("Holy Eagle",options=[
+    OptionFilter(YoshpetWithoutHolyEagle, YoshpetWithoutHolyEagle.option_false)], filtered_resolution=True)
+
 
 
 def has_divine_instrument_tier(tier: int) -> Rule:

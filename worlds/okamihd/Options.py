@@ -151,6 +151,10 @@ class AlternativeMistSlowdown(Toggle):
     display_name = "Use Fireburst/Icestrom for slowdown"
     default = 0
 
+class YoshpetWithoutHolyEagle(Toggle):
+    """Removes Holy Eagle requirement for some checks/access in Yoshpet and Inner Yoshpet."""
+    display_name = "Cross Yoshpet without Holy Eagle ?"
+    default = 0
 
 #
 # class PraiseSanity(Choice):
@@ -181,6 +185,7 @@ class OkamiOptions(PerGameCommonOptions):
     BloomGuardianSaplings: BloomGuardianSaplings
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown:AlternativeMistSlowdown
+    YoshpetWithoutHolyEagle:YoshpetWithoutHolyEagle
 
 
 #    PraiseSanity:PraiseSanity
@@ -200,7 +205,6 @@ okami_option_groups: Dict[str, List[Any]] = {
         ProgressiveWeapons,
         RemoveBlockHead,
         BloomGuardianSaplings
-
         # PraiseSanity
     ],
     "Orochi Arc Options": [
@@ -208,6 +212,9 @@ okami_option_groups: Dict[str, List[Any]] = {
         CanineRewards,
         MoonCaveAccess,
         IngredientsInMoonCave
+    ],
+    "Kamui Arc Options":[
+        YoshpetWithoutHolyEagle,
     ],
     "Advanced Options":[
         AlternativeMistSlowdown
@@ -229,6 +236,7 @@ slot_data_options = {
     "CanineRewards",
     "MoonCaveAccess",
     "BloomGuardianSaplings",
-    "IngredientsInMoonCave"
+    "IngredientsInMoonCave",
+    "YoshpetWithoutHolyEagle"
     #    "PraiseSanity"
 }

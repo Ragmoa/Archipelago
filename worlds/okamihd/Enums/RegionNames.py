@@ -59,7 +59,7 @@ class RegionNames(StrEnum):
 
     ## TSUTA RUINS
     TSUTA_RUINS_1F_MAIN_PART = "Tsuta Ruins (1F - Main Part)"
-    TUSTA_RUINS_1F_AFTER_WATERFALL= "Tsuta Ruins (1F - After Waterfall )"
+    TUSTA_RUINS_1F_AFTER_WATERFALL = "Tsuta Ruins (1F - After Waterfall )"
     TSUTA_RUINS_MUSHROOMS = "Tsuta Ruins (Mushrooms)"
     TSUTA_RUINS_LEFT_SIDE = "Tsuta Ruins (Left Side)"
     TSUTA_RUINS_DEVIL_GATES = "Tsuta Ruins (Devil Gates)"
@@ -290,8 +290,84 @@ class RegionNames(StrEnum):
     ONI_ISLAND_INTERIOR_POST_TOBI_9 = "Oni Island (Post Tobi #9)"
     ONI_ISLAND_NINETAILS = "Oni Island (Ninetails Arena)"
 
+    # KAMUI (The whole island)
+
+    ## Kamui (The map itself)
+    CURSED_KAMUI_PRE_FIGHT = "Cursed Kamui (Pre-mandatory fights)"
+    CURSED_KAMUI = "Cursed Kamui (Pre mandatory fight)"
+    KAMUI = "Kamui"
+    KAMUI_DOJO = "Kamui (Dojo)"
+    KAMUI_NORTHERN = "Kamui (Northern Part)"
+    KAMUI_IGLOO_FIGHT = "Kamui (After Igloo)"
+
+    ## Wep'keer
+    WEP_KEER = "Wep'keer"
+    WEP_KEER_MERCHANT = "Wep'keer (Merchant)"
+    WEP_KEER_SQUARE = "Wep'keer (Sqaure)"
+
+    ## Yoshpet
+    YOSHPET_ENTRANCE = "Yoshpet (Entrance)"
+    YOSHPET_1_1 = "Yoshpet (First Section)"
+    YOSHPET_1_2 = "Yoshpet (First Section, after high vine wall)"
+    YOSHPET_2_1 = "Yoshpet (Second Section)"
+    YOSHPET_3_1 = "Yoshpet (Third Section)"
+    YOSHPET_MIDDLE = "Yoshpet (Ponc'tan entrance)"
+    INNER_YOSHPET_ENTRANCE = "Inner Yoshpet (entrance)"
+    INNER_YOSHPET_1_1 = "Inner Yoshpet (First Section)"
+    INNER_YOSHPET_2_1 = "Inner Yoshpet (Second Section)"
+    INNER_YOSHPET_3_1 = "Inner Yoshpet (Third Section)"
+    INNER_YOSHPET_3_2 = "Inner Yoshpet (Third Section, in catwalk pit)"
+    INNER_YOSHPET_3_3 = "Inner Yoshpet (Third Section, after catwalk pit)"
+    INNER_YOSHPET_GATE = "Inner Yoshpet (Spirit Gate)"
+
+    ## Ponc'tan
+    PONC_TAN = "Ponc'tan"
+    PONC_TAN_WATERFALL = "Ponc'tan (Waterfall area)"
+
+    ## KAMIKI VILLAGE (100 YEARS AGO)
+    KAMIKI_100 = "Kamiki Village, 100 years ago"
+    KAMIKI_100_ISLANDS = "Kamiki Village Islands, 100 years ago"
+
+    ## KAMIKI Field (100 YEARS AGO)
+    SHINSHU_100_PRE_CLAY = "Shinshu Field, 100 years ago (Pre mandatory clay encounter)"
+    SHINSHU_100_CLAY = "Shinshu Field, 100 years ago (mandatory clay encounter)"
+    SHINSHU_100 = "Shinshu Field, 100 years ago"
+
+    ## MOON CAVE (100 YEARS AGO)
+    MOON_CAVE_100_OUTSIDE = "Moon Cave, 100 years ago (Outside Entrance)"
+    MOON_CAVE_100 = "Moon Cave, 100 years ago (Stairs)"
+    MOON_CAVE_100_OROCHI = "Moon Cave, 100 years ago (Orochi Arena)"
+
+    ## KAMUI (EZOFUJI)
+    KAMUI_EZOFUJI = "Kamui (Ezofuji)"
+    KAMUI_EZOFUJI_PLATFORM = "Kamui (Ezofuji) - vine platforms"
+    KAMUI_EZOFUJI_ROCKY = "Kamui (Ezofuji) - Rocky Area"
+
+    ## WAWKU SHRINE
+    WAWKU_SHRINE_1F_CANONS = "Wawku Shrine (1F Canons)"
+    WAWKU_SHRINE_1F_LOBBY = "Wawku Shrine (1F Lobby)"
+    WAWKU_SHRINE_1F_SCALES = "Wawku Shrine (1F Scales Room)"
+    WAWKU_SHRINE_1F_TOWER = "Wawku Shrine (1F Tower)"
+    WAWKU_SHRINE_1F_LEDGE = "Wawku Shrine (1F Tower Ledge)"
+    WAWKU_SHRINE_2F_TOWER = "Wawku Shrine (2F Tower)"
+    WAWKU_SHRINE_2F_TOWER_BOMB = "Wawku Shrine (2F Tower, behind bombable wall)"
+    WAWKU_SHRINE_3F_TOWER = "Wawku Shrine (3F Tower)"
+    WAWKU_SHRINE_4F_TOWER = "Wawku Shrine (4F Tower)"
+    WAWKU_SHRINE_4F_OUTSIDE = "Wawku Shrine (4F Outside)"
+    WAWKU_SHRINE_4F_GATCHA = "Wawku Shrine (4F Outside, Gatcha Machine)"
+    WAWKU_SHRINE_4F_LEDGE = "Wawku Shrine (4F Tower ledge)"
+    WAWKU_SHRINE_5F_TOWER = "Wawku Shrine (5F Tower)"
+    WAWKU_SHRINE_5F_TOWER_OUTER = "Wawku Shrine (5F Tower, Outer part)"
+    WAWKU_SHRINE_6F = "Wawku Shrine (6F)"
+    WAWKU_SHRINE_6F_OUTSIDE = "Wawku Shrine (6F Outside)"
+    WAWKU_SHRINE_6F_NECHKU = "Wawku Shrine (6F Nechku)"
+    WAWKU_SHRINE_4F_CLOCKWORK = "Wawku Shrine (4F, after clockwork door)"
+    WAWKU_SHRINE_4F_CLOCKWORK_AFTER_GAP = "Wawku Shrine (4F, after clockwork door, after gap)"
+    WAWKU_SHRINE_4F_LECHKU_ARENA = "Wawku Shrine (4F, Lechku Arena)"
+
+
     # SPECIAL REGIONS
-    # Special Hub regions to handle warps
+    ## Special Hub regions to handle warps
     MIST_WARP_HUB = "Mist Warp Hub"
     MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
 
@@ -328,10 +404,17 @@ class MapIds(Enum):
     IMPERIAL_PALACE_SMALL = 0x207
     ONI_ISLAND_LOWER_INT = 0x208
     CATCALL_TOWER = 0x20A
-    SEIAN_KIMONO=0x20C
+    SEIAN_KIMONO = 0x20C
     ONI_ISLAND_EXT = 0x20D
     ONI_ISLAND_UPPER_INT = 0x20E
     ONI_ISLAND_SIDESCROLLER = 0x20F
+    WEP_KEER = 0x301
+    KAMIKI_100 = 0x302
+    WAWKU_SHRINE = 0x303
+    PONC_TAN = 0x305
+    YOSHPET = 0x310
+    INNER_YOSHPET = 0x311
+    WEP_KEER_SQUARE = 0x313
     CURSED_SHINSHU = 0xF01
     HEALED_SHINSHU = 0xF02
     CURSED_AGATA = 0xF03
@@ -341,6 +424,9 @@ class MapIds(Enum):
     CURSED_RYOSHIMA = 0xF09
     HEALED_RYOSHIMA = 0xF0A
     NORTHERN_RYOSHIMA = 0xF0C
+    KAMUI = 0xF12
+    KAMUI_EZOFUJI = 0xF13
+    SHINSHU_100 = 0xF20
 
 
 class MapIndexes(Enum):
