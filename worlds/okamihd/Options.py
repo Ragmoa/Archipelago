@@ -145,8 +145,6 @@ class IngredientsInMoonCave(Toggle):
     display_name = "Randomize Ingredients in Moon Cave"
     default = 1
 
-
-
 class AlternativeMistSlowdown(Toggle):
     """Should Logic take into account the fact that you
     can replicate in the Veil of Mist slowdown effect by using Fireburst/Icestorm?
