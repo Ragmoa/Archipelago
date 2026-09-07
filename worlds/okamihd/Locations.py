@@ -3,9 +3,10 @@ from rule_builder.rules import Rule, HasAny, Has, HasAll, And, Or
 from .Enums.BrushTechniques import BrushTechniques
 from .Enums.LocationType import LocationType
 from .Rules import has_divine_instrument_tier, long_swim_rule, has_portable_fire_source
-from .Types import LocData, OkamiLocation, OkamiItem, resolve_option_callable, EventData
+from .Types import LocData, OkamiLocation, resolve_option_callable, EventData
 from typing import TYPE_CHECKING, List
 from .RegionsData import okami_locations, okami_events, okami_shop_locations
+from .Items import create_item
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -78,7 +79,7 @@ def create_event(location_name: str, item_name: str, code: int | None, region: R
     event.show_in_spoiler = False
     apply_event_or_location_rules(event, location_name, data, world)
     region.locations.append(event)
-    event.place_locked_item(OkamiItem(item_name, ItemClassification.progression, code, world.player))
+    event.place_locked_item(create_item(item_name,code ,ItemClassification.progression, world))
     return event
 
 

@@ -1,7 +1,7 @@
 from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, Choice, OptionGroup
+from Options import Range, Toggle, Choice, OptionGroup, Visibility, OptionSet
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -58,6 +58,7 @@ class OpenGameStart(Toggle):
             - Mr. Orange fight after restoring Kamiki Villagers"""
     display_name = "Remove some events for a more open start"
     default = 0
+    visibility = Visibility.none
 
 
 class BloomGuardianSaplings(Toggle):
@@ -66,6 +67,7 @@ class BloomGuardianSaplings(Toggle):
     """
     display_name = "Bloom all guardian saplings"
     default = 0
+    visibility = Visibility.none
 
 
 class RemoveBlockHead(Toggle):
@@ -73,6 +75,7 @@ class RemoveBlockHead(Toggle):
     Removes all 3 instances of Blockhead"""
     display_name = "Removes all 3 instances of Blockhead"
     default = 0
+    visibility = Visibility.none
 
 
 class RequiredDoggorbs(Range):
@@ -81,6 +84,7 @@ class RequiredDoggorbs(Range):
     default = 8
     range_start = 0
     range_end = 8
+    visibility = Visibility.none
 
 
 class CanineRewards(Choice):
@@ -94,6 +98,7 @@ class CanineRewards(Choice):
     option_randomized = 1
     option_junk = 2
     default = 0
+    visibility = Visibility.none
 
 
 class MoonCaveAccess(Choice):
@@ -107,7 +112,7 @@ class MoonCaveAccess(Choice):
     option_crimson_helm = 1
     option_open = 2
     default = 1
-
+    visibility = Visibility.none
 
 class RandomizeContainers(Toggle):
     """Randomize items found in chests, bloom pods, and other containers."""
@@ -140,8 +145,6 @@ class IngredientsInMoonCave(Toggle):
     display_name = "Randomize Ingredients in Moon Cave"
     default = 1
 
-
-
 class AlternativeMistSlowdown(Toggle):
     """Should Logic take into account the fact that you
     can replicate in the Veil of Mist slowdown effect by using Fireburst/Icestorm?
@@ -155,6 +158,13 @@ class YoshpetWithoutHolyEagle(Toggle):
     """Removes Holy Eagle requirement for some checks/access in Yoshpet and Inner Yoshpet."""
     display_name = "Cross Yoshpet without Holy Eagle ?"
     default = 0
+
+class DebugMode(OptionSet):
+    """Displays A LOT of information while generating. Only intended for dev use"""
+    visibility = Visibility.none
+    valid_keys = ["warps"]
+    valid_keys_casefold = True
+
 
 #
 # class PraiseSanity(Choice):
@@ -186,6 +196,7 @@ class OkamiOptions(PerGameCommonOptions):
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown:AlternativeMistSlowdown
     YoshpetWithoutHolyEagle:YoshpetWithoutHolyEagle
+    DebugMode:DebugMode
 
 
 #    PraiseSanity:PraiseSanity
@@ -217,7 +228,8 @@ okami_option_groups: Dict[str, List[Any]] = {
         YoshpetWithoutHolyEagle,
     ],
     "Advanced Options":[
-        AlternativeMistSlowdown
+        AlternativeMistSlowdown,
+        DebugMode
     ]
 
 }
@@ -237,6 +249,7 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
-    "YoshpetWithoutHolyEagle"
+    "YoshpetWithoutHolyEagle",
+    "DebugMode"
     #    "PraiseSanity"
 }

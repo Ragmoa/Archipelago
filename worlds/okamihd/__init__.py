@@ -1,3 +1,5 @@
+import logging
+
 import Fill
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld, Location, LocationProgressType
 from Utils import visualize_regions
@@ -229,6 +231,10 @@ class OkamiWorld(World):
                     list.append(self.get_location(shop_loc_name))
 
         return list
+
+    def print_debug(self, channel: str, s: str):
+        if channel in self.options.DebugMode.value:
+            logging.info("[DEBUG] [" + channel.upper() + "] " + s)
 
     # Probably has to be a better way to do this.
     item_name_groups = {
