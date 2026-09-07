@@ -73,9 +73,8 @@ locations = {
         "City Checkpoint - Burning chest on river's edge South near waterfall ": LocData(
             container_check_id(MapIds.CITY_CHECKPOINT, 12), type=LocationType.BURNING_CHEST),
         # Special Rule for the river access - You need either Water Tablet or (Waterlily and Gaelstrom)
-        "City Checkpoint - Buired Chest on River Northern Island": LocData(
-            container_check_id(MapIds.CITY_CHECKPOINT, 16), special_rule=Or(Has("Water Tablet"), HasAll(
-                BrushTechniques.GREENSPROUT_WATERLILY, BrushTechniques.GALESTORM)))
+        "City Checkpoint - Buried Chest on River Northern Island": LocData(
+            container_check_id(MapIds.CITY_CHECKPOINT, 16), special_rule=Has("Water Tablet"))
     }
 }
 
