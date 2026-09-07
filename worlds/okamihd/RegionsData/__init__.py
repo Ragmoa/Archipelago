@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from . import menu, r100, r122, r101, r102, r103, r104, rf01, rf02, rf03, rf04, rf07, rf08, r108, r109, r107, r10e, \
     r110, rf06, r105, rf09, rf0a, r201, r205, r200, r206, r207, r202, r10a, rf0c, r113, r114, r116, r117, r11a, r11d, \
     r20a, r203, r11c, r204, r20d, r208, r20f, r20e, r209, r20c, rf11, rf12, r301, r313, r310, r305, r311, r302, rf20, \
-    r306, rf13, r303
+    r306, rf13, r303, r115, r118, r11b
 
 if TYPE_CHECKING:
     from .. import OkamiWorld
@@ -24,9 +24,12 @@ okami_exits = {
     **r110.exits,
     **r113.exits,
     **r114.exits,
+    **r115.exits,
     **r116.exits,
     **r117.exits,
+    **r118.exits,
     **r11a.exits,
+    **r11b.exits,
     **r11c.exits,
     **r11d.exits,
     **r122.exits,
@@ -84,9 +87,12 @@ okami_locations = {
     **r110.locations,
     **r113.locations,
     **r114.locations,
+    **r115.locations,
     **r116.locations,
     **r117.locations,
+    **r118.locations,
     **r11a.locations,
+    **r11b.locations,
     **r11c.locations,
     **r11d.locations,
     **r122.locations,
@@ -144,9 +150,12 @@ okami_events = {
     **r110.events,
     **r113.events,
     **r114.events,
+    **r115.events,
     **r116.events,
     **r117.events,
+    **r118.events,
     **r11a.events,
+    **r11b.events,
     **r11c.events,
     **r11d.events,
     **r122.events,

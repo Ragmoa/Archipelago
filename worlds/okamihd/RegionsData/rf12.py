@@ -27,7 +27,13 @@ exits = {
     RegionNames.KAMUI_NORTHERN: [
         ExitData(RegionNames.KAMUI_IGLOO_FIGHT, one_way=True, loading_screen=False),
         ExitData(RegionNames.WEP_KEER),
-        ExitData(RegionNames.YOSHPET_ENTRANCE,one_way=True,required_items_events=["Kamui - Mandatory encounter before Yoshpet","Sewaprolo"])
+        ExitData(RegionNames.YOSHPET_ENTRANCE, one_way=True,
+                 required_items_events=["Kamui - Mandatory encounter before Yoshpet", "Sewaprolo"]),
+        ExitData(RegionNames.KAMUI_CB3_CAVE,
+                 required_items_events=["Kamui - Open Cherry bomb 3 Cave"],
+                 special_rule=Has(BrushTechniques.GREENSPROUT_VINE),one_way=True),
+        ExitData(RegionNames.KAMUI_BLOCKHEAD,required_items_events=["Kamui - Open Blockhead Grande Cave"]),
+        ExitData(RegionNames.KAMUI_BANDIT_SPIDER, required_items_events=["Kamui - Open Bandit Spider Cave"])
     ]
 }
 events = {
@@ -43,7 +49,11 @@ events = {
         "Kamui - Clear lake cursed torii": EventData(
             mandatory_enemies=[OkamiEnemies.BLADE_NAMAHAGE, OkamiEnemies.BUCKET_NAMAHAGE]),
         "Kamui - Mandatory encounter before Yoshpet": EventData(
-            mandatory_enemies=[OkamiEnemies.BULL_CHARGER],required_items_events=["Sewaprolo"])
+            mandatory_enemies=[OkamiEnemies.BULL_CHARGER], required_items_events=["Sewaprolo"]),
+        "Kamui - Open Cherry bomb 3 Cave": EventData(cherry_bomb_level=2,
+                                                     required_items_events=[BrushTechniques.GREENSPROUT_VINE]),
+        "Kamui - Open Blockhead Grande Cave": EventData(required_items_events=["Digging Champ"]),
+        "Kamui - Open Bandit Spider Cave": EventData(required_items_events=["Digging Champ"],cherry_bomb_level=1)
     }
 }
 locations = {
@@ -101,8 +111,9 @@ shop_locations = {
         "Kamui - Shop Slot 12": LocData(shop_check_id(7, 11), type=LocationType.SHOP),
     }
 }
-warps={
-    RegionNames.KAMUI_NORTHERN:[
-        WarpData(WarpType.MERMAID_SPRING,Has("Kamui - Clear lake cursed torii"),Has("Kamui - Clear lake cursed torii"))
+warps = {
+    RegionNames.KAMUI_NORTHERN: [
+        WarpData(WarpType.MERMAID_SPRING, Has("Kamui - Clear lake cursed torii"),
+                 Has("Kamui - Clear lake cursed torii"))
     ]
 }
