@@ -1,7 +1,7 @@
 from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, Choice, OptionGroup
+from Options import Range, Toggle, Choice, OptionGroup, Visibility, OptionSet
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -152,6 +152,13 @@ class AlternativeMistSlowdown(Toggle):
     default = 0
 
 
+class DebugMode(OptionSet):
+    """Displays A LOT of information while generating. Only intended for dev use"""
+    visibility = Visibility.none
+    valid_keys = ["warps"]
+    valid_keys_casefold = True
+
+
 #
 # class PraiseSanity(Choice):
 #    """Randomize Praise Rewards"""
@@ -181,6 +188,7 @@ class OkamiOptions(PerGameCommonOptions):
     BloomGuardianSaplings: BloomGuardianSaplings
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown:AlternativeMistSlowdown
+    DebugMode:DebugMode
 
 
 #    PraiseSanity:PraiseSanity
@@ -210,7 +218,8 @@ okami_option_groups: Dict[str, List[Any]] = {
         IngredientsInMoonCave
     ],
     "Advanced Options":[
-        AlternativeMistSlowdown
+        AlternativeMistSlowdown,
+        DebugMode
     ]
 
 }
@@ -229,6 +238,7 @@ slot_data_options = {
     "CanineRewards",
     "MoonCaveAccess",
     "BloomGuardianSaplings",
-    "IngredientsInMoonCave"
+    "IngredientsInMoonCave",
+    "DebugMode"
     #    "PraiseSanity"
 }
