@@ -233,14 +233,14 @@ locations = {
 }
 warps = {
     RegionNames.NORTHERN_RYOSHIMA_COAST: [
-        WarpData(WarpType.MIST_WARP, Has("Northern Ryoshima Coast - Unlock Warp Points"),
-                 Has("Northern Ryoshima Coast - Unlock Warp Points")),
+        WarpData(WarpType.MIST_WARP, trigger_warp_to=Has("Northern Ryoshima Coast - Unlock Warp Points"),
+                 trigger_warp_from=True),
         WarpData(WarpType.MERMAID_SPRING, Has("Northern Ryoshima Coast - Unlock Warp Points"),
                  Has("Northern Ryoshima Coast - Unlock Warp Points"))
     ],
     RegionNames.NORTHERN_RYOSHIMA_COAST_MIST_WARP: [
-        WarpData(WarpType.MIST_WARP, Has("Northern Ryoshima Coast - Unlock Warp Points"),
-                 Has("Northern Ryoshima Coast - Unlock Warp Points"))
+        WarpData(WarpType.MIST_WARP, trigger_warp_to=Has("Northern Ryoshima Coast - Unlock Warp Points"),
+                 trigger_warp_from=True)
     ]
 }
 shop_locations = {

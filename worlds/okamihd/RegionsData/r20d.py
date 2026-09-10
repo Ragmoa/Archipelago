@@ -55,5 +55,4 @@ locations = {
                                                                    BrushTechniques.GREENSPROUT_VINE])
     }
 }
-warps = {
-}
+
