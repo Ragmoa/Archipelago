@@ -161,7 +161,8 @@ useful_items = {
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful,count_in_pool=5),#Accurate count, kept it since it isn't too much
     "Golden Peach": ItemData(0x0f, ItemClassification.useful,count_in_pool=10), # 14 in total... Probably not useful to have THAT many?,
     "Gold Dust": ItemData(0x9e, ItemClassification.useful,count_in_pool=11), # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
-    "Praise": ItemData(0x59,ItemClassification.useful,count_in_pool=0) #Here for testing for now; Doesn't work
+    "Praise": ItemData(0x59,ItemClassification.useful,count_in_pool=0), #Here for testing for now; Doesn't work
+    "Hourglass Orb":ItemData(0x51,ItemClassification.useful,count_in_pool=0) # Test for Yoshpet
 }
 
 filler_items = {
@@ -357,7 +358,7 @@ global_local_items = [
               ),
     LocalItem(["Mask"], [RegionNames.CALCIFIED_CAVERN], is_biteable=False,
               exclude_locations=["Calcified Cavern - Freestanding item"]),
-    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE],is_biteable=False)
+    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE],is_biteable=False),
 ]
 soup_ingredient_local_items = LocalItem(["Ogre Liver",
                                          "Ice Lips",
