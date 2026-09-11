@@ -348,7 +348,6 @@ class RegionNames(StrEnum):
     KAMUI_EZOFUJI_ROCKY = "Kamui (Ezofuji) - Rocky Area"
     KAMUI_EZOFUJI_PS3_CAVE = "Kamui (Ezofuji) - Power Slash 3 Cave"
 
-
     ## WAWKU SHRINE
     WAWKU_SHRINE_1F_CANONS = "Wawku Shrine (1F Canons)"
     WAWKU_SHRINE_1F_LOBBY = "Wawku Shrine (1F Lobby)"
@@ -371,10 +370,20 @@ class RegionNames(StrEnum):
     WAWKU_SHRINE_4F_CLOCKWORK_AFTER_GAP = "Wawku Shrine (4F, after clockwork door, after gap)"
     WAWKU_SHRINE_4F_LECHKU_ARENA = "Wawku Shrine (4F, Lechku Arena)"
 
-    # SPECIAL REGIONS
-    ## Special Hub regions to handle warps
-    MIST_WARP_HUB = "Mist Warp Hub"
-    MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
+    ## ARK OF YAMATO
+    ARK_OF_YAMATO = "Ark of Yamato"
+    ARK_OF_YAMATO_SPIDER = "Ark of Yamato (Spider Queen Arena)"
+    ARK_OF_YAMATO_CRIMSON = "Ark of Yamato (Crimson Helm Arena)"
+    ARK_OF_YAMATO_OROCHI = "Ark of Yamato (Orochi Arena)"
+    ARK_OF_YAMATO_BLIGHT = "Ark of Yamato (Blight Arena)"
+    ARK_OF_YAMATO_NINETAILS = "Ark of Yamato (Ninetails Arena)"
+    ARK_OF_YAMATO_YAMI = "Ark of Yamato (Yami Arena)"
+
+
+# SPECIAL REGIONS
+## Special Hub regions to handle warps
+MIST_WARP_HUB = "Mist Warp Hub"
+MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
 
 
 # Reference https://github.com/Axertin/okami-apclient/blob/master/include/okami/maps.hpp

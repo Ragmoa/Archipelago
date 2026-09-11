@@ -178,6 +178,11 @@ class Goal(Choice):
     option_ninetails = 2
     display_name = "Goal"
 
+class ArkOfYamatoOpenTrigger(Choice):
+    """What gives you access to the Ark of Yamato ?"""
+    default = 0
+    visibility = Visibility.none
+    option_vanilla = 0
 
 #
 # class PraiseSanity(Choice):
@@ -211,6 +216,7 @@ class OkamiOptions(PerGameCommonOptions):
     AlternativeMistSlowdown: AlternativeMistSlowdown
     YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
     DebugMode: DebugMode
+    ArkOfYamatoOpenTrigger:ArkOfYamatoOpenTrigger
 
 
 #    PraiseSanity:PraiseSanity
@@ -241,6 +247,7 @@ okami_option_groups: Dict[str, List[Any]] = {
     ],
     "Kamui Arc Options": [
         YoshpetWithoutHolyEagle,
+        ArkOfYamatoOpenTrigger
     ],
     "Advanced Options": [
         AlternativeMistSlowdown,
@@ -265,7 +272,8 @@ slot_data_options = {
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
     "YoshpetWithoutHolyEagle",
-    "DebugMode"
-    "Goal"
+    "DebugMode",
+    "Goal",
+    "ArkOfYamatoOpenTrigger"
     #    "PraiseSanity"
 }
