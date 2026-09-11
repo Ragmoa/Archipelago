@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from rule_builder.rules import Has, Or
+from rule_builder.rules import Has, Or, True_
 from ..CheckIds import shop_check_id, container_check_id, brush_check_id
 from ..Enums.BrushTechniques import BrushTechniques
 from ..Enums.LocationType import LocationType
@@ -233,14 +233,14 @@ locations = {
 }
 warps = {
     RegionNames.NORTHERN_RYOSHIMA_COAST: [
-        WarpData(WarpType.MIST_WARP, Has("Northern Ryoshima Coast - Unlock Warp Points"),
-                 Has("Northern Ryoshima Coast - Unlock Warp Points")),
+        WarpData(WarpType.MIST_WARP, trigger_warp_to=Has("Northern Ryoshima Coast - Unlock Warp Points"),
+                 trigger_warp_from=True_),
         WarpData(WarpType.MERMAID_SPRING, Has("Northern Ryoshima Coast - Unlock Warp Points"),
                  Has("Northern Ryoshima Coast - Unlock Warp Points"))
     ],
     RegionNames.NORTHERN_RYOSHIMA_COAST_MIST_WARP: [
-        WarpData(WarpType.MIST_WARP, Has("Northern Ryoshima Coast - Unlock Warp Points"),
-                 Has("Northern Ryoshima Coast - Unlock Warp Points"))
+        WarpData(WarpType.MIST_WARP, trigger_warp_to=Has("Northern Ryoshima Coast - Unlock Warp Points"),
+                 trigger_warp_from=True_)
     ]
 }
 shop_locations = {
