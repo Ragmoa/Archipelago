@@ -379,11 +379,10 @@ class RegionNames(StrEnum):
     ARK_OF_YAMATO_NINETAILS = "Ark of Yamato (Ninetails Arena)"
     ARK_OF_YAMATO_YAMI = "Ark of Yamato (Yami Arena)"
 
-
-# SPECIAL REGIONS
-## Special Hub regions to handle warps
-MIST_WARP_HUB = "Mist Warp Hub"
-MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
+    # SPECIAL REGIONS
+    ## Special Hub regions to handle warps
+    MIST_WARP_HUB = "Mist Warp Hub"
+    MERMAID_SPRING_HUB = "Mermaid Spring Warp Hub"
 
 
 # Reference https://github.com/Axertin/okami-apclient/blob/master/include/okami/maps.hpp

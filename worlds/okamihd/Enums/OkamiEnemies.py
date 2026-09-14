@@ -68,8 +68,9 @@ class OkamiEnemies(Enum):
     NAMAHAGE = EnemyData(0x77, "Namahage", 4)
     BLADE_NAMAHAGE = EnemyData(0x78, "Blade Namahage", 4, defeat_condition=Has(BrushTechniques.POWER_SLASH))
     BUCKET_NAMAHAGE = EnemyData(0x79, "Bucket Namahage", 4)
-    UMBRELLA_NAMAHAGE = EnemyData(0x7A, "Umbrella Namahage", 4, defeat_condition=HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND))
-    CANNON_NAMAHAGE = EnemyData(0x7B, "Cannon Namahage",4)
+    UMBRELLA_NAMAHAGE = EnemyData(0x7A, "Umbrella Namahage", 4,
+                                  defeat_condition=HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND))
+    CANNON_NAMAHAGE = EnemyData(0x7B, "Cannon Namahage", 4)
     IGLOO_TURTLE = EnemyData(0x50, "Igloo Turtle", 4, defeat_condition=Has(BrushTechniques.INFERNO))
     OKI = EnemyData(0x09, "Oki", 4)
     BULL_CHARGER = EnemyData(0x65, "Bull Charger", 4)
@@ -80,9 +81,16 @@ class OkamiEnemies(Enum):
     CLAY_SHOGUN = EnemyData(0x84, "Clay Shogun", 4)
     DOGU = EnemyData(0x7d, "Dogu", 4)
     GREAT_TENGU = EnemyData(0x27, "Great Tengu", 4)
-    NECHKU = EnemyData(0x2e,"Nechku",5,defeat_condition=HasAll(BrushTechniques.POWER_SLASH,BrushTechniques.INFERNO, BrushTechniques.GREENSPROUT_BLOOM))
-    LECHKU = EnemyData(0x2f,"Lechku",5,defeat_condition=HasAll(BrushTechniques.THUNDERSTORM,BrushTechniques.POWER_SLASH))
+    NECHKU = EnemyData(0x2e, "Nechku", 5, defeat_condition=HasAll(BrushTechniques.POWER_SLASH, BrushTechniques.INFERNO,
+                                                                  BrushTechniques.GREENSPROUT_BLOOM))
+    LECHKU = EnemyData(0x2f, "Lechku", 5,
+                       defeat_condition=HasAll(BrushTechniques.THUNDERSTORM, BrushTechniques.POWER_SLASH))
     EVIL_RAO = EnemyData(0x05, "Evil Rao", 4)
+    YAMI_RED = EnemyData(0x85, "Yami (Red)", 5)
+    YAMI_GREEN = EnemyData(0x86, "Yami (Green)", 5)
+    YAMI_BLUE = EnemyData(0x87, "Yami (Blue)", 5)
+    YAMI_YELLOW = EnemyData(0x88, "Yami (Yellow)", 5)
+    YAMI_HAND = EnemyData(0x89, "Yami (Hand)", 5, defeat_condition=Has(BrushTechniques.SUNRISE))
 
     @staticmethod
     def list():
