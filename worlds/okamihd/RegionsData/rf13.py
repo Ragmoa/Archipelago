@@ -7,6 +7,7 @@ from ..Enums.LocationType import LocationType
 from ..Enums.OkamiEnemies import OkamiEnemies
 from ..Enums.RegionNames import RegionNames, MapIds
 from ..Enums.WarpType import WarpType
+from ..Rules import yamato_rule
 from ..Types import ExitData, EventData, WarpData, LocData
 
 if TYPE_CHECKING:
@@ -16,7 +17,8 @@ exits = {
     RegionNames.KAMUI_EZOFUJI: [
         ExitData(RegionNames.WAWKU_SHRINE_1F_CANONS, required_items_events=["Kamui (Ezofuji) - Deliver Lika to Kai"]),
         ExitData(RegionNames.KAMUI_EZOFUJI_PLATFORM, required_items_events=[BrushTechniques.GREENSPROUT_VINE]),
-        ExitData(RegionNames.KAMUI_EZOFUJI_PS3_CAVE, required_items_events=["Kamui (Ezofuji) - Open PS3 Cave"])
+        ExitData(RegionNames.KAMUI_EZOFUJI_PS3_CAVE, required_items_events=["Kamui (Ezofuji) - Open PS3 Cave"]),
+        ExitData(RegionNames.ARK_OF_YAMATO,special_rule=yamato_rule)
     ]
 }
 events = {
