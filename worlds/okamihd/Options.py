@@ -164,9 +164,14 @@ class YoshpetWithoutHolyEagle(Toggle):
 
 
 class DebugMode(OptionSet):
-    """Displays A LOT of information while generating. Only intended for dev use"""
+    """Displays A LOT of information while generating. Only intended for dev use.
+    Options Available:
+        - warps: List Warps and their requirements (doesn't include brushes requirements).
+        - puml: Exports a .puml graph of all regions.
+        - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
+    """
     visibility = Visibility.none
-    valid_keys = ["warps"]
+    valid_keys = ["warps", "puml", "rules"]
     valid_keys_casefold = True
 
 
@@ -178,11 +183,13 @@ class Goal(Choice):
     option_ninetails = 2
     display_name = "Goal"
 
+
 class ArkOfYamatoOpenTrigger(Choice):
     """What gives you access to the Ark of Yamato ?"""
     default = 0
     visibility = Visibility.none
     option_vanilla = 0
+
 
 #
 # class PraiseSanity(Choice):
@@ -201,7 +208,7 @@ class OkamiOptions(PerGameCommonOptions):
     RandomizeContainers: RandomizeContainers
     RandomizeShops: RandomizeShops
     RandomizeBrushes: RandomizeBrushes
-    Goal:Goal
+    Goal: Goal
     ShopSlots: ShopSlots
     NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
@@ -216,7 +223,7 @@ class OkamiOptions(PerGameCommonOptions):
     AlternativeMistSlowdown: AlternativeMistSlowdown
     YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
     DebugMode: DebugMode
-    ArkOfYamatoOpenTrigger:ArkOfYamatoOpenTrigger
+    ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
 
 
 #    PraiseSanity:PraiseSanity

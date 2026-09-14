@@ -79,7 +79,7 @@ def create_event(location_name: str, item_name: str, code: int | None, region: R
     event.show_in_spoiler = False
     apply_event_or_location_rules(event, location_name, data, world)
     region.locations.append(event)
-    event.place_locked_item(create_item(item_name,code ,ItemClassification.progression, world))
+    event.place_locked_item(create_item(item_name, code, ItemClassification.progression, world))
     return event
 
 
@@ -120,8 +120,6 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
     ## RULE BUILDER REWORK:
     # - FOR EACH LOCATION, BUILD AN ARRAY OF RULES THAT WILL BE ADDED TO THE world.set_rule(loc,AND(*Rules))
 
-    debug_rule = False
-
     rules: List[Rule] = []
 
     required_techinques = []
@@ -144,9 +142,10 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
         case LocationType.TREASURE_BUD:
             required_techinques += [BrushTechniques.GREENSPROUT_BLOOM]
         case LocationType.BURIED_UNDER_LEAF_PILE:
-            rules.append(HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND,BrushTechniques.INFERNO,BrushTechniques.FIREBURST))
+            rules.append(HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND, BrushTechniques.INFERNO,
+                                BrushTechniques.FIREBURST))
         case LocationType.BURIED_UNDER_LEAF_PILE_NO_FIRE_SOURCE:
-            rules.append(Or(HasAny(BrushTechniques.GALESTORM,BrushTechniques.WHIRLWIND),has_portable_fire_source))
+            rules.append(Or(HasAny(BrushTechniques.GALESTORM, BrushTechniques.WHIRLWIND), has_portable_fire_source))
         case LocationType.BURIED_CHEST:
             if world.options.NightTimeChecksRequireCrescent:
                 required_techinques += [BrushTechniques.CRESCENT]
@@ -211,6 +210,6 @@ def apply_event_or_location_rules(loc: Location, name: str, data: LocData | Even
     if len(rules) > 0:
         final_rule = And(*rules)
         world.set_rule(loc, final_rule)
-        if debug_rule:
-            print("[Debug] - Rule for " + loc.name)
-            print(final_rule)
+        world.print_debug("rules", "Rule for " + loc.name + ": " + str(final_rule))
+    else:
+        world.print_debug("rules", "Rule for " + loc.name + ": True_" )
