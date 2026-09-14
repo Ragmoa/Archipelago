@@ -16,7 +16,7 @@ exits = {
 
 }
 events = {
-    RegionNames.ARK_OF_YAMATO_CRIMSON: {
+    RegionNames.ARK_OF_YAMATO_YAMI: {
         "Ark of Yamato - Defeat Yami": EventData(
             mandatory_enemies=[OkamiEnemies.YAMI_RED, OkamiEnemies.YAMI_BLUE, OkamiEnemies.YAMI_HAND,
                                OkamiEnemies.YAMI_GREEN, OkamiEnemies.YAMI_YELLOW])
