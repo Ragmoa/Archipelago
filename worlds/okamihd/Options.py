@@ -192,13 +192,14 @@ class ArkOfYamatoOpenTrigger(Choice):
 
 
 class StartingLocation(TextChoice):
-    """[POC] Starting location"""
+    """Starting location from a logic PoV. Not handled in the client yet."""
     display_name = "Starting Location"
     default = "Vanilla"
     options = ["Vanilla", "Healed Kamiki",
                "Shinshu Field",
                "Ryoshima Coast",
                "Sei-an City", "Random", "Not Vanilla"]
+    visibility = Visibility.none
 
 
 #

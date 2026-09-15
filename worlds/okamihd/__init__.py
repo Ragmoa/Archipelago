@@ -17,7 +17,7 @@ from worlds.AutoWorld import World, WebWorld, CollectionState
 from typing import List, TextIO
 from .Types import OkamiItem, resolve_option_callable, LocalItem, StartPoint
 from .Enums.DivineInstruments import DivineInstruments
-from .Enums.RegionNames import RegionNames
+from .Enums.RegionNames import RegionNames, MapIds
 
 
 class OkamiWebWolrd(WebWorld):
@@ -45,12 +45,13 @@ class OkamiWorld(World):
     options: OkamiOptions
     web = OkamiWebWolrd()
     local_items = []
+    # TODO: Add more points, set coordinates for different starts.
     start_point_list = {
-        "Vanilla": StartPoint(RegionNames.CURSED_KAMIKI, (0, 0, 0)),
-        "Healed Kamiki": StartPoint(RegionNames.KAMIKI_VILLAGE, (0, 0, 0)),
-        "Shinshu Field": StartPoint(RegionNames.SHINSHU_FIELD, (0, 0, 0)),
-        "Ryoshima Coast": StartPoint(RegionNames.RYOSHIMA_COAST, (0, 0, 0)),
-        "Sei-an City": StartPoint(RegionNames.SEIAN_CITY_COMMONERS_DRY, (0, 0, 0))
+        "Vanilla": StartPoint(RegionNames.CURSED_KAMIKI, MapIds.CURSED_KAMIKI,(0, 0, 0)),
+        "Healed Kamiki": StartPoint(RegionNames.KAMIKI_VILLAGE,MapIds.KAMIKI_VILLAGE, (0, 0, 0)),
+        "Shinshu Field": StartPoint(RegionNames.SHINSHU_FIELD, MapIds.HEALED_SHINSHU, (0, 0, 0)),
+        "Ryoshima Coast": StartPoint(RegionNames.RYOSHIMA_COAST, MapIds.HEALED_RYOSHIMA, (0, 0, 0)),
+        "Sei-an City": StartPoint(RegionNames.SEIAN_CITY_COMMONERS_DRY, MapIds.SEIAN_COMMONERS, (0, 0, 0))
     }
     picked_start = None
 
