@@ -250,20 +250,8 @@ class OkamiWorld(World):
         if channel in self.options.DebugMode.value:
             logging.info("[DEBUG] [" + channel.upper() + "] " + s)
 
-    def solve_start_point_option(self) -> str:
-        option = self.options.StartingLocation.current_key
-        if option == "Random" or option == "Not Vanilla":
-            sp: List[str] = list(self.start_point_list.keys())
-            if option == "Not Vanilla":
-                # Remove vanilla start
-                sp.pop(0)
-            self.random.shuffle(sp)
-            return sp[0]
-        else:
-            return option
-
     def handle_start_point(self):
-        start_point_option: str = self.solve_start_point_option()
+        start_point_option: str = self.options.StartingLocation.current_key
         self.picked_start = start_point_option
         starting_point:StartPoint = self.start_point_list[start_point_option]
         menu_region = self.get_region(RegionNames.MENU)

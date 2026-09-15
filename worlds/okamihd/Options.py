@@ -198,7 +198,7 @@ class StartingLocation(TextChoice):
     options = ["Vanilla", "Healed Kamiki",
                "Shinshu Field",
                "Ryoshima Coast",
-               "Sei-an City", "Random", "Not Vanilla"]
+               "Sei-an City"]
     visibility = Visibility.none
 
 
