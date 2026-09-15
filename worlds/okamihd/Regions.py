@@ -67,6 +67,7 @@ def create_region_warps(reg: Region, world: "OkamiWorld"):
             if warp_data.trigger_warp_from != False_:
                 from_name = reg.name + ' (' + warp_data.type.value + ') -> ' + hub.name
                 warp_from = reg.connect(hub, from_name)
+                world.print_debug("warps", from_name + ': ' + str(warp_data.trigger_warp_from))
                 if warp_data.trigger_warp_from != True_:
                     world.set_rule(warp_from, And(hub_access_rule, warp_data.trigger_warp_from))
                 else:
@@ -76,8 +77,9 @@ def create_region_warps(reg: Region, world: "OkamiWorld"):
             if warp_data.trigger_warp_to != False_:
                 to_name = hub.name + ' -> ' + reg.name + ' (' + warp_data.type.value + ')'
                 warp_to = hub.connect(reg, to_name)
-                if warp_data.trigger_warp_from != True_:
-                    world.set_rule(warp_to, warp_data.trigger_warp_from)
+                world.print_debug("warps", to_name + ': ' + str(warp_data.trigger_warp_to))
+                if warp_data.trigger_warp_to != True_:
+                    world.set_rule(warp_to, warp_data.trigger_warp_to)
                 # No need to check if we have the power/coin to get out of the hub.
 
 

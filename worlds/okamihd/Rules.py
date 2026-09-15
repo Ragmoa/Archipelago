@@ -2,7 +2,8 @@ from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, And, Rule, OptionFilter, Or, HasGroup, HasAny, HasAll
 from .Enums.BrushTechniques import BrushTechniques
 from .Enums.DivineInstruments import DivineInstruments
-from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown
+from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown, \
+    YoshpetWithoutHolyEagle
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -45,7 +46,6 @@ slowdown_rule: Rule = Or(Has(BrushTechniques.VEIL_OF_MIST),
                              OptionFilter(AlternativeMistSlowdown, AlternativeMistSlowdown.option_true)],
                                 filtered_resolution=False))
 
-
 night_time_check_rule: Rule = Has(BrushTechniques.CRESCENT, options=[
     OptionFilter(NightTimeChecksRequireCrescent, NightTimeChecksRequireCrescent.option_true)], filtered_resolution=True)
 
@@ -63,6 +63,11 @@ oni_island_1f_thunder_rule = Or(has_portable_thunder_source_strict,
 
 oni_island_5f_thunder_rule = Or(has_portable_thunder_source,
                                 HasAll("Oni Island - 4F Grab Thunder Key", BrushTechniques.THUNDERSTORM))
+
+yoshpet_holy_eagle_rule = Has("Holy Eagle", options=[
+    OptionFilter(YoshpetWithoutHolyEagle, YoshpetWithoutHolyEagle.option_false)], filtered_resolution=True)
+
+yamato_rule = Has("Wawku Shrine - Defeat Leckhu and Nechku")
 
 
 def has_divine_instrument_tier(tier: int) -> Rule:
@@ -102,5 +107,10 @@ def has_divine_instrument_tier(tier: int) -> Rule:
 
 
 def set_completion_rules(world: "OkamiWorld"):
-    world.set_completion_rule(HasAll("Moon Cave - Defeat Orochi", "Oni Island - Defeat Ninetails"))
+    if world.options.Goal.value == world.options.Goal.option_yami:
+        world.set_completion_rule(Has("Ark of Yamato - Defeat Yami"))
+    elif world.options.Goal.value == world.options.Goal.option_ninetails:
+        world.set_completion_rule(Has("Oni Island - Defeat Ninetails"))
+    else:
+        world.set_completion_rule(Has("Moon Cave - Defeat Orochi"))
     return

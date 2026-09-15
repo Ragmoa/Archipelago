@@ -152,16 +152,17 @@ bitable_items = {
 }
 useful_items = {
     # Useful items - Counts here are invalid, it's intended, to not fille the item pool with these
-    "Sun Fragment": ItemData(0x05, ItemClassification.useful,count_in_pool=9), # Should be 15
+    "Sun Fragment": ItemData(0x05, ItemClassification.useful,count_in_pool=15), # Should be 15
     "Astral Pouch": ItemData(0x06, ItemClassification.useful,count_in_pool=0),# Intended
     "Stray Bead": ItemData(0xCC, ItemClassification.useful,count_in_pool=0),# Should be 99, set to 0 for now cause they mess with container collection states
     # probably will have to be changed to progession_skip balancing once DF shops get randomized
     "Demon Fang": ItemData(0x1F, ItemClassification.useful, count_in_pool=0),  # to see when DF shops get randomized
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful,count_in_pool=5),#Accurate count, kept it since it isn't too much
-    "Golden Peach": ItemData(0x0f, ItemClassification.useful,count_in_pool=10), # 14 in total... Probably not useful to have THAT many?,
-    "Gold Dust": ItemData(0x9e, ItemClassification.useful,count_in_pool=11), # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
-    "Praise": ItemData(0x59,ItemClassification.useful,count_in_pool=0) #Here for testing for now; Doesn't work
+    "Golden Peach": ItemData(0x0f, ItemClassification.useful,count_in_pool=14), # 14 in total... Probably not useful to have THAT many?,
+    "Gold Dust": ItemData(0x9e, ItemClassification.useful,count_in_pool=15), # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
+    "Praise": ItemData(0x59,ItemClassification.useful,count_in_pool=0), #Here for testing for now; Doesn't work
+    "Hourglass Orb":ItemData(0x51,ItemClassification.useful,count_in_pool=0) # Test for Yoshpet
 }
 
 filler_items = {
@@ -357,6 +358,7 @@ global_local_items = [
               ),
     LocalItem(["Mask"], [RegionNames.CALCIFIED_CAVERN], is_biteable=False,
               exclude_locations=["Calcified Cavern - Freestanding item"]),
+    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE],is_biteable=False),
 ]
 soup_ingredient_local_items = LocalItem(["Ogre Liver",
                                          "Ice Lips",

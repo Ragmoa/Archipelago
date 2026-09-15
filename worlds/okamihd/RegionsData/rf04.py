@@ -25,7 +25,8 @@ exits = {
         ExitData(RegionNames.TSUTA_RUINS_1F_MAIN_PART,
                  required_items_events=["Agata Forest - Open Ruins Door"]),
         ExitData(RegionNames.SHINSHU_AGATA_SHORTCUT_LEDGE,
-                 required_items_events=["Agata Forest - Open shortcut to Shinshu Field"])
+                 required_items_events=["Agata Forest - Open shortcut to Shinshu Field"]),
+        ExitData(RegionNames.FAWNS_HOUSE,one_way=True)
     ],
     RegionNames.AGATA_FOREST_TAKA: [
         ExitData(RegionNames.CURSED_TAKA_PASS, one_way=True),

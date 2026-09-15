@@ -1,6 +1,8 @@
+import logging
+
 import Fill
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld, Location, LocationProgressType
-from Utils import visualize_regions
+from Utils import visualize_regions, output_path
 from .Enums.LocationType import excluded_biteable_location_types
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
     karmic_transformers, \
@@ -62,7 +64,9 @@ class OkamiWorld(World):
         create_regions(self)
         self.handle_start_point()
         # DEBUG
-        # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
+        if "puml" in self.options.DebugMode.value:
+            visualize_regions(self.multiworld.get_region("Menu", self.player), output_path() + "/OkamiHD.puml")
+            logging.info("[DEBUG] [PUML] Exported regions graph to: " +  output_path() + "/OkamiHD.puml")
 
     def create_items(self):
         self.prepare_local_items()
@@ -86,7 +90,7 @@ class OkamiWorld(World):
             "SeedName": self.multiworld.seed_name,
             "TotalLocations": get_total_locations(self),
             # Client configuration
-            "supported_client_version": "0.8.2",  # Minimum client version required
+            "supported_client_version": "0.8.3",  # Minimum client version required
         }
 
         # Add game options to slot_data
@@ -120,7 +124,7 @@ class OkamiWorld(World):
                     fill_step_name = (local_item_data.prefill_name if local_item_data.prefill_name is not None else
                                       local_item_data.items[0]) + " for " + self.player_name + " (Try " + str(
                         a + 1) + ')'
-                    print("Prefilling " + fill_step_name)
+                    logging.info("Prefilling " + fill_step_name)
                     locations = valid_locations.copy()
                     item_pool = local_item_pool.copy()
                     # Important - Archipelago will try to place on every location in the list by order, so we shuffle it to not always get the same result.
@@ -240,6 +244,10 @@ class OkamiWorld(World):
                     list.append(self.get_location(shop_loc_name))
 
         return list
+
+    def print_debug(self, channel: str, s: str):
+        if channel in self.options.DebugMode.value:
+            logging.info("[DEBUG] [" + channel.upper() + "] " + s)
 
     def solve_start_point_option(self) -> str:
         option = self.options.StartingLocation.current_key

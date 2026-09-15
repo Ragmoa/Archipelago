@@ -1,7 +1,7 @@
 from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, Choice, OptionGroup, TextChoice
+from Options import Range, Toggle, Choice, OptionGroup, Visibility, OptionSet, TextChoice
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -58,6 +58,7 @@ class OpenGameStart(Toggle):
             - Mr. Orange fight after restoring Kamiki Villagers"""
     display_name = "Remove some events for a more open start"
     default = 0
+    visibility = Visibility.none
 
 
 class BloomGuardianSaplings(Toggle):
@@ -66,6 +67,7 @@ class BloomGuardianSaplings(Toggle):
     """
     display_name = "Bloom all guardian saplings"
     default = 0
+    visibility = Visibility.none
 
 
 class RemoveBlockHead(Toggle):
@@ -73,6 +75,7 @@ class RemoveBlockHead(Toggle):
     Removes all 3 instances of Blockhead"""
     display_name = "Removes all 3 instances of Blockhead"
     default = 0
+    visibility = Visibility.none
 
 
 class RequiredDoggorbs(Range):
@@ -81,6 +84,7 @@ class RequiredDoggorbs(Range):
     default = 8
     range_start = 0
     range_end = 8
+    visibility = Visibility.none
 
 
 class CanineRewards(Choice):
@@ -94,6 +98,7 @@ class CanineRewards(Choice):
     option_randomized = 1
     option_junk = 2
     default = 0
+    visibility = Visibility.none
 
 
 class MoonCaveAccess(Choice):
@@ -107,6 +112,7 @@ class MoonCaveAccess(Choice):
     option_crimson_helm = 1
     option_open = 2
     default = 1
+    visibility = Visibility.none
 
 
 class RandomizeContainers(Toggle):
@@ -151,6 +157,40 @@ class AlternativeMistSlowdown(Toggle):
     default = 0
 
 
+class YoshpetWithoutHolyEagle(Toggle):
+    """Removes Holy Eagle requirement for some checks/access in Yoshpet and Inner Yoshpet."""
+    display_name = "Cross Yoshpet without Holy Eagle ?"
+    default = 0
+
+
+class DebugMode(OptionSet):
+    """Displays A LOT of information while generating. Only intended for dev use.
+    Options Available:
+        - warps: List Warps and their requirements (doesn't include brushes requirements).
+        - puml: Exports a .puml graph of all regions.
+        - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
+    """
+    visibility = Visibility.none
+    valid_keys = ["warps", "puml", "rules"]
+    valid_keys_casefold = True
+
+
+class Goal(Choice):
+    """Game Goal"""
+    default = 0
+    option_yami = 0
+    option_orochi = 1
+    option_ninetails = 2
+    display_name = "Goal"
+
+
+class ArkOfYamatoOpenTrigger(Choice):
+    """What gives you access to the Ark of Yamato ?"""
+    default = 0
+    visibility = Visibility.none
+    option_vanilla = 0
+
+
 class StartingLocation(TextChoice):
     """[POC] Starting location"""
     display_name = "Starting Location"
@@ -178,6 +218,7 @@ class OkamiOptions(PerGameCommonOptions):
     RandomizeContainers: RandomizeContainers
     RandomizeShops: RandomizeShops
     RandomizeBrushes: RandomizeBrushes
+    Goal: Goal
     ShopSlots: ShopSlots
     NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
@@ -190,6 +231,9 @@ class OkamiOptions(PerGameCommonOptions):
     BloomGuardianSaplings: BloomGuardianSaplings
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown: AlternativeMistSlowdown
+    YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
+    DebugMode: DebugMode
+    ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
     StartingLocation: StartingLocation
 
 
@@ -204,6 +248,7 @@ okami_option_groups: Dict[str, List[Any]] = {
         ShopSlots,
     ],
     "General Options": [
+        Goal,
         NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
@@ -219,8 +264,13 @@ okami_option_groups: Dict[str, List[Any]] = {
         MoonCaveAccess,
         IngredientsInMoonCave
     ],
+    "Kamui Arc Options": [
+        YoshpetWithoutHolyEagle,
+        ArkOfYamatoOpenTrigger
+    ],
     "Advanced Options": [
-        AlternativeMistSlowdown
+        AlternativeMistSlowdown,
+        DebugMode
     ]
 
 }
@@ -240,6 +290,10 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
+    "YoshpetWithoutHolyEagle",
+    "DebugMode",
+    "Goal",
+    "ArkOfYamatoOpenTrigger",
     "StartingLocation"
     #    "PraiseSanity"
 }
