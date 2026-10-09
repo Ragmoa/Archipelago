@@ -34,6 +34,7 @@ Currently, the items randomized are:
 - Fishing with Kokari for the whooper without having caught the giant salmon before will crash the game
 - Kaguya and Canine warriors cutscenes in Sasa Sanctuary may overlap, which may lead to a softlock; To bypass, refuse to
   fight the dog before doing the digging minigame with Kaguya.
+- Trying to meet Kemu for the first time after saving Lika will crash the game
 
 ## Other info
 
@@ -46,7 +47,7 @@ Currently, the items randomized are:
 - Moon Cave ingredients will be randomized in Moon Cave. (You can bypass this with the settings.)
 - Leaf piles may also be destroyed with Inferno or Fireburst
 - The NightTimeChecks options no longer assumes you need Crescent for chests under leaf piles, as their locations are made
-  obvious.
+  obvious. The buried Chests in Yoshpet also never require Crescent, since you can't use it in there. Also Kamiki 100 years ago since it's always night.
 
 ## Healed areas available without blooming their guardian sapling:
 
