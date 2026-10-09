@@ -2,7 +2,7 @@ import logging
 
 import Fill
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld, Location, LocationProgressType
-from Utils import visualize_regions
+from Utils import visualize_regions, output_path
 from .Enums.LocationType import excluded_biteable_location_types
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
     karmic_transformers, \
@@ -14,10 +14,10 @@ from .RegionsData import okami_events, okami_locations, okami_shop_locations
 from .Rules import set_completion_rules
 from .Options import create_option_groups, OkamiOptions, slot_data_options, KarmicTransformers
 from worlds.AutoWorld import World, WebWorld, CollectionState
-from typing import List
-from .Types import OkamiItem, resolve_option_callable, LocalItem
+from typing import List, TextIO
+from .Types import OkamiItem, resolve_option_callable, LocalItem, StartPoint
 from .Enums.DivineInstruments import DivineInstruments
-from .Enums.RegionNames import RegionNames
+from .Enums.RegionNames import RegionNames, MapIds
 
 
 class OkamiWebWolrd(WebWorld):
@@ -45,6 +45,16 @@ class OkamiWorld(World):
     options: OkamiOptions
     web = OkamiWebWolrd()
     local_items = []
+    # TODO: Add more points, set coordinates for different starts.
+    start_point_list = {
+        "Vanilla": StartPoint(RegionNames.CURSED_KAMIKI, MapIds.CURSED_KAMIKI,(0, 0, 0)),
+        "Healed Kamiki": StartPoint(RegionNames.KAMIKI_VILLAGE,MapIds.KAMIKI_VILLAGE, (0, 0, 0)),
+        "Shinshu Field": StartPoint(RegionNames.SHINSHU_FIELD, MapIds.HEALED_SHINSHU, (0, 0, 0)),
+        "Ryoshima Coast": StartPoint(RegionNames.RYOSHIMA_COAST, MapIds.HEALED_RYOSHIMA, (0, 0, 0)),
+        "Sei-an City": StartPoint(RegionNames.SEIAN_CITY_COMMONERS_DRY, MapIds.SEIAN_COMMONERS, (0, 0, 0))
+    }
+    picked_start = None
+
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -53,8 +63,11 @@ class OkamiWorld(World):
         # noinspection PyClassVar
 
         create_regions(self)
+        self.handle_start_point()
         # DEBUG
-        # visualize_regions(self.multiworld.get_region("Menu", self.player),"G:\projets\OkamiAP\worlds\okamihd\docs\OkamiHD.puml")
+        if "puml" in self.options.DebugMode.value:
+            visualize_regions(self.multiworld.get_region("Menu", self.player), output_path() + "/OkamiHD.puml")
+            logging.info("[DEBUG] [PUML] Exported regions graph to: " +  output_path() + "/OkamiHD.puml")
 
     def create_items(self):
         self.prepare_local_items()
@@ -78,7 +91,7 @@ class OkamiWorld(World):
             "SeedName": self.multiworld.seed_name,
             "TotalLocations": get_total_locations(self),
             # Client configuration
-            "supported_client_version": "0.8.2",  # Minimum client version required
+            "supported_client_version": "0.8.3",  # Minimum client version required
         }
 
         # Add game options to slot_data
@@ -112,7 +125,7 @@ class OkamiWorld(World):
                     fill_step_name = (local_item_data.prefill_name if local_item_data.prefill_name is not None else
                                       local_item_data.items[0]) + " for " + self.player_name + " (Try " + str(
                         a + 1) + ')'
-                    print("Prefilling " + fill_step_name)
+                    logging.info("Prefilling " + fill_step_name)
                     locations = valid_locations.copy()
                     item_pool = local_item_pool.copy()
                     # Important - Archipelago will try to place on every location in the list by order, so we shuffle it to not always get the same result.
@@ -140,6 +153,7 @@ class OkamiWorld(World):
         return change
 
     def create_itempool(self) -> List[Item]:
+
         itempool: List[Item] = []
         precollected_items: List[Item] = []
 
@@ -235,6 +249,19 @@ class OkamiWorld(World):
     def print_debug(self, channel: str, s: str):
         if channel in self.options.DebugMode.value:
             logging.info("[DEBUG] [" + channel.upper() + "] " + s)
+
+    def handle_start_point(self):
+        start_point_option: str = self.options.StartingLocation.current_key
+        self.picked_start = start_point_option
+        starting_point:StartPoint = self.start_point_list[start_point_option]
+        menu_region = self.get_region(RegionNames.MENU)
+        sp_region = self.get_region(starting_point.region)
+        exit_name = menu_region.name + ' -> ' + sp_region.name
+        ext = menu_region.connect(sp_region, exit_name)
+
+    def write_spoiler_header(self, spoiler_handle: TextIO) -> None:
+        if self.picked_start is not None:
+            spoiler_handle.write('Picked start: '+self.picked_start)
 
     # Probably has to be a better way to do this.
     item_name_groups = {

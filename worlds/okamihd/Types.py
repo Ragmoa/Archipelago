@@ -7,6 +7,7 @@ from .Enums import RegionNames
 from .Enums.BrushTechniques import BrushTechniques
 from .Enums.LocationType import LocationType
 from .Enums.OkamiEnemies import OkamiEnemies
+from .Enums.RegionNames import MapIds
 from .Enums.WarpType import WarpType
 from .Options import OkamiOptions
 
@@ -93,6 +94,10 @@ class LocalItem(NamedTuple):
     additional_locations: List[str] = []
 
 
+class StartPoint(NamedTuple):
+    region: RegionNames
+    map : MapIds
+    position: tuple[int, int, int]
 
 
 T = TypeVar('T', str, int, bool)
@@ -104,3 +109,5 @@ def resolve_option_callable(value: T | Callable[[OkamiOptions], T], world: "Okam
         return value(world.options)
     else:
         return value
+
+

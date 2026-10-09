@@ -1,7 +1,7 @@
 from typing import List, TYPE_CHECKING, Dict, Any
 from dataclasses import dataclass
 from worlds.AutoWorld import PerGameCommonOptions
-from Options import Range, Toggle, Choice, OptionGroup, Visibility, OptionSet
+from Options import Range, Toggle, Choice, OptionGroup, Visibility, OptionSet, TextChoice
 
 if TYPE_CHECKING:
     from . import OkamiWorld
@@ -114,6 +114,7 @@ class MoonCaveAccess(Choice):
     default = 1
     visibility = Visibility.none
 
+
 class RandomizeContainers(Toggle):
     """Randomize items found in chests, bloom pods, and other containers."""
     display_name = "Randomize Containers"
@@ -145,6 +146,7 @@ class IngredientsInMoonCave(Toggle):
     display_name = "Randomize Ingredients in Moon Cave"
     default = 1
 
+
 class AlternativeMistSlowdown(Toggle):
     """Should Logic take into account the fact that you
     can replicate in the Veil of Mist slowdown effect by using Fireburst/Icestorm?
@@ -155,11 +157,49 @@ class AlternativeMistSlowdown(Toggle):
     default = 0
 
 
+class YoshpetWithoutHolyEagle(Toggle):
+    """Removes Holy Eagle requirement for some checks/access in Yoshpet and Inner Yoshpet."""
+    display_name = "Cross Yoshpet without Holy Eagle ?"
+    default = 0
+
+
 class DebugMode(OptionSet):
-    """Displays A LOT of information while generating. Only intended for dev use"""
+    """Displays A LOT of information while generating. Only intended for dev use.
+    Options Available:
+        - warps: List Warps and their requirements (doesn't include brushes requirements).
+        - puml: Exports a .puml graph of all regions.
+        - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
+    """
     visibility = Visibility.none
-    valid_keys = ["warps"]
+    valid_keys = ["warps", "puml", "rules"]
     valid_keys_casefold = True
+
+
+class Goal(Choice):
+    """Game Goal"""
+    default = 0
+    option_yami = 0
+    option_orochi = 1
+    option_ninetails = 2
+    display_name = "Goal"
+
+
+class ArkOfYamatoOpenTrigger(Choice):
+    """What gives you access to the Ark of Yamato ?"""
+    default = 0
+    visibility = Visibility.none
+    option_vanilla = 0
+
+
+class StartingLocation(TextChoice):
+    """Starting location from a logic PoV. Not handled in the client yet."""
+    display_name = "Starting Location"
+    default = "Vanilla"
+    options = ["Vanilla", "Healed Kamiki",
+               "Shinshu Field",
+               "Ryoshima Coast",
+               "Sei-an City"]
+    visibility = Visibility.none
 
 
 #
@@ -179,6 +219,7 @@ class OkamiOptions(PerGameCommonOptions):
     RandomizeContainers: RandomizeContainers
     RandomizeShops: RandomizeShops
     RandomizeBrushes: RandomizeBrushes
+    Goal: Goal
     ShopSlots: ShopSlots
     NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
@@ -190,8 +231,11 @@ class OkamiOptions(PerGameCommonOptions):
     MoonCaveAccess: MoonCaveAccess
     BloomGuardianSaplings: BloomGuardianSaplings
     IngredientsInMoonCave: IngredientsInMoonCave
-    AlternativeMistSlowdown:AlternativeMistSlowdown
-    DebugMode:DebugMode
+    AlternativeMistSlowdown: AlternativeMistSlowdown
+    YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
+    DebugMode: DebugMode
+    ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
+    StartingLocation: StartingLocation
 
 
 #    PraiseSanity:PraiseSanity
@@ -205,13 +249,14 @@ okami_option_groups: Dict[str, List[Any]] = {
         ShopSlots,
     ],
     "General Options": [
+        Goal,
         NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
         ProgressiveWeapons,
         RemoveBlockHead,
-        BloomGuardianSaplings
-
+        BloomGuardianSaplings,
+        StartingLocation
         # PraiseSanity
     ],
     "Orochi Arc Options": [
@@ -220,7 +265,11 @@ okami_option_groups: Dict[str, List[Any]] = {
         MoonCaveAccess,
         IngredientsInMoonCave
     ],
-    "Advanced Options":[
+    "Kamui Arc Options": [
+        YoshpetWithoutHolyEagle,
+        ArkOfYamatoOpenTrigger
+    ],
+    "Advanced Options": [
         AlternativeMistSlowdown,
         DebugMode
     ]
@@ -242,6 +291,10 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
-    "DebugMode"
+    "YoshpetWithoutHolyEagle",
+    "DebugMode",
+    "Goal",
+    "ArkOfYamatoOpenTrigger",
+    "StartingLocation"
     #    "PraiseSanity"
 }
