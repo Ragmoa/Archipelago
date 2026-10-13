@@ -7,7 +7,7 @@ from .Enums.LocationType import excluded_biteable_location_types
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
     karmic_transformers, \
     progressive_weapons, create_standard_item, create_static_precollected_item_list, global_local_items, \
-    soup_ingredient_local_items
+    soup_ingredient_local_items, weapons_items, get_item_name_groups
 from .Regions import create_regions, get_region_name
 from .Locations import get_location_names, get_total_locations, get_unfilled_locations_count
 from .RegionsData import okami_events, okami_locations, okami_shop_locations
@@ -20,7 +20,7 @@ from .Enums.DivineInstruments import DivineInstruments
 from .Enums.RegionNames import RegionNames
 
 
-class OkamiWebWolrd(WebWorld):
+class OkamiWebWorld(WebWorld):
     theme = "grassFlowers"
     option_groups = create_option_groups()
     tutorials = [Tutorial(
@@ -43,8 +43,9 @@ class OkamiWorld(World):
     location_name_to_id = get_location_names()
     options_dataclass = OkamiOptions
     options: OkamiOptions
-    web = OkamiWebWolrd()
+    web = OkamiWebWorld()
     local_items = []
+    item_name_groups = get_item_name_groups()
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -140,6 +141,9 @@ class OkamiWorld(World):
         return change
 
     def create_itempool(self) -> List[Item]:
+
+        self.print_debug('item_groups',str(self.item_name_groups))
+
         itempool: List[Item] = []
         precollected_items: List[Item] = []
 
@@ -148,14 +152,13 @@ class OkamiWorld(World):
 
         if not self.options.ProgressiveWeapons:
             # Create normal weapons
-            for (divine_instrument_data) in list(DivineInstruments):
-                if divine_instrument_data.value.item_name != DivineInstruments.DIVINE_RETRIBUTION.value.item_name:
-                    itempool += [create_item(divine_instrument_data.value.item_name, divine_instrument_data.value.code,
-                                             ItemClassification.progression, self)]
+            for divine_instrument_name in DivineInstruments:
+                if divine_instrument_name != DivineInstruments.DIVINE_RETRIBUTION:
+                    itempool += [create_standard_item(self,divine_instrument_name)]
 
         else:
             # Create progressive weapons
-            for (progressive_weapon_name, progressive_weapon) in progressive_weapons.items():
+            for (progressive_weapon_name,_) in progressive_weapons.items():
                 # Only Randomize 4 Progressive Mirrors since we start with Divine Retribution
                 if progressive_weapon_name == 'Progressive Mirror':
                     count = 4
@@ -163,8 +166,8 @@ class OkamiWorld(World):
                     count = 5
                 for i in range(count):
                     itempool += [
-                        create_item(progressive_weapon_name, progressive_weapon.code, progressive_weapon.classification,
-                                    self)]
+                        create_standard_item(self,progressive_weapon_name)
+                    ]
 
         match self.options.KarmicTransformers:
             case KarmicTransformers.option_precollected:
@@ -236,38 +239,7 @@ class OkamiWorld(World):
         if channel in self.options.DebugMode.value:
             logging.info("[DEBUG] [" + channel.upper() + "] " + s)
 
-    # Probably has to be a better way to do this.
-    item_name_groups = {
-        "divine_instrument_tier_1": [DivineInstruments.DIVINE_RETRIBUTION.value.item_name,
-                                     DivineInstruments.DEVOUT_BEADS.value.item_name,
-                                     DivineInstruments.TSUMUGARI.value.item_name],
-        "divine_instrument_tier_2": [DivineInstruments.SNARLING_BEAST.value.item_name,
-                                     DivineInstruments.LIFE_BEADS.value.item_name,
-                                     DivineInstruments.SEVEN_STRIKE.value.item_name],
-        "divine_instrument_tier_3": [DivineInstruments.INFINITY_JUDGE.value.item_name,
-                                     DivineInstruments.EXORCISM_BEADS.value.item_name,
-                                     DivineInstruments.BLADE_OF_KUSANAGI.value.item_name],
-        "divine_instrument_tier_4": [DivineInstruments.TRINITY_MIRROR.value.item_name,
-                                     DivineInstruments.RESURRECTION_BEADS.value.item_name,
-                                     DivineInstruments.EIGHT_WONDER.value.item_name],
-        "divine_instrument_tier_5": [DivineInstruments.SOLAR_FLARE.value.item_name,
-                                     DivineInstruments.TUNDRA_BEADS.value.item_name,
-                                     DivineInstruments.THUNDER_EDGE.value.item_name],
-        "canine_warriors": [
-            "Satomi Power Orb (Rei)",
-            "Satomi Power Orb (Shin)",
-            "Satomi Power Orb (Chi)",
-            "Satomi Power Orb (Ko)",
-            "Satomi Power Orb (Tei)",
-            "Satomi Power Orb (Loyalty)",
-            "Satomi Power Orb (Justice)",
-            "Satomi Power Orb (Duty)"
-        ],
 
-        "soup_ingredients": [
-            "Ogre Liver",
-            "Ice Lips",
-            "Fire Eye",
-            "Black Demon Horn"
-        ]
-    }
+
+
+

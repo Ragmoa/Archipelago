@@ -1,3 +1,5 @@
+import logging
+
 from BaseClasses import Item, ItemClassification
 from .Enums.RegionNames import RegionNames
 from .Types import OkamiItem, ItemData, LocalItem
@@ -46,8 +48,6 @@ def create_junk_items(world: "OkamiWorld", count: int) -> List[Item]:
 
 def get_item_name_to_id_dict() -> dict:
     item_dict = {name: data.code for name, data in item_table.items()}
-    for d in DivineInstruments.list():
-        item_dict[d.item_name] = d.code
     return item_dict
 
 
@@ -59,20 +59,31 @@ def create_static_precollected_item_list(world: "OkamiWorld") -> List[Item]:
     precollected_items.append(
         create_item(BrushTechniques.REJUVENATION, rejuvenation.code, rejuvenation.classification, world))
 
-    # Temp while power slash tutorial requires this.
-    # power_slash = brush_techniques_items[BrushTechniques.POWER_SLASH.value]
-    # precollected_items.append(create_item(BrushTechniques.POWER_SLASH, power_slash.code, power_slash.classification, world))
-
     astral_pouch = useful_items['Astral Pouch']
     precollected_items.append(create_item('Astral Pouch', astral_pouch.code, astral_pouch.classification, world))
 
     # We always start with Divine Retribution:
-    divine_retribution = DivineInstruments.DIVINE_RETRIBUTION.value
+    divine_retribution = weapons_items[DivineInstruments.DIVINE_RETRIBUTION]
     precollected_items.append(
-        create_item(divine_retribution.item_name, divine_retribution.code, ItemClassification.progression, world))
+        create_item(DivineInstruments.DIVINE_RETRIBUTION, divine_retribution.code, divine_retribution.classification,
+                    world))
 
     return precollected_items
 
+
+def get_item_name_groups() -> dict:
+    group_dict = {}
+    for item_name, item_data in item_table.items():
+        if item_data.item_groups is not None:
+            for group_name in item_data.item_groups:
+                if group_name in group_dict.keys():
+                    entry = group_dict.get(group_name)
+                    entry.append(item_name)
+                    group_dict.update({group_name: entry})
+                else:
+                    group_dict[group_name] = [item_name]
+
+    return group_dict
 
 
 brush_techniques_items = {
@@ -117,13 +128,13 @@ equips = {
 
 quest_items = {
     # Quest Items
-    "Canine Tracker": ItemData(0x42, ItemClassification.progression,count_in_pool=0),
+    "Canine Tracker": ItemData(0x42, ItemClassification.progression, count_in_pool=0),
     "Lucky Mallet": ItemData(0x43, ItemClassification.progression),
-    "Border Key": ItemData(0x44, ItemClassification.progression,count_in_pool=0),
-    "Dragon Orb": ItemData(0x45, ItemClassification.progression,count_in_pool=0),
-    "Fox Rods": ItemData(0x46, ItemClassification.progression,count_in_pool=0),
+    "Border Key": ItemData(0x44, ItemClassification.progression, count_in_pool=0),
+    "Dragon Orb": ItemData(0x45, ItemClassification.progression, count_in_pool=0),
+    "Fox Rods": ItemData(0x46, ItemClassification.progression, count_in_pool=0),
     "Thunder Brew": ItemData(0x47, ItemClassification.progression),
-    "Shell Amulet": ItemData(0x48, ItemClassification.progression,count_in_pool=0),
+    "Shell Amulet": ItemData(0x48, ItemClassification.progression, count_in_pool=0),
 
     "Mask": ItemData(0x49, ItemClassification.progression),
     "Golden Mushroom": ItemData(0x5f, ItemClassification.progression),
@@ -132,7 +143,7 @@ quest_items = {
     "Sewaprolo": ItemData(0x63, ItemClassification.progression),
     "Charcoal": ItemData(0x71, ItemClassification.progression),
     "Blinding Snow": ItemData(0x72, ItemClassification.progression),
-    "Treasure Box": ItemData(0x73, ItemClassification.progression,count_in_pool=0),
+    "Treasure Box": ItemData(0x73, ItemClassification.progression, count_in_pool=0),
     "Herbal Medicine": ItemData(0x75, ItemClassification.progression),
     "Pinwheel": ItemData(0x76, ItemClassification.progression),
     "Marlin Rod": ItemData(0x77, ItemClassification.progression),
@@ -152,16 +163,20 @@ bitable_items = {
 }
 useful_items = {
     # Useful items - Counts here are invalid, it's intended, to not fille the item pool with these
-    "Sun Fragment": ItemData(0x05, ItemClassification.useful,count_in_pool=9), # Should be 15
-    "Astral Pouch": ItemData(0x06, ItemClassification.useful,count_in_pool=0),# Intended
-    "Stray Bead": ItemData(0xCC, ItemClassification.useful,count_in_pool=0),# Should be 99, set to 0 for now cause they mess with container collection states
+    "Sun Fragment": ItemData(0x05, ItemClassification.useful, count_in_pool=9),  # Should be 15
+    "Astral Pouch": ItemData(0x06, ItemClassification.useful, count_in_pool=0),  # Intended
+    "Stray Bead": ItemData(0xCC, ItemClassification.useful, count_in_pool=0),
+    # Should be 99, set to 0 for now cause they mess with container collection states
     # probably will have to be changed to progession_skip balancing once DF shops get randomized
     "Demon Fang": ItemData(0x1F, ItemClassification.useful, count_in_pool=0),  # to see when DF shops get randomized
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
-    "Mermaid Coin": ItemData(0x0e, ItemClassification.useful,count_in_pool=5),#Accurate count, kept it since it isn't too much
-    "Golden Peach": ItemData(0x0f, ItemClassification.useful,count_in_pool=10), # 14 in total... Probably not useful to have THAT many?,
-    "Gold Dust": ItemData(0x9e, ItemClassification.useful,count_in_pool=11), # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
-    "Praise": ItemData(0x59,ItemClassification.useful,count_in_pool=0) #Here for testing for now; Doesn't work
+    "Mermaid Coin": ItemData(0x0e, ItemClassification.useful, count_in_pool=5),
+    # Accurate count, kept it since it isn't too much
+    "Golden Peach": ItemData(0x0f, ItemClassification.useful, count_in_pool=10),
+    # 14 in total... Probably not useful to have THAT many?,
+    "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=11),
+    # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
+    "Praise": ItemData(0x59, ItemClassification.useful, count_in_pool=0)  # Here for testing for now; Doesn't work
 }
 
 filler_items = {
@@ -224,56 +239,106 @@ filler_items = {
 # All items in the sections below should have a count of 0, they're created by other means:
 event_items = {
     # CANINE WARRIORS STUFF
-    "Satomi Power Orb (Rei)": ItemData(0x303, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Shin)": ItemData(0x304, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Chi)": ItemData(0x305, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Ko)": ItemData(0x306, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Tei)": ItemData(0x307, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Loyalty)": ItemData(0x4e, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Justice)": ItemData(0x4f, ItemClassification.progression, count_in_pool=0),
-    "Satomi Power Orb (Duty)": ItemData(0x50, ItemClassification.progression, count_in_pool=0),
+    "Satomi Power Orb (Rei)": ItemData(0x303, ItemClassification.progression, count_in_pool=0,
+                                       item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Shin)": ItemData(0x304, ItemClassification.progression, count_in_pool=0,
+                                        item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Chi)": ItemData(0x305, ItemClassification.progression, count_in_pool=0,
+                                       item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Ko)": ItemData(0x306, ItemClassification.progression, count_in_pool=0,
+                                      item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Tei)": ItemData(0x307, ItemClassification.progression, count_in_pool=0,
+                                       item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Loyalty)": ItemData(0x4e, ItemClassification.progression, count_in_pool=0,
+                                           item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Justice)": ItemData(0x4f, ItemClassification.progression, count_in_pool=0,
+                                           item_groups=["canine_warriors"]),
+    "Satomi Power Orb (Duty)": ItemData(0x50, ItemClassification.progression, count_in_pool=0,
+                                        item_groups=["canine_warriors"]),
+
     "Serpent Crystal": ItemData(0x308, ItemClassification.progression, count_in_pool=0),
     # MOON CAVE
-
-    "Ogre Liver": ItemData(0x4a, ItemClassification.progression),
-    "Ice Lips": ItemData(0x4b, ItemClassification.progression),
-    "Fire Eye": ItemData(0x4c, ItemClassification.progression),
-    "Black Demon Horn": ItemData(0x4d, ItemClassification.progression),
+    "Ogre Liver": ItemData(0x4a, ItemClassification.progression, item_groups=["soup_ingredients"]),
+    "Ice Lips": ItemData(0x4b, ItemClassification.progression, item_groups=["soup_ingredients"]),
+    "Fire Eye": ItemData(0x4c, ItemClassification.progression, item_groups=["soup_ingredients"]),
+    "Black Demon Horn": ItemData(0x4d, ItemClassification.progression, item_groups=["soup_ingredients"]),
 }
 weapons_items = {
-    "Divine Retribution": ItemData(0x10, ItemClassification.progression, count_in_pool=0),
-    "Snarling Beast": ItemData(0x11, ItemClassification.progression, count_in_pool=0),
-    "Infinity Judge": ItemData(0x12, ItemClassification.progression, count_in_pool=0),
-    "Trinity Mirror": ItemData(0x13, ItemClassification.progression, count_in_pool=0),
-    "Solar Flare": ItemData(0x14, ItemClassification.progression, count_in_pool=0),
-    "Devout Beads": ItemData(0x15, ItemClassification.progression, count_in_pool=0),
-    "Life Beads": ItemData(0x16, ItemClassification.progression, count_in_pool=0),
-    "Exorcism Beads": ItemData(0x17, ItemClassification.progression, count_in_pool=0),
-    "Resurrection Beads": ItemData(0x18, ItemClassification.progression, count_in_pool=0),
-    "Tundra Beads": ItemData(0x19, ItemClassification.progression, count_in_pool=0),
-    "Tsumugari": ItemData(0x1A, ItemClassification.progression, count_in_pool=0),
-    "Seven Strike": ItemData(0x1B, ItemClassification.progression, count_in_pool=0),
-    "Blade of Kusanagi": ItemData(0x1C, ItemClassification.progression, count_in_pool=0),
-    "Eight Wonder": ItemData(0x1D, ItemClassification.progression, count_in_pool=0),
-    "Thunder Edge": ItemData(0x1E, ItemClassification.progression, count_in_pool=0),
+    DivineInstruments.DIVINE_RETRIBUTION.value: ItemData(0x10, ItemClassification.progression, count_in_pool=0,
+                                                         item_groups=["mirror_any", "divine_instrument_any"]),
+    DivineInstruments.SNARLING_BEAST.value: ItemData(0x11, ItemClassification.progression, count_in_pool=0,
+                                                     item_groups=["divine_instrument_2+", "mirror_any",
+                                                                  "divine_instrument_any"]
+                                                     ),
+    DivineInstruments.INFINITY_JUDGE.value: ItemData(0x12, ItemClassification.progression, count_in_pool=0,
+                                                     item_groups=["divine_instrument_3+", "divine_instrument_2+",
+                                                                  "mirror_any",
+                                                                  "divine_instrument_any"]),
+    DivineInstruments.TRINITY_MIRROR.value: ItemData(0x13, ItemClassification.progression, count_in_pool=0,
+                                                     item_groups=["divine_instrument_4+", "divine_instrument_3+",
+                                                                  "divine_instrument_2+", "mirror_any",
+                                                                  "divine_instrument_any"]
+                                                     ),
+    DivineInstruments.SOLAR_FLARE.value: ItemData(0x14, ItemClassification.progression, count_in_pool=0,
+                                                  item_groups=["divine_instrument_5", "divine_instrument_4+",
+                                                               "divine_instrument_3+",
+                                                               "divine_instrument_2+", "mirror_any",
+                                                               "divine_instrument_any"]
+                                                  ),
+    DivineInstruments.DEVOUT_BEADS.value: ItemData(0x15, ItemClassification.progression, count_in_pool=0,
+                                                   item_groups=["rosary_any", "divine_instrument_any"]),
+    DivineInstruments.LIFE_BEADS.value: ItemData(0x16, ItemClassification.progression, count_in_pool=0,
+                                                 item_groups=["divine_instrument_2+", "rosary_any",
+                                                              "divine_instrument_any"]),
+    DivineInstruments.EXORCISM_BEADS.value: ItemData(0x17, ItemClassification.progression, count_in_pool=0,
+                                                     item_groups=["divine_instrument_3+", "divine_instrument_2+",
+                                                                  "rosary_any",
+                                                                  "divine_instrument_any"]),
+    DivineInstruments.RESURRECTION_BEADS.value: ItemData(0x18, ItemClassification.progression, count_in_pool=0,
+                                                         item_groups=["divine_instrument_4+", "divine_instrument_3+",
+                                                                      "divine_instrument_2+", "rosary_any",
+                                                                      "divine_instrument_any"]),
+    DivineInstruments.TUNDRA_BEADS.value: ItemData(0x19, ItemClassification.progression, count_in_pool=0,
+                                                   item_groups=["divine_instrument_5", "divine_instrument_4+",
+                                                                "divine_instrument_3+",
+                                                                "divine_instrument_2+", "rosary_any",
+                                                                "divine_instrument_any"]),
+    DivineInstruments.TSUMUGARI.value: ItemData(0x1A, ItemClassification.progression, count_in_pool=0,
+                                                item_groups=["sword_any", "divine_instrument_any"]),
+    DivineInstruments.SEVEN_STRIKE.value: ItemData(0x1B, ItemClassification.progression, count_in_pool=0,
+                                                   item_groups=["divine_instrument_2+", "sword_any",
+                                                                "divine_instrument_any"]),
+    DivineInstruments.BLADE_OF_KUSANAGI.value: ItemData(0x1C, ItemClassification.progression, count_in_pool=0,
+                                                        item_groups=["divine_instrument_3+", "divine_instrument_2+",
+                                                                     "sword_any",
+                                                                     "divine_instrument_any"]),
+    DivineInstruments.EIGHT_WONDER.value: ItemData(0x1D, ItemClassification.progression, count_in_pool=0,
+                                                   item_groups=["divine_instrument_4+", "divine_instrument_3+",
+                                                                "divine_instrument_2+", "sword_any",
+                                                                "divine_instrument_any"]),
+    DivineInstruments.THUNDER_EDGE.value: ItemData(0x1E, ItemClassification.progression, count_in_pool=0,
+                                                   item_groups=["divine_instrument_5", "divine_instrument_4+",
+                                                                "divine_instrument_3+",
+                                                                "divine_instrument_2+", "sword_any",
+                                                                "divine_instrument_any"]),
 }
 progressive_weapons = {
-    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0),
-    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0),
-    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0)
+    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0,item_groups=["mirror_any","divine_instrument_any"]),
+    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0,item_groups=["rosary_any","divine_instrument_any"]),
+    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0,item_groups=["sword_any","divine_instrument_any"])
 }
 # classified as useful so they're ignored for junk fill
 karmic_transformers = {
     "Karmic Returner": ItemData(0xc8, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 3": ItemData(0x79, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 6": ItemData(0xca, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.useful, count_in_pool=0)
+    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 3": ItemData(0x79, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 6": ItemData(0xca, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
+    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"])
 }
 
 item_table = {
@@ -357,7 +422,7 @@ global_local_items = [
               ),
     LocalItem(["Mask"], [RegionNames.CALCIFIED_CAVERN], is_biteable=False,
               exclude_locations=["Calcified Cavern - Freestanding item"]),
-    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE],is_biteable=False)
+    LocalItem(["Lucky Mallet"], [RegionNames.SUNKEN_SHIP_TREASURE], is_biteable=False),
 ]
 soup_ingredient_local_items = LocalItem(["Ogre Liver",
                                          "Ice Lips",

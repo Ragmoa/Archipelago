@@ -7,7 +7,7 @@ class TestDivineInstruments(OkamiTestBase):
     def test_regular_instruments(self) -> None:
         self.world_setup()
         # Make sure divine retribution is precollected
-        self.assertIs(self.count(DivineInstruments.DIVINE_RETRIBUTION.value.item_name), 1)
+        self.assertIs(self.count(DivineInstruments.DIVINE_RETRIBUTION), 1)
         # Collect everything
         self.collect_all_but([""])
         for i in DivineInstruments:
@@ -25,11 +25,11 @@ class TestDivineInstruments(OkamiTestBase):
 
         self.world_setup()
         # Make sure divine retribution is precollected
-        self.assertIs(self.count(DivineInstruments.DIVINE_RETRIBUTION.value.item_name), 1)
+        self.assertIs(self.count(DivineInstruments.DIVINE_RETRIBUTION), 1)
         self.collect_all_but([""])
         for i in DivineInstruments:
             # Still only 1 divine retribution
-            if i.value.item_name == DivineInstruments.DIVINE_RETRIBUTION.value.item_name:
+            if i.value.item_name == DivineInstruments.DIVINE_RETRIBUTION:
                 self.assertIs(self.count(i.value.item_name), 1)
             else:
                 # No other regular weapons
