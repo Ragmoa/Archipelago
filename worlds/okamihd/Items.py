@@ -51,24 +51,6 @@ def get_item_name_to_id_dict() -> dict:
     return item_dict
 
 
-def create_static_precollected_item_list(world: "OkamiWorld") -> List[Item]:
-    # TODO: Refacto this
-    precollected_items: List[Item] = []
-
-    rejuvenation = brush_techniques_items[BrushTechniques.REJUVENATION.value]
-    precollected_items.append(
-        create_item(BrushTechniques.REJUVENATION, rejuvenation.code, rejuvenation.classification, world))
-
-    astral_pouch = useful_items['Astral Pouch']
-    precollected_items.append(create_item('Astral Pouch', astral_pouch.code, astral_pouch.classification, world))
-
-    # We always start with Divine Retribution:
-    divine_retribution = weapons_items[DivineInstruments.DIVINE_RETRIBUTION]
-    precollected_items.append(
-        create_item(DivineInstruments.DIVINE_RETRIBUTION, divine_retribution.code, divine_retribution.classification,
-                    world))
-
-    return precollected_items
 
 
 def get_item_name_groups() -> dict:
@@ -162,7 +144,7 @@ bitable_items = {
     # "Oddly Shaped Turnip": ItemData(0x41, ItemClassification.progression)
 }
 useful_items = {
-    # Useful items - Counts here are invalid, it's intended, to not fille the item pool with these
+    # Useful items - Counts here are invalid, it's intended, to not fill the item pool with these
     "Sun Fragment": ItemData(0x05, ItemClassification.useful, count_in_pool=9),  # Should be 15
     "Astral Pouch": ItemData(0x06, ItemClassification.useful, count_in_pool=0),  # Intended
     "Stray Bead": ItemData(0xCC, ItemClassification.useful, count_in_pool=0),
@@ -323,22 +305,34 @@ weapons_items = {
                                                                 "divine_instrument_any"]),
 }
 progressive_weapons = {
-    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0,item_groups=["mirror_any","divine_instrument_any"]),
-    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0,item_groups=["rosary_any","divine_instrument_any"]),
-    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0,item_groups=["sword_any","divine_instrument_any"])
+    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0,
+                                   item_groups=["mirror_any", "divine_instrument_any"]),
+    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0,
+                                   item_groups=["rosary_any", "divine_instrument_any"]),
+    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0,
+                                  item_groups=["sword_any", "divine_instrument_any"])
 }
 # classified as useful so they're ignored for junk fill
 karmic_transformers = {
     "Karmic Returner": ItemData(0xc8, ItemClassification.useful, count_in_pool=0),
-    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 3": ItemData(0x79, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 6": ItemData(0xca, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"]),
-    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.useful, count_in_pool=0,item_groups=["karmic_transformers"])
+    "Karmic Transformer 1": ItemData(0x5b, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 2": ItemData(0xc9, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 3": ItemData(0x79, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 4": ItemData(0xcf, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 5": ItemData(0xcb, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 6": ItemData(0xca, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 7": ItemData(0x7b, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 8": ItemData(0x7a, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"]),
+    "Karmic Transformer 9": ItemData(0x7c, ItemClassification.useful, count_in_pool=0,
+                                     item_groups=["karmic_transformers"])
 }
 
 item_table = {

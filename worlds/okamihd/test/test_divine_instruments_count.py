@@ -12,7 +12,7 @@ class TestDivineInstruments(OkamiTestBase):
         self.collect_all_but([""])
         for i in DivineInstruments:
             # We still have 1 of each, and not a 2nd divine retribution.
-            self.assertIs(self.count(i.value.item_name), 1)
+            self.assertIs(self.count(i.value), 1)
         # No progressive weapons, they're not enabled.
         self.assertIs(self.count("Progressive Mirror"), 0)
         self.assertIs(self.count("Progressive Sword"), 0)
@@ -29,11 +29,11 @@ class TestDivineInstruments(OkamiTestBase):
         self.collect_all_but([""])
         for i in DivineInstruments:
             # Still only 1 divine retribution
-            if i.value.item_name == DivineInstruments.DIVINE_RETRIBUTION:
-                self.assertIs(self.count(i.value.item_name), 1)
+            if i == DivineInstruments.DIVINE_RETRIBUTION:
+                self.assertIs(self.count(i.value), 1)
             else:
                 # No other regular weapons
-                self.assertIs(self.count(i.value.item_name), 0)
+                self.assertIs(self.count(i.value), 0)
         # Check progressive weapons count
         self.assertIs(self.count("Progressive Mirror"), 4)
         self.assertIs(self.count("Progressive Sword"), 5)

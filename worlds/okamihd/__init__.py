@@ -3,10 +3,11 @@ import logging
 import Fill
 from BaseClasses import Item, ItemClassification, Tutorial, MultiWorld, Location, LocationProgressType
 from Utils import visualize_regions
+from .Enums.BrushTechniques import BrushTechniques
 from .Enums.LocationType import excluded_biteable_location_types
 from .Items import item_table, create_item, create_multiple_items, create_junk_items, get_item_name_to_id_dict, \
     karmic_transformers, \
-    progressive_weapons, create_standard_item, create_static_precollected_item_list, global_local_items, \
+    progressive_weapons, create_standard_item, global_local_items, \
     soup_ingredient_local_items, weapons_items, get_item_name_groups
 from .Regions import create_regions, get_region_name
 from .Locations import get_location_names, get_total_locations, get_unfilled_locations_count
@@ -46,6 +47,12 @@ class OkamiWorld(World):
     web = OkamiWebWorld()
     local_items = []
     item_name_groups = get_item_name_groups()
+
+    static_precollected_item_names = [
+        BrushTechniques.REJUVENATION.value,
+        "Astral Pouch",
+        DivineInstruments.DIVINE_RETRIBUTION.value
+    ]
 
     def __init__(self, multiworld: "MultiWorld", player: int):
         super().__init__(multiworld, player)
@@ -145,10 +152,8 @@ class OkamiWorld(World):
         self.print_debug('item_groups',str(self.item_name_groups))
 
         itempool: List[Item] = []
-        precollected_items: List[Item] = []
+        precollected_items: List[str] = self.static_precollected_item_names.copy()
 
-        # Static Precollected Items
-        precollected_items = create_static_precollected_item_list(self)
 
         if not self.options.ProgressiveWeapons:
             # Create normal weapons
@@ -171,14 +176,14 @@ class OkamiWorld(World):
 
         match self.options.KarmicTransformers:
             case KarmicTransformers.option_precollected:
-                for (k_name, k) in karmic_transformers.items():
-                    precollected_items.append(create_item(k_name, k.code, k.classification, self))
+                for k_name in karmic_transformers.keys():
+                    precollected_items.append(k_name)
             case KarmicTransformers.option_in_item_pool:
-                for (k_name, k) in karmic_transformers.items():
+                for k_name in karmic_transformers.keys():
                     if k_name == "Karmic Returner":
-                        precollected_items.append(create_item(k_name, k.code, k.classification, self))
+                        precollected_items.append(k_name)
                     else:
-                        itempool += [create_item(k_name, k.code, k.classification, self)]
+                        itempool += [create_standard_item(self,k_name)]
 
         # Event Items Creation
         for name in RegionNames:
@@ -212,7 +217,8 @@ class OkamiWorld(World):
         itempool += create_junk_items(self, junk_fill_count)
 
         for pi in precollected_items:
-            self.push_precollected(pi)
+            precollected_item = create_standard_item(self,pi)
+            self.push_precollected(precollected_item)
         return itempool
 
     def get_valid_local_item_locations(self, local_item_data: LocalItem) -> \
