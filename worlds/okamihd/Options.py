@@ -167,7 +167,6 @@ class EnemiesLogic(Choice):
         - Alternatives: All of the above and alternatives ways (eg. parry, advanced powers)
         - Minimal : All of the above and specific tricks that allow you to bypass some requirements.
     """
-
     default = 0
     option_intended = 0
     option_alternatives = 1
@@ -205,6 +204,7 @@ class OkamiOptions(PerGameCommonOptions):
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown:AlternativeMistSlowdown
     DebugMode:DebugMode
+    EnemiesLogic:EnemiesLogic
 
 
 #    PraiseSanity:PraiseSanity
@@ -218,13 +218,13 @@ okami_option_groups: Dict[str, List[Any]] = {
         ShopSlots,
     ],
     "General Options": [
+        EnemiesLogic,
         NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
         ProgressiveWeapons,
         RemoveBlockHead,
         BloomGuardianSaplings
-
         # PraiseSanity
     ],
     "Orochi Arc Options": [
@@ -256,5 +256,6 @@ slot_data_options = {
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
     "DebugMode"
+    "EnemiesLogic"
     #    "PraiseSanity"
 }

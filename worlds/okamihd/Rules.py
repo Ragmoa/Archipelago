@@ -65,7 +65,6 @@ oni_island_1f_thunder_rule = Or(has_portable_thunder_source_strict,
 oni_island_5f_thunder_rule = Or(has_portable_thunder_source,
                                 HasAll("Oni Island - 4F Grab Thunder Key", BrushTechniques.THUNDERSTORM))
 
-# We assume the player always has divine retribution, so in order to parry they only need another (progressive) weapon
 parry_rule = Or(HasGroup("mirror_any", 2), And(HasGroup("divine_instrument_any", 2), HasGroup("mirror_any", 1)))
 
 
