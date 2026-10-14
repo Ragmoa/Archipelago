@@ -1,9 +1,11 @@
 from typing import TYPE_CHECKING, NamedTuple
 from enum import Enum
 
-from rule_builder.rules import Has, Rule
+from rule_builder.options import OptionFilter
+from rule_builder.rules import Has, Rule, Or, HasAny
 from .BrushTechniques import BrushTechniques
-from ..Rules import slowdown_rule
+from ..Options import EnemiesLogic
+from ..Rules import slowdown_rule, has_portable_fire_source, parry_rule
 
 if TYPE_CHECKING:
     from .. import OkamiWorld
@@ -20,16 +22,29 @@ class EnemyData(NamedTuple):
 # Reference https://github.com/whataboutclyde/okami-utils/blob/master/data/enemy_id.yaml
 class OkamiEnemies(Enum):
     GREEN_IMP = EnemyData(0x03, "Green Imp", 0, BrushTechniques.POWER_SLASH)
-    RED_IMP = EnemyData(0x00, "Red Imp", 0, BrushTechniques.POWER_SLASH)
+    RED_IMP = EnemyData(0x00, "Red Imp", 0,
+                        defeat_condition=Has(BrushTechniques.POWER_SLASH, options=[OptionFilter(EnemiesLogic, 0)],
+                                             filtered_resolution=True),
+                        floral_finisher=BrushTechniques.POWER_SLASH)
     BLUE_IMP = EnemyData(0x01, "Blue Imp", 0, BrushTechniques.POWER_SLASH)
     YELLOW_IMP = EnemyData(0x02, "Yellow Imp", 0, BrushTechniques.POWER_SLASH)
     BLACK_IMP = EnemyData(0x04, "Black Imp", 0, BrushTechniques.POWER_SLASH)
     DEAD_FISH = EnemyData(0x56, "Dead Fish", 0, BrushTechniques.POWER_SLASH)
-    # Not sure if this is the code for waka 1 or 2
+    # Not sure if this is the code for waka 1 or 2drive
     WAKA_1 = EnemyData(0x7e, "Waka (Agata Forest)", 1)
     WAKA_2 = EnemyData(0x7e, "Waka (Taka Pass)", 1)
     BUD_OGRE = EnemyData(0x4d, "Bud Ogre", 1, BrushTechniques.GREENSPROUT_BLOOM,
-                         defeat_condition=Has(BrushTechniques.GREENSPROUT_BLOOM))
+                         defeat_condition=Or(Has(BrushTechniques.GREENSPROUT_BLOOM),
+                                             # Additional ways for enemy logic lvl 1+
+                                             # WHIRLWIND, ICESTROM, THUNDERBOLT FIREBURST ,(INFERNO + SOLAR FLARE)
+                                             Or(
+                                                 HasAny(BrushTechniques.WHIRLWIND,
+                                                        BrushTechniques.THUNDERBOLT, BrushTechniques.ICESTORM),
+                                                 has_portable_fire_source
+                                                 , options=[OptionFilter(EnemiesLogic, 1, "ge")],
+                                                 filtered_resolution=False
+                                             ))
+                         )
     SPIDER_QUEEN = EnemyData(0x2b, "Spider Queen", 1, defeat_condition=Has(BrushTechniques.GREENSPROUT_VINE))
     TEI = EnemyData(0x24, "Canine Warrior Tei", 1)
     HAYABUSA = EnemyData(0x21, "Hayabusa", 1)
@@ -52,7 +67,17 @@ class OkamiEnemies(Enum):
     WIND_DOOM_MIRROR = EnemyData(0x5c, "Wind Doom Mirror", 2, defeat_condition=slowdown_rule)
     BLIGHT = EnemyData(0x7c, "Blight", 2, defeat_condition=Has(BrushTechniques.POWER_SLASH))
     THUNDER_EAR = EnemyData(0x55, "Thunder Ear", 2)
-    EARTH_NOSE = EnemyData(0x54, "Earth Nose", 2, defeat_condition=slowdown_rule)
+    EARTH_NOSE = EnemyData(0x54, "Earth Nose", 2, defeat_condition=Or(slowdown_rule,
+                                                                      Or(parry_rule, Has(BrushTechniques.CHERRY_BOMB),
+                                                                         options=[OptionFilter(EnemiesLogic,
+                                                                                               EnemiesLogic.option_alternatives,
+                                                                                               "ge")],
+                                                                         filtered_resolution=False),
+                                                                      options=[OptionFilter(EnemiesLogic,
+                                                                                            EnemiesLogic.option_minimal,
+                                                                                            "lt")],
+                                                                      filtered_resoulution=True
+                                                                      ))
     BLUE_CYCLOPS = EnemyData(0x29, "Blue Cyclops", 2)
     BANDIT_SPIDER = EnemyData(0x0b, "Bandit Spider", 2, defeat_condition=Has(BrushTechniques.GREENSPROUT_VINE))
     TUBE_FOX = EnemyData(0x0e, "Tube Fox", 3)

@@ -237,7 +237,6 @@ okami_option_groups: Dict[str, List[Any]] = {
         AlternativeMistSlowdown,
         DebugMode
     ]
-
 }
 
 slot_data_options = {
@@ -255,7 +254,7 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
-    "DebugMode"
+    "DebugMode",
     "EnemiesLogic"
     #    "PraiseSanity"
 }
