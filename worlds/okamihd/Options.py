@@ -154,12 +154,24 @@ class AlternativeMistSlowdown(Toggle):
     display_name = "Use Fireburst/Icestrom for slowdown"
     default = 0
 
-
+#TODO: Add item_groups option description
 class DebugMode(OptionSet):
     """Displays A LOT of information while generating. Only intended for dev use"""
     visibility = Visibility.none
-    valid_keys = ["warps"]
+    valid_keys = ["warps","item_groups"]
     valid_keys_casefold = True
+
+class EnemiesLogic(Choice):
+    """What are the expected powers to defeat an enemy:
+        - Intended: The intended power(s) in the vanilla game
+        - Alternatives: All of the above and alternatives ways (eg. parry, advanced powers)
+        - Minimal : All of the above and specific tricks that allow you to bypass some requirements.
+    """
+    default = 0
+    option_intended = 0
+    option_alternatives = 1
+    option_minimal = 2
+    visibility = Visibility.none
 
 
 #
@@ -192,6 +204,7 @@ class OkamiOptions(PerGameCommonOptions):
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown:AlternativeMistSlowdown
     DebugMode:DebugMode
+    EnemiesLogic:EnemiesLogic
 
 
 #    PraiseSanity:PraiseSanity
@@ -205,13 +218,13 @@ okami_option_groups: Dict[str, List[Any]] = {
         ShopSlots,
     ],
     "General Options": [
+        EnemiesLogic,
         NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
         ProgressiveWeapons,
         RemoveBlockHead,
         BloomGuardianSaplings
-
         # PraiseSanity
     ],
     "Orochi Arc Options": [
@@ -243,5 +256,6 @@ slot_data_options = {
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
     "DebugMode"
+    "EnemiesLogic"
     #    "PraiseSanity"
 }
