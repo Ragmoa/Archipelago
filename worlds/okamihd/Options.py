@@ -169,10 +169,23 @@ class DebugMode(OptionSet):
         - warps: List Warps and their requirements (doesn't include brushes requirements).
         - puml: Exports a .puml graph of all regions.
         - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
+        - item_groups: Displays the item groups and their content
     """
     visibility = Visibility.none
-    valid_keys = ["warps", "puml", "rules"]
+    valid_keys = ["warps","item_groups","puml", "rules"]
     valid_keys_casefold = True
+
+class EnemiesLogic(Choice):
+    """What are the expected powers to defeat an enemy:
+        - Intended: The intended power(s) in the vanilla game
+        - Alternatives: All of the above and alternatives ways (eg. parry, advanced powers)
+        - Minimal : All of the above and specific tricks that allow you to bypass some requirements.
+    """
+    default = 0
+    option_intended = 0
+    option_alternatives = 1
+    option_minimal = 2
+    visibility = Visibility.none
 
 
 class Goal(Choice):
@@ -224,7 +237,7 @@ class OkamiOptions(PerGameCommonOptions):
     YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
     DebugMode: DebugMode
     ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
-
+    EnemiesLogic:EnemiesLogic
 
 #    PraiseSanity:PraiseSanity
 
@@ -238,6 +251,7 @@ okami_option_groups: Dict[str, List[Any]] = {
     ],
     "General Options": [
         Goal,
+        EnemiesLogic,
         NightTimeChecksRequireCrescent,
         KarmicTransformers,
         OpenGameStart,
@@ -281,6 +295,7 @@ slot_data_options = {
     "YoshpetWithoutHolyEagle",
     "DebugMode",
     "Goal",
-    "ArkOfYamatoOpenTrigger"
+    "ArkOfYamatoOpenTrigger",
+    "EnemiesLogic"
     #    "PraiseSanity"
 }
