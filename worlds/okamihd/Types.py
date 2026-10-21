@@ -27,6 +27,8 @@ class ItemData(NamedTuple):
     classification: ItemClassification
     # Number in pool, set this to 0 to exclude the item from the pool
     count_in_pool: Callable[[OkamiOptions], int] | int = 1
+    # groups this item is part of
+    item_groups: List[str] | None = None
 
 
 class LocData(NamedTuple):
@@ -69,7 +71,7 @@ class ExitData(NamedTuple):
     needs_long_swim: bool = False
     one_way: bool = False
     loading_screen: bool = True
-    special_rule:Rule | None = None
+    special_rule: Rule | None = None
 
 
 class WarpData(NamedTuple):
@@ -81,18 +83,17 @@ class WarpData(NamedTuple):
     # The logical rule to warp from anywhere else to this place
     trigger_warp_to: Rule | True_ | False_
 
+
 # Defines the way an item should be ranomized locally ("To a limited set of locations")
 class LocalItem(NamedTuple):
-    items:List[str]
+    items: List[str]
     allowed_regions: List[RegionNames]
     # Is this a "bitable" item ? (will exclude location types that directly put the item in the players inventory)
     is_biteable: bool
     # For debug; name of the prefill phase. Will default to the first item name if set to None.
-    prefill_name:str|None = None
+    prefill_name: str | None = None
     exclude_locations: List[str] = []
     additional_locations: List[str] = []
-
-
 
 
 T = TypeVar('T', str, int, bool)
