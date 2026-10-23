@@ -255,7 +255,7 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
-    "DebugMode"
+    "DebugMode",
     "EnemiesLogic"
     #    "PraiseSanity"
 }

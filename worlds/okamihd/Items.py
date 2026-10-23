@@ -94,7 +94,7 @@ brush_techniques_items = {
     BrushTechniques.FOUNTAIN.value: ItemData(0x10F, ItemClassification.progression),  # bit 15
     BrushTechniques.MIST_WARP.value: ItemData(0x111, ItemClassification.progression),  # bit 17
     ## VERY SECRET ONE
-    BrushTechniques.ICESTORM.value: ItemData(0x118, ItemClassification.useful),  # bit 24
+    BrushTechniques.ICESTORM.value: ItemData(0x118, ItemClassification.progression),  # bit 24
 }
 equips = {
     # Equips
@@ -305,11 +305,11 @@ weapons_items = {
                                                                 "divine_instrument_any"]),
 }
 progressive_weapons = {
-    "Progressive Mirror": ItemData(0x300, ItemClassification.progression, count_in_pool=0,
+    "Progressive Mirror": ItemData(0x300, ItemClassification.progression_skip_balancing, count_in_pool=0,
                                    item_groups=["mirror_any", "divine_instrument_any"]),
-    "Progressive Rosary": ItemData(0x301, ItemClassification.progression, count_in_pool=0,
+    "Progressive Rosary": ItemData(0x301, ItemClassification.progression_skip_balancing, count_in_pool=0,
                                    item_groups=["rosary_any", "divine_instrument_any"]),
-    "Progressive Sword": ItemData(0x302, ItemClassification.progression, count_in_pool=0,
+    "Progressive Sword": ItemData(0x302, ItemClassification.progression_skip_balancing, count_in_pool=0,
                                   item_groups=["sword_any", "divine_instrument_any"])
 }
 # classified as useful so they're ignored for junk fill
