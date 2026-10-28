@@ -1,7 +1,3 @@
-import logging
-
-from pygments.lexer import default
-
 from BaseClasses import Item, ItemClassification
 from .Enums.RegionNames import RegionNames
 from .Types import OkamiItem, ItemData, LocalItem
