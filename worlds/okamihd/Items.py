@@ -1,5 +1,3 @@
-import logging
-
 from BaseClasses import Item, ItemClassification
 from .Enums.RegionNames import RegionNames
 from .Types import OkamiItem, ItemData, LocalItem
@@ -35,10 +33,13 @@ def create_junk_items(world: "OkamiWorld", count: int) -> List[Item]:
     junk_list: Dict[str, int] = {}
     ic: ItemClassification
 
+    junk_weights = build_junk_weights_pool(world)
+
     for name in item_table.keys():
         ic = item_table[name].classification
         if ic == ItemClassification.filler:
-            junk_list[name] = junk_weights.get(name)
+            # Weight 1 by default for unknown items, rework this for dynamic_junk_pool
+            junk_list[name] = junk_weights.get(name, 1)
 
     for i in range(count):
         item = world.create_item(world.random.choices(list(junk_list.keys()), weights=list(junk_list.values()), k=1)[0])
@@ -46,11 +47,40 @@ def create_junk_items(world: "OkamiWorld", count: int) -> List[Item]:
     return junk_pool
 
 
+def build_junk_weights_pool(world: "OkamiWorld") -> Dict[str, int]:
+    weights = {}
+    for group_name, group_data in get_item_name_groups().items():
+        if group_name.startswith("filler"):
+            match group_name:
+                case "filler_battle":
+                    weight = world.options.FillerBattleItemsRate.value
+                case "filler_health_ink":
+                    weight = world.options.FillerHealthInkItemsRate.value
+                case "filler_feedbags":
+                    weight = world.options.FillerFeedBagsRate.value
+                case "filler_treasure_cheap":
+                    weight = world.options.FillerCheapTreasuresRate.value
+                case "filler_treasure_medium":
+                    weight = world.options.FillerMediumTreasuresRate.value
+                case "filler_treasure_expensive":
+                    weight = world.options.FillerExpensiveTreasuresRate.value
+                case "filler_fishes":
+                    weight = world.options.FillerFishesRate.value
+                case "filler_food":
+                    weight = world.options.FillerFoodRate.value
+                # Weight 0 for unknown filler groups
+                case _:
+                    weight = 0
+
+            for item_name in group_data:
+                weights[item_name] = weight
+
+    return weights
+
+
 def get_item_name_to_id_dict() -> dict:
     item_dict = {name: data.code for name, data in item_table.items()}
     return item_dict
-
-
 
 
 def get_item_name_groups() -> dict:
@@ -154,8 +184,6 @@ useful_items = {
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful, count_in_pool=5),
     # Accurate count, kept it since it isn't too much
-    "Golden Peach": ItemData(0x0f, ItemClassification.useful, count_in_pool=10),
-    # 14 in total... Probably not useful to have THAT many?,
     "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=11),
     # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
     "Praise": ItemData(0x59, ItemClassification.useful, count_in_pool=0)  # Here for testing for now; Doesn't work
@@ -163,58 +191,73 @@ useful_items = {
 
 filler_items = {
     # Filler
-    "Exorcism Slip L": ItemData(0x08, ItemClassification.filler),
-    "Exorcism Slip M": ItemData(0x09, ItemClassification.filler),
-    "Exorcism Slip S": ItemData(0x0a, ItemClassification.filler),
-    "Vengeance Slip": ItemData(0x0c, ItemClassification.filler),
-    "Inkfinity Stone": ItemData(0x0d, ItemClassification.filler),
-    "Holy Bone L": ItemData(0x04, ItemClassification.filler),
-    "Holy Bone S": ItemData(0x8F, ItemClassification.filler),
-    "White porcelain pot": ItemData(0xA0, ItemClassification.filler),
-    "Traveler's Charm": ItemData(0x70, ItemClassification.filler),
-    "Holy Bone M": ItemData(0x8e, ItemClassification.filler),
-    "Feedbag (Meat)": ItemData(0x90, ItemClassification.filler),
-    "Feedbag (Herbs)": ItemData(0x91, ItemClassification.filler),
-    "Feedbag (Seeds)": ItemData(0x92, ItemClassification.filler),
-    "Feedbag (Fish)": ItemData(0x93, ItemClassification.filler),
-    "Steel Fist Sake": ItemData(0x99, ItemClassification.filler),
-    "Steel Soul Sake": ItemData(0x9a, ItemClassification.filler),
-    "Godly Charm": ItemData(0x9b, ItemClassification.filler),
-    "Kutani Pottery": ItemData(0xa1, ItemClassification.filler),
-    "Incense Burner": ItemData(0xa3, ItemClassification.filler),
-    "Vase": ItemData(0xa4, ItemClassification.filler),
-    "Silver Pocket Watch": ItemData(0xa5, ItemClassification.filler),
-    "Rat Statue": ItemData(0xa6, ItemClassification.filler),
-    "Bull Horn": ItemData(0xa7, ItemClassification.filler),
-    "Etched Glass": ItemData(0xa9, ItemClassification.filler),
-    "Lacquerware Set": ItemData(0xaa, ItemClassification.filler),
-    "Wooden Bear": ItemData(0xab, ItemClassification.filler),
-    "Glass Beads": ItemData(0xad, ItemClassification.filler),
-    "Dragonfly Bead": ItemData(0xae, ItemClassification.filler),
-    "Coral Fragment": ItemData(0xb0, ItemClassification.filler),
-    "Crystal": ItemData(0xb1, ItemClassification.filler),
-    "Pearl": ItemData(0xb2, ItemClassification.filler),
-    "Ruby Tassels": ItemData(0xb3, ItemClassification.filler),
-    "Bull Statue": ItemData(0xb4, ItemClassification.filler),
-    "Tiger Statue": ItemData(0xb5, ItemClassification.filler),
-    "Rabbit Statue": ItemData(0xb6, ItemClassification.filler),
-    "Dragon Statue": ItemData(0xb7, ItemClassification.filler),
-    "Snake Statue": ItemData(0xb8, ItemClassification.filler),
-    "Horse Statue": ItemData(0xb9, ItemClassification.filler),
-    "Sheep Statue": ItemData(0xba, ItemClassification.filler),
-    "Monkey Statue": ItemData(0xbb, ItemClassification.filler),
-    "Rooster Statue": ItemData(0xbc, ItemClassification.filler),
-    "Dog Statue": ItemData(0xbd, ItemClassification.filler),
-    "Boar Statue": ItemData(0xbe, ItemClassification.filler),
-    "Cat Statue": ItemData(0xbf, ItemClassification.filler),
-    "Sapphire Tassels": ItemData(0xc0, ItemClassification.filler),
-    "Emerald Tassels": ItemData(0xc1, ItemClassification.filler),
-    "Turquoise Tassels": ItemData(0xc2, ItemClassification.filler),
-    "Agate Tassels": ItemData(0xc3, ItemClassification.filler),
-    "Amber Tassels": ItemData(0xc4, ItemClassification.filler),
-    "Cat's Eye Tassels": ItemData(0xc5, ItemClassification.filler),
-    "Amethyst Tassels": ItemData(0xc6, ItemClassification.filler),
-    "Jade Tassels": ItemData(0xc7, ItemClassification.filler)
+    ## Battle Items 108, 23%
+    "Exorcism Slip L": ItemData(0x08, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Exorcism Slip M": ItemData(0x09, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Exorcism Slip S": ItemData(0x0a, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Vengeance Slip": ItemData(0x0c, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Traveler's Charm": ItemData(0x70, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Steel Fist Sake": ItemData(0x99, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Steel Soul Sake": ItemData(0x9a, ItemClassification.filler, item_groups=["filler_battle"]),
+    "Godly Charm": ItemData(0x9b, ItemClassification.filler, item_groups=["filler_battle"]),
+
+    ## Ink and health Items 46, 10 %
+    "Inkfinity Stone": ItemData(0x0d, ItemClassification.filler, item_groups=["filler_health_ink"]),
+    "Holy Bone L": ItemData(0x04, ItemClassification.filler, item_groups=["filler_health_ink"]),
+    "Holy Bone S": ItemData(0x8F, ItemClassification.filler, item_groups=["filler_health_ink"]),
+    "Holy Bone M": ItemData(0x8e, ItemClassification.filler, item_groups=["filler_health_ink"]),
+
+    ## FeedBags 65, 14%
+    "Feedbag (Meat)": ItemData(0x90, ItemClassification.filler, item_groups=["filler_feedbags"]),
+    "Feedbag (Herbs)": ItemData(0x91, ItemClassification.filler, item_groups=["filler_feedbags"]),
+    "Feedbag (Seeds)": ItemData(0x92, ItemClassification.filler, item_groups=["filler_feedbags"]),
+    "Feedbag (Fish)": ItemData(0x93, ItemClassification.filler, item_groups=["filler_feedbags"]),
+
+    ## Treasures 241, 52 %
+    ### CHEAP (<5K yen) 36 %
+    "Rat Statue": ItemData(0xa6, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3300
+    "Bull Horn": ItemData(0xa7, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3000
+    "Incense Burner": ItemData(0xa3, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 2000
+    "Vase": ItemData(0xa4, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 1900
+    "Lacquerware Set": ItemData(0xaa, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 2500
+    "Wooden Bear": ItemData(0xab, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 1500
+    "Glass Beads": ItemData(0xad, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 1000
+    "Dragonfly Bead": ItemData(0xae, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 1100
+    "Coral Fragment": ItemData(0xb0, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 1700
+    "Bull Statue": ItemData(0xb4, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3400
+    "Tiger Statue": ItemData(0xb5, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3500
+    "Rabbit Statue": ItemData(0xb6, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3600
+    "Dragon Statue": ItemData(0xb7, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3700
+    "Snake Statue": ItemData(0xb8, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3800
+    "Horse Statue": ItemData(0xb9, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 3900
+    "Sheep Statue": ItemData(0xba, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4000
+    "Monkey Statue": ItemData(0xbb, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4100
+    "Rooster Statue": ItemData(0xbc, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4200
+    "Dog Statue": ItemData(0xbd, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4300
+    "Boar Statue": ItemData(0xbe, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4400
+    "Cat Statue": ItemData(0xbf, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 4500
+    "Crystal": ItemData(0xb1, ItemClassification.filler, item_groups=["filler_treasure_cheap"]),  # 5000
+
+    ### MEDIUM (5K ~ 10K), 42, 9%
+    "Pearl": ItemData(0xb2, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 5500
+    "Ruby Tassels": ItemData(0xb3, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 9000
+    "Turquoise Tassels": ItemData(0xc2, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 8500
+    "Agate Tassels": ItemData(0xc3, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 8000
+    "Amber Tassels": ItemData(0xc4, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 6500
+    "Cat's Eye Tassels": ItemData(0xc5, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 7500
+    "Amethyst Tassels": ItemData(0xc6, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 6000
+    "Jade Tassels": ItemData(0xc7, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 7000
+    "Sapphire Tassels": ItemData(0xc0, ItemClassification.filler, item_groups=["filler_treasure_medium"]),  # 9500
+
+    ### EXPENSIVE (>10K) 33, 5%
+    "White porcelain pot": ItemData(0xA0, ItemClassification.filler, item_groups=["filler_treasure_expensive"]),
+    # 15000
+    "Kutani Pottery": ItemData(0xa1, ItemClassification.filler, item_groups=["filler_treasure_expensive"]),  # 12000
+    "Silver Pocket Watch": ItemData(0xa5, ItemClassification.filler, item_groups=["filler_treasure_expensive"]),
+    # 30000
+    "Etched Glass": ItemData(0xa9, ItemClassification.filler, item_groups=["filler_treasure_expensive"]),  # 20000
+    "Emerald Tassels": ItemData(0xc1, ItemClassification.filler, item_groups=["filler_treasure_expensive"]),  # 10500
+
 }
 
 # Items that represent IG Events or quest progression.
@@ -335,6 +378,90 @@ karmic_transformers = {
                                      item_groups=["karmic_transformers"])
 }
 
+fish_table = {
+    "Supreme Tuna": ItemData(0xD0, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Mountain Trout": ItemData(0xD1, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Red Snapper": ItemData(0xD2, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Striped Snapper": ItemData(0xD3, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Salmon": ItemData(0xD4, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Koi": ItemData(0xD5, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Huchen": ItemData(0xD6, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Robalo": ItemData(0xD7, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Black Bass": ItemData(0xD8, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Clownfish": ItemData(0xD9, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Bonito": ItemData(0xDA, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Yellowtail": ItemData(0xDB, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Sweetfish": ItemData(0xDC, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Trout": ItemData(0xDD, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Smelt": ItemData(0xDE, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Killifish": ItemData(0xDF, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Flying Fish": ItemData(0xE0, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Sturgeon": ItemData(0xE1, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Sunfish": ItemData(0xE2, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Freshwater Eel": ItemData(0xE3, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Loach": ItemData(0xE4, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Moray": ItemData(0xE5, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Oarfish": ItemData(0xE6, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Monkfish": ItemData(0xE7, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Catfish": ItemData(0xE8, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Giant Catfish": ItemData(0xE9, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Goby": ItemData(0xEA, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Lobster": ItemData(0xEB, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Crawfish": ItemData(0xEC, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Scallop": ItemData(0xED, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Nautilus": ItemData(0xEE, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Manta": ItemData(0xEF, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Blowfish": ItemData(0xF0, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "River Crab": ItemData(0xF1, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Starfish": ItemData(0xF2, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Loggerhead Turtle": ItemData(0xF4, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Sea Horse": ItemData(0xF5, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Octopus": ItemData(0xF6, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    "Squid": ItemData(0xF7, ItemClassification.filler, item_groups=["fishes", "filler_fishes"]),
+    # TODO: Check which of those are taken into account by the game without changing anything
+    "Marlin": ItemData(0xF3, ItemClassification.filler, item_groups=["fishes"]),
+    "Giant Salmon": ItemData(0xCE, ItemClassification.filler, item_groups=["fishes"]),
+    "Whopper": ItemData(0xFE, ItemClassification.filler, item_groups=["fishes"]),
+    "Cutlass Fish": ItemData(0xFF, ItemClassification.filler, item_groups=["fishes"]),
+}
+
+food_table = {
+    "Peach": ItemData(0x20, ItemClassification.filler, item_groups=["filler_food"]),
+    "Apple": ItemData(0x21, ItemClassification.filler, item_groups=["filler_food"]),
+    "Orange": ItemData(0x22, ItemClassification.filler, item_groups=["filler_food"]),
+    "Baked Oranges": ItemData(0x23, ItemClassification.filler, item_groups=["filler_food"]),
+    "Radish": ItemData(0x24, ItemClassification.filler, item_groups=["filler_food"]),
+    "Turnip": ItemData(0x25, ItemClassification.filler, item_groups=["filler_food"]),
+    "Ginseng": ItemData(0x26, ItemClassification.filler, item_groups=["filler_food"]),
+    "Cabbage": ItemData(0x27, ItemClassification.filler, item_groups=["filler_food"]),
+    "Chinese Cabbage": ItemData(0x28, ItemClassification.filler, item_groups=["filler_food"]),
+    "Cherry Cake": ItemData(0x29, ItemClassification.filler, item_groups=["filler_food"]),
+    "Potato": ItemData(0x2A, ItemClassification.filler, item_groups=["filler_food"]),
+    "Watermelon": ItemData(0x2B, ItemClassification.filler, item_groups=["filler_food"]),
+    "Bale of Rice": ItemData(0x2C, ItemClassification.filler, item_groups=["filler_food"]),
+    "Roasted Meat": ItemData(0x2D, ItemClassification.filler, item_groups=["filler_food"]),
+    "Bamboo Shoot": ItemData(0x2E, ItemClassification.filler, item_groups=["filler_food"]),
+    "Roasted Fish": ItemData(0x2F, ItemClassification.filler, item_groups=["filler_food"]),
+    "Rice Balls": ItemData(0x30, ItemClassification.filler, item_groups=["filler_food"]),
+    "Dumplings": ItemData(0x31, ItemClassification.filler, item_groups=["filler_food"]),
+    "Grapes": ItemData(0x32, ItemClassification.filler, item_groups=["filler_food"]),
+    "Gourd": ItemData(0x33, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Rice": ItemData(0x34, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Fish": ItemData(0x35, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Egg Rolls": ItemData(0x36, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Meat": ItemData(0x37, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Crab": ItemData(0x38, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Fruit": ItemData(0x39, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Dumplings": ItemData(0x3A, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Hotchpotch": ItemData(0x3B, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sasa Cake": ItemData(0x3C, ItemClassification.filler, item_groups=["filler_food"]),
+    "Rice Stew": ItemData(0x3D, ItemClassification.filler, item_groups=["filler_food"]),
+    "Millet Dumplings": ItemData(0x3E, ItemClassification.filler, item_groups=["filler_food"]),
+    "Kamiki Orange": ItemData(0x3F, ItemClassification.filler, item_groups=["filler_food"]),
+    "Sashimi": ItemData(0x94, ItemClassification.filler, item_groups=["filler_food"]),
+    "Golden Peach": ItemData(0x0f, ItemClassification.filler, item_groups=["filler_food"]),
+}
+
 item_table = {
     **brush_techniques_items,
     **equips,
@@ -347,61 +474,8 @@ item_table = {
     **weapons_items,
     **progressive_weapons,
     **karmic_transformers,
-}
-junk_weights = {
-    # TODO: Junk items weight - Based of the number of times it appears in chests in vanilla
-    "Exorcism Slip L": 9,
-    "Exorcism Slip M": 10,
-    "Exorcism Slip S": 22,
-    "Vengeance Slip": 19,
-    "Inkfinity Stone": 15,
-    "Holy Bone L": 1,  # Never found in chests,so it should be 0, buuut...
-    "Holy Bone S": 23,
-    "White porcelain pot": 8,
-    "Traveler's Charm": 13,
-    "Holy Bone M": 9,
-    "Feedbag (Meat)": 9,
-    "Feedbag (Herbs)": 22,
-    "Feedbag (Seeds)": 26,
-    "Feedbag (Fish)": 8,
-    "Steel Fist Sake": 12,
-    "Steel Soul Sake": 12,
-    "Godly Charm": 11,
-    "Kutani Pottery": 11,
-    "Incense Burner": 14,
-    "Vase": 9,
-    "Silver Pocket Watch": 4,
-    "Rat Statue": 1,
-    "Bull Horn": 24,
-    "Etched Glass": 9,
-    "Lacquerware Set": 18,
-    "Wooden Bear": 8,
-    "Glass Beads": 15,
-    "Dragonfly Bead": 12,
-    "Coral Fragment": 16,
-    "Crystal": 38,
-    "Pearl": 33,
-    "Ruby Tassels": 1,
-    "Bull Statue": 1,
-    "Tiger Statue": 1,
-    "Rabbit Statue": 1,
-    "Dragon Statue": 1,
-    "Snake Statue": 1,
-    "Horse Statue": 1,
-    "Sheep Statue": 1,
-    "Monkey Statue": 1,
-    "Rooster Statue": 1,
-    "Dog Statue": 1,
-    "Boar Statue": 1,
-    "Cat Statue": 1,
-    "Sapphire Tassels": 1,
-    "Emerald Tassels": 1,
-    "Turquoise Tassels": 1,
-    "Agate Tassels": 1,
-    "Amber Tassels": 1,
-    "Cat's Eye Tassels": 1,
-    "Amethyst Tassels": 1,
-    "Jade Tassels": 1,
+    **fish_table,
+    **food_table
 }
 
 global_local_items = [
