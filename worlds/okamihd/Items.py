@@ -188,8 +188,6 @@ useful_items = {
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful, count_in_pool=5),
     # Accurate count, kept it since it isn't too much
-    "Golden Peach": ItemData(0x0f, ItemClassification.useful, count_in_pool=10),
-    # 14 in total... Probably not useful to have THAT many?,
     "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=11),
     # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
     "Praise": ItemData(0x59, ItemClassification.useful, count_in_pool=0)  # Here for testing for now; Doesn't work
@@ -465,6 +463,7 @@ food_table = {
     "Millet Dumplings": ItemData(0x3E, ItemClassification.filler, item_groups=["filler_food"]),
     "Kamiki Orange": ItemData(0x3F, ItemClassification.filler, item_groups=["filler_food"]),
     "Sashimi": ItemData(0x94, ItemClassification.filler, item_groups=["filler_food"]),
+    "Golden Peach": ItemData(0x0f, ItemClassification.filler, item_groups=["filler_food"]),
 }
 
 item_table = {

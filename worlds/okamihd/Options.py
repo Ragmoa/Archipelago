@@ -250,8 +250,9 @@ class FillerExpensiveTreasuresRate(Range):
 
 class FillerFishesRate(Range):
     """
-        Rate of Fishes in the filler pool. Excludes specific fishes that may be important for story flags
+        Rate of Fishes in the filler pool. Excludes specific fishes that may be important for story flags. Doesn't work, despawns chests.
     """
+    visibility = Visibility.none
     range_start = 0
     range_end = 100
     default = 0
