@@ -169,11 +169,12 @@ class DebugMode(OptionSet):
         - warps: List Warps and their requirements (doesn't include brushes requirements).
         - puml: Exports a .puml graph of all regions.
         - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
-        - item_groups: Displays the item groups and their content
+        - item_groups: Displays the item groups and their contents
     """
     visibility = Visibility.none
     valid_keys = ["warps","item_groups","puml", "rules"]
     valid_keys_casefold = True
+
 
 class EnemiesLogic(Choice):
     """What are the expected powers to defeat an enemy:
@@ -202,6 +203,97 @@ class ArkOfYamatoOpenTrigger(Choice):
     default = 0
     visibility = Visibility.none
     option_vanilla = 0
+
+
+class IncludeFishes(Toggle):
+    """
+        Add Fishes in the item pool
+    """
+    # TODO: add difference between filler fishes and ones that can logically progress the game.
+    display_name = "Include Fishes in the item pool"
+    default = 0
+    visibility = Visibility.none
+
+
+class FillerBattleItemsRate(Range):
+    """
+        Rate of battle items (Slips, Charms, Sakes) in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 25
+    display_name = "Rate of battle items in filler pool"
+
+
+class FillerHealthInkItemsRate(Range):
+    """
+        Rate of Holy Bones and Inkfinity Stones in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 10
+    display_name = "Rate of health and ink items in filler pool"
+
+
+class FillerFeedBagsRate(Range):
+    """
+        Rate of Feedbags in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 15
+    display_name = "Rate of Feedbags in filler pool"
+
+
+class FillerCheapTreasuresRate(Range):
+    """
+        Rate of Cheap Treasures (< 5k yen value) in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 35
+    display_name = "Rate of cheap treasures in filler pool"
+
+
+class FillerMediumTreasuresRate(Range):
+    """
+        Rate of Medium Treasures (between 5 and 10K yen value) in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 10
+    display_name = "Rate of medium treasures in filler pool"
+
+
+class FillerExpensiveTreasuresRate(Range):
+    """
+        Rate of Expensive Treasures (> 10K yen value) in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 5
+    display_name = "Rate of expensive treasures in filler pool"
+
+
+class FillerFishesRate(Range):
+    """
+        Rate of Fishes in the filler pool. Excludes specific fishes that may be important for story flags. Doesn't work, despawns chests.
+    """
+    visibility = Visibility.none
+    range_start = 0
+    range_end = 100
+    default = 0
+    display_name = "Rate of fishes in filler pool"
+
+
+class FillerFoodRate(Range):
+    """
+        Rate of Food Items in the filler pool.
+    """
+    range_start = 0
+    range_end = 100
+    default = 0
+    display_name = "Rate of food items in filler pool"
 
 
 #
@@ -237,7 +329,16 @@ class OkamiOptions(PerGameCommonOptions):
     YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
     DebugMode: DebugMode
     ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
-    EnemiesLogic:EnemiesLogic
+    EnemiesLogic: EnemiesLogic
+    IncludeFishes: IncludeFishes
+    FillerBattleItemsRate: FillerBattleItemsRate
+    FillerHealthInkItemsRate: FillerHealthInkItemsRate
+    FillerFeedBagsRate: FillerFeedBagsRate
+    FillerCheapTreasuresRate: FillerCheapTreasuresRate
+    FillerMediumTreasuresRate: FillerMediumTreasuresRate
+    FillerExpensiveTreasuresRate: FillerExpensiveTreasuresRate
+    FillerFishesRate: FillerFishesRate
+    FillerFoodRate: FillerFoodRate
 
 #    PraiseSanity:PraiseSanity
 
@@ -253,12 +354,15 @@ okami_option_groups: Dict[str, List[Any]] = {
         Goal,
         EnemiesLogic,
         NightTimeChecksRequireCrescent,
-        KarmicTransformers,
         OpenGameStart,
-        ProgressiveWeapons,
         RemoveBlockHead,
         BloomGuardianSaplings
         # PraiseSanity
+    ],
+    "Item Pool": [
+        ProgressiveWeapons,
+        KarmicTransformers,
+        IncludeFishes
     ],
     "Orochi Arc Options": [
         RequiredDoggorbs,
@@ -273,8 +377,17 @@ okami_option_groups: Dict[str, List[Any]] = {
     "Advanced Options": [
         AlternativeMistSlowdown,
         DebugMode
+    ],
+    "Junk Pool": [
+        FillerBattleItemsRate,
+        FillerHealthInkItemsRate,
+        FillerFeedBagsRate,
+        FillerCheapTreasuresRate,
+        FillerMediumTreasuresRate,
+        FillerExpensiveTreasuresRate,
+        FillerFishesRate,
+        FillerFoodRate
     ]
-
 }
 
 slot_data_options = {
@@ -292,10 +405,19 @@ slot_data_options = {
     "MoonCaveAccess",
     "BloomGuardianSaplings",
     "IngredientsInMoonCave",
-    "YoshpetWithoutHolyEagle",
     "DebugMode",
+    "EnemiesLogic",
+    "IncludeFishes",
+    "FillerBattleItemsRate",
+    "FillerHealthInkItemsRate",
+    "FillerFeedBagsRate",
+    "FillerCheapTreasuresRate",
+    "FillerMediumTreasuresRate",
+    "FillerExpensiveTreasuresRate",
+    "FillerFishesRate",
+    "FillerFoodRate"
+    "YoshpetWithoutHolyEagle",
     "Goal",
-    "ArkOfYamatoOpenTrigger",
-    "EnemiesLogic"
+    "ArkOfYamatoOpenTrigger"
     #    "PraiseSanity"
 }

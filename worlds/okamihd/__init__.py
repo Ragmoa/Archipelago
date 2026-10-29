@@ -77,8 +77,10 @@ class OkamiWorld(World):
             self.local_items.append(soup_ingredient_local_items)
 
     def set_rules(self):
-
         set_completion_rules(self)
+
+    def generate_early(self) -> None:
+        logging.warning("/!\\ The Okami HD Archipelago is still in development; We advise not using it in syncs. Expect bugs and softlocks. Goal won't be triggered. /!\\")
 
     def create_item(self, name: str) -> Item:
         return create_standard_item(self, name)
