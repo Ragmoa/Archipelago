@@ -415,7 +415,7 @@ slot_data_options = {
     "FillerMediumTreasuresRate",
     "FillerExpensiveTreasuresRate",
     "FillerFishesRate",
-    "FillerFoodRate"
+    "FillerFoodRate",
     "YoshpetWithoutHolyEagle",
     "Goal",
     "ArkOfYamatoOpenTrigger"
