@@ -175,7 +175,7 @@ bitable_items = {
 }
 useful_items = {
     # Useful items - Counts here are invalid, it's intended, to not fill the item pool with these
-    "Sun Fragment": ItemData(0x05, ItemClassification.useful, count_in_pool=9),  # Should be 15
+    "Sun Fragment": ItemData(0x05, ItemClassification.useful, count_in_pool=15),  # Should be 15
     "Astral Pouch": ItemData(0x06, ItemClassification.useful, count_in_pool=0),  # Intended
     "Stray Bead": ItemData(0xCC, ItemClassification.useful, count_in_pool=0),
     # Should be 99, set to 0 for now cause they mess with container collection states
@@ -184,9 +184,10 @@ useful_items = {
     # Technically a filler item, but useful feels more appropriate. Warping with those without Fountain will probably be out of logic.
     "Mermaid Coin": ItemData(0x0e, ItemClassification.useful, count_in_pool=5),
     # Accurate count, kept it since it isn't too much
-    "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=11),
+    "Gold Dust": ItemData(0x9e, ItemClassification.useful, count_in_pool=14),
     # 15 if we count the ones sold by merchants, which we may randomize, only 1 in a chest if we don't count those...
-    "Praise": ItemData(0x59, ItemClassification.useful, count_in_pool=0)  # Here for testing for now; Doesn't work
+    "Praise": ItemData(0x59, ItemClassification.useful, count_in_pool=0) , #Here for testing for now; Doesn't work
+    "Hourglass Orb":ItemData(0x51,ItemClassification.useful,count_in_pool=0) # Test for Yoshpet
 }
 
 filler_items = {

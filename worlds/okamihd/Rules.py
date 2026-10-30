@@ -4,7 +4,8 @@ from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, And, Rule, OptionFilter, Or, HasGroup, HasAny, HasAll
 from .Enums.BrushTechniques import BrushTechniques
 from .Enums.DivineInstruments import DivineInstruments
-from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown
+from .Options import ProgressiveWeapons, RequiredDoggorbs, NightTimeChecksRequireCrescent, AlternativeMistSlowdown, \
+    YoshpetWithoutHolyEagle
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -67,6 +68,11 @@ oni_island_5f_thunder_rule = Or(has_portable_thunder_source,
 
 parry_rule = Or(HasGroup("mirror_any", 2), And(HasGroup("divine_instrument_any", 2), HasGroup("mirror_any", 1)))
 
+yoshpet_holy_eagle_rule = Has("Holy Eagle", options=[
+    OptionFilter(YoshpetWithoutHolyEagle, YoshpetWithoutHolyEagle.option_false)], filtered_resolution=True)
+
+yamato_rule = Has("Wawku Shrine - Defeat Leckhu and Nechku")
+
 
 def has_divine_instrument_tier(tier: int) -> Rule:
     # Special Rule for mirrors
@@ -90,5 +96,10 @@ def has_divine_instrument_tier(tier: int) -> Rule:
 
 
 def set_completion_rules(world: "OkamiWorld"):
-    world.set_completion_rule(HasAll("Moon Cave - Defeat Orochi", "Oni Island - Defeat Ninetails"))
+    if world.options.Goal.value == world.options.Goal.option_yami:
+        world.set_completion_rule(Has("Ark of Yamato - Defeat Yami"))
+    elif world.options.Goal.value == world.options.Goal.option_ninetails:
+        world.set_completion_rule(Has("Oni Island - Defeat Ninetails"))
+    else:
+        world.set_completion_rule(Has("Moon Cave - Defeat Orochi"))
     return

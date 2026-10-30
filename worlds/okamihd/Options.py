@@ -157,11 +157,22 @@ class AlternativeMistSlowdown(Toggle):
     default = 0
 
 
-# TODO: Add item_groups option description
+class YoshpetWithoutHolyEagle(Toggle):
+    """Removes Holy Eagle requirement for some checks/access in Yoshpet and Inner Yoshpet."""
+    display_name = "Cross Yoshpet without Holy Eagle ?"
+    default = 0
+
+
 class DebugMode(OptionSet):
-    """Displays A LOT of information while generating. Only intended for dev use"""
+    """Displays A LOT of information while generating. Only intended for dev use.
+    Options Available:
+        - warps: List Warps and their requirements (doesn't include brushes requirements).
+        - puml: Exports a .puml graph of all regions.
+        - rules: Displays logic rules for every location and event. These rules assume you've got access to the parent region
+        - item_groups: Displays the item groups and their contents
+    """
     visibility = Visibility.none
-    valid_keys = ["warps", "item_groups"]
+    valid_keys = ["warps","item_groups","puml", "rules"]
     valid_keys_casefold = True
 
 
@@ -176,6 +187,22 @@ class EnemiesLogic(Choice):
     option_alternatives = 1
     option_minimal = 2
     visibility = Visibility.none
+
+
+class Goal(Choice):
+    """Game Goal"""
+    default = 0
+    option_yami = 0
+    option_orochi = 1
+    option_ninetails = 2
+    display_name = "Goal"
+
+
+class ArkOfYamatoOpenTrigger(Choice):
+    """What gives you access to the Ark of Yamato ?"""
+    default = 0
+    visibility = Visibility.none
+    option_vanilla = 0
 
 
 class IncludeFishes(Toggle):
@@ -286,6 +313,7 @@ class OkamiOptions(PerGameCommonOptions):
     RandomizeContainers: RandomizeContainers
     RandomizeShops: RandomizeShops
     RandomizeBrushes: RandomizeBrushes
+    Goal: Goal
     ShopSlots: ShopSlots
     NightTimeChecksRequireCrescent: NightTimeChecksRequireCrescent
     KarmicTransformers: KarmicTransformers
@@ -298,7 +326,9 @@ class OkamiOptions(PerGameCommonOptions):
     BloomGuardianSaplings: BloomGuardianSaplings
     IngredientsInMoonCave: IngredientsInMoonCave
     AlternativeMistSlowdown: AlternativeMistSlowdown
+    YoshpetWithoutHolyEagle: YoshpetWithoutHolyEagle
     DebugMode: DebugMode
+    ArkOfYamatoOpenTrigger: ArkOfYamatoOpenTrigger
     EnemiesLogic: EnemiesLogic
     IncludeFishes: IncludeFishes
     FillerBattleItemsRate: FillerBattleItemsRate
@@ -309,7 +339,6 @@ class OkamiOptions(PerGameCommonOptions):
     FillerExpensiveTreasuresRate: FillerExpensiveTreasuresRate
     FillerFishesRate: FillerFishesRate
     FillerFoodRate: FillerFoodRate
-
 
 #    PraiseSanity:PraiseSanity
 
@@ -322,6 +351,7 @@ okami_option_groups: Dict[str, List[Any]] = {
         ShopSlots,
     ],
     "General Options": [
+        Goal,
         EnemiesLogic,
         NightTimeChecksRequireCrescent,
         OpenGameStart,
@@ -339,6 +369,10 @@ okami_option_groups: Dict[str, List[Any]] = {
         CanineRewards,
         MoonCaveAccess,
         IngredientsInMoonCave
+    ],
+    "Kamui Arc Options": [
+        YoshpetWithoutHolyEagle,
+        ArkOfYamatoOpenTrigger
     ],
     "Advanced Options": [
         AlternativeMistSlowdown,
@@ -381,6 +415,9 @@ slot_data_options = {
     "FillerMediumTreasuresRate",
     "FillerExpensiveTreasuresRate",
     "FillerFishesRate",
-    "FillerFoodRate"
+    "FillerFoodRate",
+    "YoshpetWithoutHolyEagle",
+    "Goal",
+    "ArkOfYamatoOpenTrigger"
     #    "PraiseSanity"
 }

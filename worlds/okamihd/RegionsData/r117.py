@@ -12,15 +12,20 @@ if TYPE_CHECKING:
 exits = {
 }
 events = {
-    RegionNames.NORTHERN_RYOSHIMA_COAST_CB2_CAVE:{
+    RegionNames.NORTHERN_RYOSHIMA_COAST_CB2_CAVE: {
         "Northern Ryoshima Coast - Offer 120,000 yen in Cherry Bomb 2 Fountain": EventData()
     }
 }
 locations = {
     RegionNames.NORTHERN_RYOSHIMA_COAST_CB2_CAVE: {
         # Brush upgrade id 25
-        "Northern Ryoshima Coast - Bakugami (Cherry Bomb 2)": LocData(25, type=LocationType.CONSTELLATION,progress_type=LocationProgressType.EXCLUDED),
-        "Northern Ryoshima Coast - Chest after Cherry Bomb 2": LocData(container_check_id(MapIds.CHERRY_BOMB_2_CAVE, 0))
+        "Northern Ryoshima Coast - Bakugami (Cherry Bomb 2)": LocData(25, type=LocationType.CONSTELLATION,
+                                                                      progress_type=LocationProgressType.EXCLUDED,
+                                                                      required_items_events=[
+                                                                          "Northern Ryoshima Coast - Offer 120,000 yen in Cherry Bomb 2 Fountain"]),
+        "Northern Ryoshima Coast - Chest after Cherry Bomb 2": LocData(container_check_id(MapIds.CHERRY_BOMB_2_CAVE, 0),
+                                                                       required_items_events=[
+                                                                           "Northern Ryoshima Coast - Offer 120,000 yen in Cherry Bomb 2 Fountain"])
     }
 
 }
